@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Album" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="Album">
+      <id column="Id_Album" name="Id_Album" type = "long"></id>
+      <property column="CreatedAt" name ="CreatedAt" type = "string"></property>
+      <many-to-one name="Id_Event" column="Id_Event" class="model.Event" not-null="true" cascade="all" unique="true" foreign-key="fk_album_event" />
+  </class>
+</hibernate-mapping>

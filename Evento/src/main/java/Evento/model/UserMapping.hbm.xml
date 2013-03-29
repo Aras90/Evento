@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="model.User" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="User">
+      <id column="Id_User" name="Id_User" type = "long"></id>
+      <property column="Description" name ="Description" type = "string" not-null="true"></property>
+      <property column="Password" name ="Password" type = "string" not-null="true"></property>
+      <property column="CreatedAt" name ="CreatedAt" type = "string"></property>
+      <property column="EditetAt" name ="EditetAt" type = "string"></property>
+      <property column="Email" name ="Email" type = "string"></property>
+  </class>
+</hibernate-mapping>
