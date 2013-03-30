@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Comment" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="Comment">
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Evento.model.Comment" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="Comment">
       <id column="Id_Comment" name="Id_Comment" type = "long"></id>
       <property column="Description" name ="Description" type = "string" not-null="true"></property>
       <property column="CreatedAt" name ="CreatedAt" type = "string" not-null="true"></property>
-      <many-to-one name="Id_User" column="Id_User" class="model.User"  not-null="true" foreign-key="fk_comment_user" ></many-to-one>
-      <many-to-one name="Id_Picture" column="Id_Picture" class="model.Picture" not-null="true" foreign-key="fk_comment_picture" ></many-to-one>
+      <many-to-one name="Id_User" column="Id_User" class="Evento.model.User"  not-null="true" foreign-key="fk_comment_user" ></many-to-one>
+      <many-to-one name="Id_Picture" column="Id_Picture" class="Evento.model.Picture" not-null="true" foreign-key="fk_comment_picture" ></many-to-one>
   </class>
 </hibernate-mapping>

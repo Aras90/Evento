@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package Evento;
+package Evento.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;

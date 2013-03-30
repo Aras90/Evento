@@ -17,6 +17,8 @@ package Evento;
 
 import junit.framework.TestCase;
 
+import Evento.action.IndexAction;
+
 import com.opensymphony.xwork2.Action;
 
 /**

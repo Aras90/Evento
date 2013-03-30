@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Event" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="Event">
+  <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Evento.model.Event" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="Event">
       <id column="Id_Event" name="Id_Event" type = "long"></id>
       <property column="CreatedAt" name ="CreatedAt" type = "string"></property>
       <property column="EditedAt" name ="EditedAt" type = "string"></property>
       <property column="Name" name ="Name" type = "string"></property>
-      <many-to-one name="Id_User" column="Id_User" class="model.User" not-null="true" foreign-key="fk_event_user" ></many-to-one>
-      <many-to-one name="Id_Album" column="Id_Album" class="model.Album" cascade="all" unique="true" foreign-key="fk_event_album"></many-to-one>
+      <many-to-one name="Id_User" column="Id_User" class="Evento.model.User" not-null="true" foreign-key="fk_event_user" ></many-to-one>
+      <many-to-one name="Id_Album" column="Id_Album" class="Evento.model.Album" cascade="all" unique="true" foreign-key="fk_event_album"></many-to-one>
   </class>
 </hibernate-mapping>

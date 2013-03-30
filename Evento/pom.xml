@@ -83,13 +83,35 @@
         </dependency>
         <dependency>
         	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-entitymanager</artifactId>
+        	<version>4.2.0.Final</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>ejb3-persistence</artifactId>
+        	<version>1.0.2.GA</version>
+        	<type>pom</type>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring</artifactId>
+        	<version>2.5.6</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-core</artifactId>
+        	<version>3.2.2.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.hibernate</groupId>
         	<artifactId>hibernate</artifactId>
         	<version>3.2.7.ga</version>
         </dependency>
         <dependency>
         	<groupId>org.hibernate</groupId>
-        	<artifactId>hibernate-entitymanager</artifactId>
-        	<version>4.2.0.Final</version>
+        	<artifactId>hibernate-commons-annotations</artifactId>
+        	<version>3.3.0.ga</version>
         </dependency>
 	</dependencies>
 	

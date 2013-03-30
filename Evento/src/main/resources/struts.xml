@@ -6,8 +6,12 @@
 
 <struts>
 	<package name="myPackage" extends="struts-default">
-		<action name="index" class="Evento.IndexAction">
+		<action name="index" class="Evento.action.IndexAction">
 			<result>/jsp/index.jsp</result>
+		</action>
+		
+		<action name="mojeAlbumy" class="Evento.action.MojeAlbumyAction">
+			<result>/jsp/mojeAlbumy.jsp</result>
 		</action>
 		
 	</package>
