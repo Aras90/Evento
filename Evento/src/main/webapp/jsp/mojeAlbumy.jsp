@@ -3,8 +3,19 @@
 
 	<body>
 		moje albumy <br>
-		ile: <s:property value="getDateNow()"/>
-		<img src="<s:property value="getCycki()"/>" />
+		data: <s:property value="getDateNow()"/> <br>
+		
+		<s:iterator value="listaPictures"> 
+		
+			<s:property value="name"></s:property> <br>
+			<img src="<s:property value="link"/>" /> <br>
+		
+		
+		
+		</s:iterator>
+		
+		
+		
 		
 	</body>
 </html>

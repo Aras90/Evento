@@ -32,10 +32,10 @@ public class MojeAlbumyAction extends ActionSupport {
     
     private Date now = new Date(System.currentTimeMillis());
     private List<Picture> listaPictures;
-    private String cycki = "https://photos-1.dropbox.com/t/0/AAC2EfPBYFLpt9yOySppjbqMRo1OUk4ST_s0URFXEdQH6g/12/119820711/jpeg/32x32/3/1364662800/0/2/cycki.jpg/NXqSm__xCPUrnEQG0rCXJMOEDoYCVXVyrhHIHWnWIw0?size=1024x768";
+   
     @TypeConversion(converter = "Evento.DateConverter")
     public Date getDateNow() { return now; }
-    public String getCycki() { return cycki;}
+    public List<Picture> getListaPictures() { return listaPictures;}
     
     public void setListaPictures(){
     	MainClass mc = new MainClass();
