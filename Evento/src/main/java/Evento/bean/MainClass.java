@@ -55,4 +55,12 @@ public class MainClass {
         Query query = session.createSQLQuery("Select * from album").addEntity(Album.class); 
         return query.list();
     }
+    
+    public List getUserIdHavingEmail(String email){
+    	
+    	Query query = session.createSQLQuery("Select Id_User from user where Email="+email).addEntity(User.class); 
+        return query.list();
+       
+    	
+    }
 }

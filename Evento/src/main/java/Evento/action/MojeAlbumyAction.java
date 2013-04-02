@@ -22,6 +22,7 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 import java.util.List;
 import Evento.model.Picture;
+import Evento.model.Album;
 import Evento.bean.MainClass;
 
 /**
@@ -32,10 +33,12 @@ public class MojeAlbumyAction extends ActionSupport {
     
     private Date now = new Date(System.currentTimeMillis());
     private List<Picture> listaPictures;
+    private List<Album> albumList;
    
     @TypeConversion(converter = "Evento.DateConverter")
     public Date getDateNow() { return now; }
     public List<Picture> getListaPictures() { return listaPictures;}
+    public List<Album> getListaAlbum() {return albumList; }
     
     public void setListaPictures(){
     	MainClass mc = new MainClass();
