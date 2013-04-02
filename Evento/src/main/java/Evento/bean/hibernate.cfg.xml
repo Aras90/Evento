@@ -9,12 +9,12 @@
     <property name="hibernate.connection.password">sql</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
-    <mapping resource="Evento.model/UserMapping.hbm.xml"/>
-    <mapping resource="Evento.model/RatingMapping.hbm.xml"/>
-    <mapping resource="Evento.model/PictureMapping.hbm.xml"/>
-    <mapping resource="Evento.model/InvitationMapping.hbm.xml"/>
-    <mapping resource="Evento.model/EventMapping.hbm.xml"/>
-    <mapping resource="Evento.model/CommentMapping.hbm.xml"/>
-    <mapping resource="Evento.model/AlbumMapping.hbm.xml"/>
+    <mapping resource="Evento/model/UserMapping.hbm.xml"/>
+    <mapping resource="Evento/model/RatingMapping.hbm.xml"/>
+    <mapping resource="Evento/model/PictureMapping.hbm.xml"/>
+    <mapping resource="Evento/model/InvitationMapping.hbm.xml"/>
+    <mapping resource="Evento/model/EventMapping.hbm.xml"/>
+    <mapping resource="Evento/model/CommentMapping.hbm.xml"/>
+    <mapping resource="Evento/model/AlbumMapping.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
