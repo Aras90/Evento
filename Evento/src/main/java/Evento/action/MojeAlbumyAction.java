@@ -44,7 +44,7 @@ public class MojeAlbumyAction extends ActionSupport {
     
     public String execute() throws Exception {
         now = new Date(System.currentTimeMillis());
-        //setListaPictures();
+        setListaPictures();
         return SUCCESS;
     }
     
