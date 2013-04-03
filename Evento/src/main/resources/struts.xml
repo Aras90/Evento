@@ -14,5 +14,13 @@
 			<result>/jsp/mojeAlbumy.jsp</result>
 		</action>
 		
+		<action name="mojeAlbumy" class="Evento.action.MojeAlbumyAction">
+			<result>/jsp/mojeAlbumy.jsp</result>
+		</action>
+		
+		<action name="poczekalnia" class="Evento.action.PoczekalniaAction">
+ 			 <result>/jsp/poczekalnia.jsp</result>
+ 		</action>
+		
 	</package>
 </struts>
