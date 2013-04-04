@@ -21,6 +21,10 @@
 		<action name="poczekalnia" class="Evento.action.PoczekalniaAction">
  			 <result>/jsp/poczekalnia.jsp</result>
  		</action>
+ 		
+ 		<action name="mojeZdjecia" class="Evento.action.MojeZdjeciaAction">
+ 			 <result>/jsp/mojeZdjecia.jsp</result>
+ 		</action>
 		
 	</package>
 </struts>
