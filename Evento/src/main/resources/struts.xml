@@ -13,17 +13,13 @@
 		<action name="mojeAlbumy" class="Evento.action.MojeAlbumyAction">
 			<result>/jsp/mojeAlbumy.jsp</result>
 		</action>
-		
-		<action name="mojeAlbumy" class="Evento.action.MojeAlbumyAction">
-			<result>/jsp/mojeAlbumy.jsp</result>
-		</action>
-		
-		<action name="poczekalnia" class="Evento.action.PoczekalniaAction">
- 			 <result>/jsp/poczekalnia.jsp</result>
- 		</action>
- 		
+				
  		<action name="mojeZdjecia" class="Evento.action.MojeZdjeciaAction">
  			 <result>/jsp/mojeZdjecia.jsp</result>
+ 		</action>
+ 		
+ 		<action name="mojeImprezy" class="Evento.action.MojeImprezyAction">
+ 			 <result>/jsp/mojeImprezy.jsp</result>
  		</action>
 		
 	</package>

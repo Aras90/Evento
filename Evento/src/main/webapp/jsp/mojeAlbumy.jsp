@@ -1,41 +1,31 @@
 <%@taglib uri="/struts-tags" prefix="s" %>
 
-
-
 <html>
-	
-	<body>
-		moje albumy <br>
-		data: <s:property value="getDateNow()"/> <br>
-	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.js"></script>
-	<script>
-		$(document).ready(function() { 
-			$.ajax({
-				type: "POST",
-				url: "MojeAlbumyAction.action",
-				data: { name: "John", location: "Boston" }
-			}).done(function( msg ) {
-				alert( "Data Saved: " + msg );
-			});
-		});
-	</script>	
-	-->
-		
-		
-		
-		
-		<s:iterator value="listaPictures"> 
-			
-			
-			<a class="fancybox" title="<s:property value="name"/>" href="<s:property value="link"/>">
-				<img src="<s:property value="link"/>" /> <br>
-			</a>
-		
-		
-		</s:iterator>
-		
-		
-		
-		
-	</body>
+ 
+        <body>
+                poczekalnia
+                <s:iterator value="albumList" status="stat"> 
+                        
+                       
+                        <s:set name="Id_Album" value="albumList [# stat.index][0].Id_Album" /> 
+                        <a href="<s:url action="mojeZdjecia"><s:param name="id" value="#Id_Album" /> </s:url>"> <div class="folder"></div></a> <br>
+                        kiedy stworzono:	<s:property value="albumList [# stat.index][0].CreatedAt" />  <br>
+                        id:	<s:property value="albumList [# stat.index][0].Id_Album" />  <br>
+                        nazwa:		<s:property value="albumList [# stat.index][1].Name" />   <br>
+                        
+                     	
+                     	
+                     	
+                     	
+                     	
+                        
+                        
+                        
+                  
+                </s:iterator>
+                
+                
+                
+                  
+        </body>
 </html>

@@ -16,39 +16,21 @@
 package Evento.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.Date;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
-import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 import java.util.List;
-import Evento.model.Picture;
-import Evento.model.Album;
 import Evento.bean.MainClass;
 
 /**
  * 
  */
 @Conversion()
-public class MojeZdjeciaAction extends ActionSupport {
+public class MojeImprezyAction extends ActionSupport {
     
-    private String id;
-  
-  
-    
-   
-    
+
     public String execute() throws Exception {
-        System.err.println("Jakie id:"+getId()); 
+    
         return SUCCESS;
-    }
-    
-    public void setId(String id){
-    	this.id = id;
-    	
-    }
-    
-    public String getId(){
-    	return this.id;
     }
     
 

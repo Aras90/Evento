@@ -54,9 +54,7 @@
                             <li>
 								<a href="mojeImprezy.jsp">Moje imprezy</a>
                             </li>
-                            <li>
-								<a href="poczekalnia.jsp">Poczekalnia</a>
-                            </li>
+                           
                             <li>
 								<a href="kalendarz.jsp">Kalendarz</a>
                             </li>
