@@ -16,9 +16,7 @@
 package Evento.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.Date;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
-import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 import java.util.List;
 import Evento.model.Picture;
@@ -33,12 +31,18 @@ public class MojeZdjeciaAction extends ActionSupport {
     
     private String id;
   
-  
+	private List picturesList;
     
-   
-    
+    public List getPicturesList() {return picturesList; }
+    public void setPicturesList(){
+    	MainClass mc = new MainClass();
+    	picturesList = mc.getUserPicturesData(1, Long.parseLong(id)); //id_user, id_album
+    		
+    }
+      
     public String execute() throws Exception {
-        System.err.println("Jakie id:"+getId()); 
+        System.err.println("Jakie id:"+getId());
+        setPicturesList();
         return SUCCESS;
     }
     
@@ -50,6 +54,8 @@ public class MojeZdjeciaAction extends ActionSupport {
     public String getId(){
     	return this.id;
     }
+    
+   
     
 
     

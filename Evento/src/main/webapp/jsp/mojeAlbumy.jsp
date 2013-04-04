@@ -3,7 +3,7 @@
 <html>
  
         <body>
-                poczekalnia
+                
                 <s:iterator value="albumList" status="stat"> 
                         
                        

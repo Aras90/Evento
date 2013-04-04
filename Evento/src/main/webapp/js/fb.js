@@ -13,12 +13,12 @@ window.onload = ustawPrzycisk;
                xfbml  : true  
              });
              
-           FB.Event.subscribe('auth.authResponseChange', function(response) {
+           /*FB.Event.subscribe('auth.authResponseChange', function(response) {
                 if (response.status === 'connected') {
                      //window.top.location = 'http://localhost:8080/Eventoo/logged.jsp';
                      ustawPrzycisk();
                 }
-            });
+            });*/
                      
             function ustawPrzycisk() {
                 
@@ -37,9 +37,9 @@ window.onload = ustawPrzycisk;
                           var x = document.getElementById("fb-logout");
                              FB.api('/me', function(response) {
                                 x.innerHTML =  response.name + " <a onclick=\"fbLogout();\" > wyloguj sie</a>";
-                                document.getElementById("email").value = respond.email;
+                                document.getElementById("email").value = response.email;
                                 var a = document.getElementById("email").value;
-                                alert(a);
+                                
                             });
                           
                           document.getElementById("fb-logout").style.display = "list-item";
