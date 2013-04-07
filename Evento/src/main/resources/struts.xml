@@ -21,6 +21,12 @@
  		<action name="mojeImprezy" class="Evento.action.MojeImprezyAction">
  			 <result>/jsp/mojeImprezy.jsp</result>
  		</action>
+ 		<action name="kalendarz" class="Evento.action.KalendarzAction">
+ 			<result>/jsp/kalendarz.jsp</result>
+ 		</action>
+ 		<action name="test" class="Evento.action.TestAction">
+ 			<result>/jsp/test.jsp</result>  
+ 		</action>
 		
 	</package>
 </struts>

@@ -1,23 +1,30 @@
 <%@taglib uri="/struts-tags" prefix="s" %>
-<html>
-
-	<body>
+	<div style="text-align:center">
 		 <s:iterator value="picturesList" status="stat"> 
                        <!--                    
                         <img src="<s:property value="Link" />" /> <br>                      
                         nazwa:	<s:property value="Name" />   <br>
                         data: 	<s:property value="CreatedAt" />   <br>
               			-->
-              			
-              			<img src="<s:property value="picturesList [# stat.index][0].Link" />" /> <br>                      
-                        nazwa:	<s:property value="picturesList [# stat.index][0].Name" />   <br>
-                        data: 	<s:property value="picturesList [# stat.index][0].CreatedAt" />   <br>
+              		<div class="zdj">
+              			<a class="fancybox" title="<s:property value="picturesList [# stat.index][0].Name" />" data-fancybox-group="gallery" href="<s:property value="picturesList [# stat.index][0].Link" />">
+              				<img rel="foto" src="<s:property value="picturesList [# stat.index][0].Link" />" /> <br> 
+              			</a>                     
+                        <s:property value="picturesList [# stat.index][0].Name" />   <br>
+                        Utworzono: 	<s:property value="picturesList [# stat.index][0].CreatedAt" />   <br>
+                    </div> 
                         
-                        
-                       	<s:set name="ocena" value="picturesList[#stat.index][1].Value" />
+                       	<!--<s:set name="ocena" value="picturesList[#stat.index][1].Value" />
 						
                         <s:if test="#ocena == null">
 							TUTAJ WSTAWIC GLOWSOWANIE
+							<div class="exemple">
+							 
+							   <div class="basic" data-average="12" data-id="1"></div>
+							 
+							   <div class="basic" data-average="8" data-id="2"></div>
+							 
+							</div>-->
 							<!--
 							<s:form name="searchForm" action="ocen" method="post">
     							
@@ -26,7 +33,7 @@
    								 
 							</s:form>
 							-->
-						</s:if>
+						<!--</s:if>
 						<s:else>
     						rating: <s:property value="#ocena"/> <br>
 						</s:else>
@@ -42,7 +49,6 @@
 							 }(document, 'script', 'facebook-jssdk'));
 						</script>
 						<div class="fb-comments" data-href="http://localhost:8080/Evento/<s:property value="#stat.index"/>" data-width="470" data-num-posts="10"></div>
-						
+						-->
                 </s:iterator>
-	</body>
-</html>
+          </div>

@@ -14,8 +14,56 @@
         <script src="http://connect.facebook.net/pl_PL/all.js"></script>
         <script src="js/fb.js"></script>
         
-       
-
+       <link rel="stylesheet" type="text/css" href="js/jRating/jRating.jquery.css" media="screen" />
+	   <script type="text/javascript" src="js/jRating/jquery-1.9.1.min.js"></script>
+	   <script type="text/javascript" src="js/jRating/jRating.jquery.js"></script>
+	   <script type="text/javascript" src="js/jRating/test.js"></script>
+	   
+		
+	   <!-- Add mousewheel plugin (this is optional) -->
+	   <script type="text/javascript" src="js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+	
+		<!-- Add fancyBox main JS and CSS files -->
+		<script type="text/javascript" src="js/fancybox/jquery.fancybox.js?v=2.1.4"></script>
+		<link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox.css?v=2.1.4" media="screen" />
+	
+		<!-- Add Button helper (this is optional) -->
+		<link rel="stylesheet" type="text/css" href="js/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+		<script type="text/javascript" src="js/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	
+		<!-- Add Thumbnail helper (this is optional) -->
+		<link rel="stylesheet" type="text/css" href="js/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+		<script type="text/javascript" src="js/fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+	
+		<!-- Add Media helper (this is optional) -->
+		<script type="text/javascript" src="js/fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+		
+	   <script type="text/javascript">
+	     $(document).ready(function(){
+	      // simple jRating call
+	      $(".basic").jRating();
+	 
+	      // more complex jRating call
+	      $(".basic").jRating({
+	         step:true,
+	         length : 20, // nb of stars
+	         onSuccess : function(){
+	           alert('Success : your rate has been saved :)');
+	         }
+	       });
+	 
+	      // you can rate 3 times ! After, jRating will be disabled
+	      $(".basic").jRating({
+	         canRateAgain : true,
+	         nbRates : 3
+	       });
+		});
+		</script>
+		<script>
+			$(function(){
+				$('.fancybox').fancybox();
+			})
+		</script>
     </head>
 
     <body>

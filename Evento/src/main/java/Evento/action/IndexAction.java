@@ -27,8 +27,8 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 public class IndexAction extends ActionSupport {
     
     private Date now = new Date(System.currentTimeMillis());
-    
-    @TypeConversion(converter = "Evento.DateConverter")
+
+	@TypeConversion(converter = "Evento.DateConverter")
     public Date getDateNow() { return now; }
     
     public String execute() throws Exception {

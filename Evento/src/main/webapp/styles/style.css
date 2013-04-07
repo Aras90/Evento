@@ -326,3 +326,13 @@ ul {
 	width: 300px;
 	height: 206px;	
 }
+.zdj{
+	display: inline-block;
+	margin-right: 25px;	
+}
+.zdj:last-of-type{
+	margin-right: 0;	
+}
+.zdj img{
+	height: 250px;
+}
