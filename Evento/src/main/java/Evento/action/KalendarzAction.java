@@ -15,10 +15,15 @@
  */
 package Evento.action;
 
+import Evento.bean.MainClass;
+
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.Date;
+
+import java.lang.reflect.Array;
+import java.util.Iterator;
+import java.util.List;
+
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
-import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
 /**
  * 
@@ -26,8 +31,22 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 @Conversion()
 public class KalendarzAction extends ActionSupport {
    
-    
+	private List userEvents;
+	
+    public List getUserEvents() {
+		return userEvents;
+	}
+    public void setUserEvents() {
+    	MainClass mc = new MainClass();
+    	userEvents = mc.getUserEvents(1);
+	}
+
+
     public String execute() throws Exception {
+    	
+    	setUserEvents();
+      
+    	
         return SUCCESS;
     }
 }

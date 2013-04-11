@@ -92,5 +92,14 @@ public class MainClass {
         									
         return query.list();
     }
+    
+    public List getUserEvents(long Id_User){
+        Query query = session.createSQLQuery("Select * FROM event, user WHERE event.Id_User=user.Id_User AND user.Id_User=:Id_User")
+        		.addEntity(Event.class)
+        		.addEntity(User.class)		              
+        		; 
+        query.setParameter("Id_User", Id_User);
+        return query.list();
+    }
  
 }

@@ -30,7 +30,7 @@
   {d:26,m:12,o:'drugi dzień Bożego Narodzenia'}]};
  
   // Święta Ruchome (http://pl.wikipedia.org/wiki/Dni_wolne_od_pracy)
-  var swietaDynamiczne = function(y) {
+  var swietaDynamiczne1 = function(y) {
     var r = []; // tablica ze swietami
     var d = new Date(), e = easter(y);
     r.push({d:e.d,m:e.m,o:'pierwszy dzień Wielkanocy (tj. Niedziela Wielkanocna)'});
@@ -44,6 +44,23 @@
     r.push({d:parseInt(d.getDate()),m:parseInt(d.getMonth())+1,o:'dzień Bożego Ciała (tj. liturgiczna uroczystość Najświętszego Ciała i Krwi Pańskiej)'});
     return r;
   };
+  
+  //moje
+  var swietaDynamiczne = function(y) {
+	    var r = []; // tablica ze swietami
+	    var d = new Date(), e = easter(y);
+	    r.push({d:e.d,m:e.m,o:'pierwszy dzień Wielkanocy (tj. Niedziela Wielkanocna)'});
+	    d.setFullYear(y);d.setDate(e.d);d.setMonth(e.m-1);
+	    var et = d.getTime(); // easter timestamp
+	    d.setTime(et+86400000); // (1 dzień po wielkanocy)
+	    r.push({d:parseInt(d.getDate()),m:parseInt(d.getMonth())+1,o:'drugi dzień Wielkanocy (tj. Poniedziałek Wielkanocny)'});
+	    d.setTime(et+4233600000); // (49 dni po wielkanocy)
+	    r.push({d:parseInt(d.getDate()),m:parseInt(d.getMonth())+1,o:'pierwszy dzień Zielonych Świątek (tj. liturgiczne Zesłanie Ducha Świętego)'});
+	    d.setTime(et+5184000000); // (60 dni po wielkanocy)
+	    r.push({d:parseInt(d.getDate()),m:parseInt(d.getMonth())+1,o:'dzień Bożego Ciała (tj. liturgiczna uroczystość Najświętszego Ciała i Krwi Pańskiej)'});
+	    return r;
+	  };
+  
  
   // zwraca opis święta w danym dniu lub false
   var czySwieto = function(d,m,y){

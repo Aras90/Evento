@@ -13,11 +13,15 @@
         
         <script src="http://connect.facebook.net/pl_PL/all.js"></script>
         <script src="js/fb.js"></script>
+	    <script type="text/javascript" src="js/kalendarz/imieniny.js"></script>
+	    <script type="text/javascript" src="js/kalendarz/kalendarz.js"></script>        
+        
         
        <link rel="stylesheet" type="text/css" href="js/jRating/jRating.jquery.css" media="screen" />
 	   <script type="text/javascript" src="js/jRating/jquery-1.9.1.min.js"></script>
 	   <script type="text/javascript" src="js/jRating/jRating.jquery.js"></script>
 	   <script type="text/javascript" src="js/jRating/test.js"></script>
+
 	   
 		
 	   <!-- Add mousewheel plugin (this is optional) -->
@@ -104,7 +108,7 @@
                             </li>
                            
                             <li>
-								<a href="kalendarz.jsp">Kalendarz</a>
+								<a href="kalendarz.jsp" action="kalendarz">Kalendarz</a>
                             </li>
                             
                             
