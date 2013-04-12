@@ -14,17 +14,11 @@
                         Utworzono: 	<s:property value="picturesList [# stat.index][0].CreatedAt" />   <br>
                     </div> 
                         
-                       	<!--<s:set name="ocena" value="picturesList[#stat.index][1].Value" />
+                       	 
+                       	<s:set name="ocena" value="picturesList[#stat.index][1].Value" />
 						
                         <s:if test="#ocena == null">
-							TUTAJ WSTAWIC GLOWSOWANIE
-							<div class="exemple">
-							 
-							   <div class="basic" data-average="12" data-id="1"></div>
-							 
-							   <div class="basic" data-average="8" data-id="2"></div>
-							 
-							</div>-->
+							TUTAJ WSTAWIC GLOWSOWANIE <br>
 							<!--
 							<s:form name="searchForm" action="ocen" method="post">
     							
@@ -33,7 +27,7 @@
    								 
 							</s:form>
 							-->
-						<!--</s:if>
+						</s:if>
 						<s:else>
     						rating: <s:property value="#ocena"/> <br>
 						</s:else>
@@ -48,7 +42,6 @@
 							  fjs.parentNode.insertBefore(js, fjs);
 							 }(document, 'script', 'facebook-jssdk'));
 						</script>
-						<div class="fb-comments" data-href="http://localhost:8080/Evento/<s:property value="#stat.index"/>" data-width="470" data-num-posts="10"></div>
-						-->
+						<div class="fb-comments" data-href="http://localhost:8080/Evento/<s:property value="#stat.index"/>" data-width="400" data-num-posts="10"></div>
                 </s:iterator>
           </div>

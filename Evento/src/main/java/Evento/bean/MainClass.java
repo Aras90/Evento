@@ -37,6 +37,16 @@ public class MainClass {
         return query.list();
     }
     
+    public List getUserPicturesDataWithRate(long Id_User,long Id_Album){
+        Query query = session.createSQLQuery("Select * from picture as p left join rating as r ON r.Id_Picture = p.Id_Picture " +
+        									"where p.Id_User = :Id_User AND p.Id_Album = :Id_Album")
+        		.addEntity(Picture.class)
+        		.addEntity(Rating.class);
+        query.setParameter("Id_User", Id_User);
+        query.setParameter("Id_Album", Id_Album);
+        return query.list();
+    }
+    
     public List getUserData(){
         Query query = session.createSQLQuery("Select * from user").addEntity(User.class);
         return query.list(); 
@@ -100,6 +110,28 @@ public class MainClass {
         		; 
         query.setParameter("Id_User", Id_User);
         return query.list();
+    }
+    
+    public List getAlbumsHavingIdUser(long Id_user){
+        Query query = session.createSQLQuery("SELECT * from Album as a, Event as e, User as u " +
+        									 "WHERE u.Id_User = 1 AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
+    	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
+        		.addEntity(Album.class) 
+                .addEntity(Event.class)
+                .addEntity(User.class)
+                
+        		
+        			;		
+        
+       			
+        return query.list();
+    }
+    
+    public List getPicturesList(long Id_Album){
+    	Query query = session.createSQLQuery("SELECT * from picture where Id_Album = :Id_Album").addEntity(Picture.class);
+    	query.setParameter("Id_Album", Id_Album);
+    	
+    	return query.list();
     }
  
 }

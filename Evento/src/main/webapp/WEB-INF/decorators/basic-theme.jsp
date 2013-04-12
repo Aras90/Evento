@@ -13,7 +13,6 @@
         
         <script src="http://connect.facebook.net/pl_PL/all.js"></script>
         <script src="js/fb.js"></script>
-	    <script type="text/javascript" src="js/kalendarz/imieniny.js"></script>
 	    <script type="text/javascript" src="js/kalendarz/kalendarz.js"></script>        
         
         

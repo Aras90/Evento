@@ -27,6 +27,10 @@
  		<action name="test" class="Evento.action.TestAction">
  			<result>/jsp/test.jsp</result>  
  		</action>
+ 		
+ 		<action name="rating"  method="rating" class="Evento.action.RatingAction">
+		
+ 		</action>
 		
 	</package>
 </struts>
