@@ -2,7 +2,7 @@ package Evento.action;
  
 import java.util.List;
  
-import Evento.bean.MainClass;
+import Evento.bean.DAO;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;

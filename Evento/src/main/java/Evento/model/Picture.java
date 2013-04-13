@@ -30,7 +30,17 @@ public class Picture {
         this.Id_User = Id_User;
     }
 
-    public Event getId_Event() {
+    public Picture(long id, String name, String createdAt, String link,User user, Event event) {
+    	   this.Id_Picture = id;
+           this.Name = name;
+           this.CreatedAt = createdAt;
+           this.Link = link;
+           this.Id_Event = event;
+           this.Id_User = user;
+		// TODO Auto-generated constructor stub
+	}
+
+	public Event getId_Event() {
         return Id_Event;
     }
 

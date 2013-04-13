@@ -15,7 +15,7 @@
  */
 package Evento.action;
 
-import Evento.bean.MainClass;
+import Evento.bean.DAO;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -37,7 +37,7 @@ public class KalendarzAction extends ActionSupport {
 		return userEvents;
 	}
     public void setUserEvents() {
-    	MainClass mc = new MainClass();
+    	DAO mc = new DAO();
     	userEvents = mc.getUserEvents(1);
 	}
 

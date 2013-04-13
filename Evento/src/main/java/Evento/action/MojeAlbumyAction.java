@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import Evento.model.*;
  
-import Evento.bean.MainClass;
+import Evento.bean.DAO;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
@@ -18,7 +18,7 @@ public class MojeAlbumyAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
     private List albumList;
     private List picturesList;
-    MainClass mc = new MainClass();
+    DAO mc = new DAO();
    
     public String getPictureLink(long Id_Album){
     	picturesList = mc.getPicturesList(Id_Album);

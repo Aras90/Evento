@@ -15,8 +15,9 @@
  */
 package Evento.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;
+
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 
@@ -28,10 +29,10 @@ public class IndexAction extends ActionSupport {
     
     private Date now = new Date(System.currentTimeMillis());
 
-	@TypeConversion(converter = "Evento.DateConverter")
+    @TypeConversion(converter = "Evento.DateConverter")
     public Date getDateNow() { return now; }
-    
-    public String execute() throws Exception {
+
+	public String execute() throws Exception {
         now = new Date(System.currentTimeMillis());
         return SUCCESS;
     }

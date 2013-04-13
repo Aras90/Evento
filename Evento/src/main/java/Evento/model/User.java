@@ -28,7 +28,14 @@ public class User {
         this.Email = Email;
     }
 
-    public long getId_User() {
+    public User(String password, String email,String desc) {
+		super();
+		Password = password;
+		Description = desc;
+		Email = email;
+	}
+
+	public long getId_User() {
         return Id_User;
     }
 

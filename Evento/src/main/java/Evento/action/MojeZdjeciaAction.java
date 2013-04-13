@@ -21,7 +21,7 @@ import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import java.util.List;
 import Evento.model.Picture;
 import Evento.model.Album;
-import Evento.bean.MainClass;
+import Evento.bean.DAO;
 
 /**
  * 
@@ -35,7 +35,7 @@ public class MojeZdjeciaAction extends ActionSupport {
     
     public List getPicturesList() {return picturesList; }
     public void setPicturesList(){
-    	MainClass mc = new MainClass();
+    	DAO mc = new DAO();
     	picturesList = mc.getUserPicturesData(1, Long.parseLong(id)); //id_user, id_album
     		
     }
