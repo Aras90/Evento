@@ -27,6 +27,13 @@ public class Event {
         this.Id_User = Id_User;
         this.Id_Album = Id_Album;
     }
+    public Event(String CreatedAt, String EditedAt, String Name, User Id_User, Album Id_Album) {
+        this.CreatedAt = CreatedAt;
+        this.EditedAt = EditedAt;
+        this.Name = Name;
+        this.Id_User = Id_User;
+        this.Id_Album = Id_Album;
+    }
 
   
 

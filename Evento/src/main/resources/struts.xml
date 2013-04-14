@@ -28,8 +28,8 @@
  			<result>/jsp/test.jsp</result>  
  		</action>
  		
- 		<action name="rating"  method="rating" class="Evento.action.RatingAction">
-		
+ 		<action name="rating"  class="Evento.action.RatingAction">
+			<result>/jsp/mojeZdjecia.jsp</result>
  		</action>
 		
 	</package>

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class dynamic-insert="false" dynamic-update="false" mutable="true" name="Evento.model.Picture" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table ="Picture">
-      <id column="Id_Picture" name="Id_Picture" type = "long"></id>
+      <id column="Id_Picture" name="Id_Picture" type = "long"><generator class="increment"/></id>
       <property column="Name" name ="Name" type = "string" not-null="true"></property>
       <property column="CreatedAt" name ="CreatedAt" type = "string"></property>
       <property column="Link" name ="Link" type = "string"></property>

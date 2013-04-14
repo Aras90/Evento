@@ -150,7 +150,34 @@ public class DAO {
    			throw new AdException("nie udalo sie stworzyc usera",e);
    		}
    	}
+    public Rating createRating(String createdAt,int value, long idPicture, long idUser) throws AdException
+	{
+		try{
+			begin();
+			Rating rating = new Rating(createdAt, value, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego usera ktorego chcesz dodac
+			getSession().save(rating);
+			commit();
+			return rating;
+		} catch (HibernateException e){
+			rollback();
+			throw new AdException("nie udalo sie stworzyc ratingu",e);
+		}
+	}
     
+    public Rating updateRating(long id,String createdAt,int value, long idPicture, long idUser) throws AdException
+   	{
+   		try{
+   			begin();
+   			Rating rating = new Rating(id, createdAt, value, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego usera ktorego chcesz zmienic
+   			getSession().clear();
+   			getSession().saveOrUpdate(rating);
+   			commit();
+   			return rating;
+   		} catch (HibernateException e){
+   			rollback();
+   			throw new AdException("nie udalo sie stworzyc usera",e);
+   		}
+   	}
     
     
     public List getUserPicturesData(long Id_User,long Id_Album){

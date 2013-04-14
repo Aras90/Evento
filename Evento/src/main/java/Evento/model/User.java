@@ -27,6 +27,13 @@ public class User {
         this.EditetAt = EditetAt;
         this.Email = Email;
     }
+    public User(String Description, String Password, String CreatedAt, String EditetAt, String Email) {
+        this.Description = Description;
+        this.Password = Password;
+        this.CreatedAt = CreatedAt;
+        this.EditetAt = EditetAt;
+        this.Email = Email;
+    }
 
     public User(String password, String email,String desc) {
 		super();

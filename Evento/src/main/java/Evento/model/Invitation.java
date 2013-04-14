@@ -24,6 +24,11 @@ public class Invitation {
         this.Id_Event = Id_Event;
         this.Id_User = Id_User;
     }
+    public Invitation(String CreatedAt, Event Id_Event, User Id_User) {
+        this.CreatedAt = CreatedAt;
+        this.Id_Event = Id_Event;
+        this.Id_User = Id_User;
+    }
 
     public Event getId_Event() {
         return Id_Event;

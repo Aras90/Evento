@@ -21,6 +21,10 @@ public class Album {
         this.CreatedAt = CreatedAt;
         this.Id_Event = Id_Event;
     }
+    public Album(String CreatedAt, Event Id_Event) {
+        this.CreatedAt = CreatedAt;
+        this.Id_Event = Id_Event;
+    }
 
     public Event getId_Event() {
         return Id_Event;

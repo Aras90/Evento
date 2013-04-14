@@ -29,6 +29,12 @@ public class Comment {
         this.Id_Picture = Id_Picture;
         this.Id_User = Id_User;
     }
+    public Comment(String Description, String CreatedAt, Picture Id_Picture, User Id_User) {
+        this.Description = Description;
+        this.CreatedAt = CreatedAt;
+        this.Id_Picture = Id_Picture;
+        this.Id_User = Id_User;
+    }
 
     public Picture getId_Picture() {
         return Id_Picture;

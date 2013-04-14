@@ -29,6 +29,14 @@ public class Picture {
         this.Id_Album = Id_Album;
         this.Id_User = Id_User;
     }
+    public Picture(String Name, String CreatedAt, String Link, Event Id_Event, Album Id_Album, User Id_User) {
+        this.Name = Name;
+        this.CreatedAt = CreatedAt;
+        this.Link = Link;
+        this.Id_Event = Id_Event;
+        this.Id_Album = Id_Album;
+        this.Id_User = Id_User;
+    }
 
     public Picture(long id, String name, String createdAt, String link,User user, Event event) {
     	   this.Id_Picture = id;

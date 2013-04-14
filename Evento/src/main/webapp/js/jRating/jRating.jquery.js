@@ -13,23 +13,23 @@
 		var defaults = {
 			/** String vars **/
 			bigStarsPath : 'js/jRating/icons/stars.png', // path of the icon stars.png
-			smallStarsPath : 'jquery/icons/small.png', // path of the icon small.png
-			phpPath : 'php/jRating.php', // path of the php file jRating.php
+			smallStarsPath : 'js/jRating/icons/small.png', // path of the icon small.png
+			phpPath : 'rating.action', // path of the php file jRating.php
 			type : 'big', // can be set to 'small' or 'big'
 
 			/** Boolean vars **/
-			step:false, // if true,  mouseover binded star by star,
+			step:true, // if true,  mouseover binded star by star,
 			isDisabled:false,
 			showRateInfo: true,
-			canRateAgain : false,
+			canRateAgain : true,
 
 			/** Integer vars **/
 			length:5, // number of star to display
-			decimalLength : 0, // number of decimals.. Max 3, but you can complete the function 'getNote'
-			rateMax : 20, // maximal rate - integer from 0 to 9999 (or more)
+			decimalLength : 1, // number of decimals.. Max 3, but you can complete the function 'getNote'
+			rateMax : 5, // maximal rate - integer from 0 to 9999 (or more)
 			rateInfosX : -45, // relative position in X axis of the info box when mouseover
 			rateInfosY : 5, // relative position in Y axis of the info box when mouseover
-			nbRates : 1,
+			nbRates : 999,
 
 			/** Functions **/
 			onSuccess : null,
@@ -45,7 +45,7 @@
 			starHeight = 0,
 			bgPath = '',
 			hasRated = false,
-			globalWidth = 0,
+			globalWidth = 46,
 			nbOfRates = opts.nbRates;
 
 			if($(this).hasClass('jDisabled') || opts.isDisabled)
@@ -75,7 +75,7 @@
 			{
 				'class' : 'jRatingAverage',
 				css:{
-					width:0,
+					width:$(this).attr('data-glos') * starWidth,
 					top:- starHeight
 				}
 			}).appendTo($(this)),
@@ -112,12 +112,12 @@
 					}).appendTo('body').show();
 				},
 				mouseover : function(e){
-					$(this).css('cursor','pointer');	
+					$(this).css('cursor','pointer');
 				},
 				mouseout : function(){
 					$(this).css('cursor','default');
 					if(hasRated) average.width(globalWidth);
-					else average.width(0);
+					else average.width($(this).attr('data-glos')* starWidth);
 				},
 				mousemove : function(e){
 					var realOffsetLeft = findRealLeft(this);
@@ -137,7 +137,6 @@
 				},
 				click : function(e){
                     var element = this;
-					
 					/*set vars*/
 					hasRated = true;
 					globalWidth = newWidth;
@@ -150,25 +149,13 @@
 					var rate = getNote(newWidth);
 					average.width(newWidth);
 					
-
-					/** ONLY FOR THE DEMO, YOU CAN REMOVE THIS CODE **/
-						$('.datasSent p').html('<strong>idBox : </strong>'+idBox+'<br /><strong>rate : </strong>'+rate+'<br /><strong>action :</strong> rating');
-						$('.serverResponse p').html('<strong>Loading...</strong>');
-					/** END ONLY FOR THE DEMO **/
-
 					$.post(opts.phpPath,{
 							idBox : idBox,
 							rate : rate,
-							action : 'rating'
 						},
 						function(data) {
 							if(!data.error)
 							{
-								/** ONLY FOR THE DEMO, YOU CAN REMOVE THIS CODE **/
-									$('.serverResponse p').html(data.server);
-								/** END ONLY FOR THE DEMO **/
-
-
 								/** Here you can display an alert box, 
 									or use the jNotify Plugin :) http://www.myqjqueryplugins.com/jNotify
 									exemple :	*/
@@ -176,11 +163,6 @@
 							}
 							else
 							{
-
-								/** ONLY FOR THE DEMO, YOU CAN REMOVE THIS CODE **/
-									$('.serverResponse p').html(data.server);
-								/** END ONLY FOR THE DEMO **/
-
 								/** Here you can display an alert box, 
 									or use the jNotify Plugin :) http://www.myqjqueryplugins.com/jNotify
 									exemple :	*/

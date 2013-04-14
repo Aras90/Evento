@@ -43,23 +43,7 @@
 		
 	   <script type="text/javascript">
 	     $(document).ready(function(){
-	      // simple jRating call
-	      $(".basic").jRating();
-	 
-	      // more complex jRating call
-	      $(".basic").jRating({
-	         step:true,
-	         length : 20, // nb of stars
-	         onSuccess : function(){
-	           alert('Success : your rate has been saved :)');
-	         }
-	       });
-	 
-	      // you can rate 3 times ! After, jRating will be disabled
-	      $(".basic").jRating({
-	         canRateAgain : true,
-	         nbRates : 3
-	       });
+	      $(".rating").jRating();
 		});
 		</script>
 		<script>

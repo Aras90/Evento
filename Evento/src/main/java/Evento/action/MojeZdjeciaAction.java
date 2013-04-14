@@ -41,7 +41,6 @@ public class MojeZdjeciaAction extends ActionSupport {
     }
       
     public String execute() throws Exception {
-        System.err.println("Jakie id:"+getId());
         setPicturesList();
         return SUCCESS;
     }

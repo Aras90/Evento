@@ -26,6 +26,12 @@ public class Rating {
         this.Id_Picture = Id_Picture;
         this.Id_User = Id_User;
     }
+    public Rating(String CreatedAt, int Value, Picture Id_Picture, User Id_User) {
+        this.CreatedAt = CreatedAt;
+        this.Value = Value;
+        this.Id_Picture = Id_Picture;
+        this.Id_User = Id_User;
+    }
 
     public Picture getId_Picture() {
         return Id_Picture;
