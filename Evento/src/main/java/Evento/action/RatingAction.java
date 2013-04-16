@@ -20,7 +20,6 @@ public class RatingAction extends ActionSupport {
     
     private int idBox;
     private int rate;
-    private boolean isInTheDB;
         
     public int getRate() {
 		return rate;
@@ -34,22 +33,15 @@ public class RatingAction extends ActionSupport {
 	public void setIdBox(int idBox) {
 		this.idBox = idBox;
 	}
-
+	
 	public String execute() throws Exception {
-		isInTheDB = false;
 		DAO mc = new DAO();
-		System.out.println("test");
-		for(Object el : mc.getRatingData()){
-			if( ((Rating)el).getId_Picture() == DAO.getSession().get(Picture.class, (long)idBox) ){
-				isInTheDB = true;
-				mc.updateRating(((Rating)el).getId_Rating(), new Date().toString(), rate, (long)idBox, 1l);
-				break;
-			}
-			
-		}
-		if(isInTheDB == false){
-			mc.createRating(new Date().toString(), rate, (long)idBox, 1l);
-		}
+		DAO.getSession().flush();
+		System.out.println("idBox = " + DAO.getSession().get(Rating.class, (long)idBox));
+		if(DAO.getSession().get(Rating.class, (long)idBox) == null)
+			mc.createRating( new Date().toString(), rate, (long)idBox, 1l);
+		else
+			mc.updateRating((long)idBox, new Date().toString(), rate, (long)idBox, 1l);	
         return SUCCESS;
     }
 }

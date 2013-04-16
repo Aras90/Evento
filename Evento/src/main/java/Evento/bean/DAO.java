@@ -181,10 +181,12 @@ public class DAO {
     
     
     public List getUserPicturesData(long Id_User,long Id_Album){
-        Query query = getSession().createSQLQuery("Select * from picture as p left join rating as r ON r.Id_Picture = p.Id_Picture " +
-        									"where p.Id_User = :Id_User AND p.Id_Album = :Id_Album")
+        Query query = getSession().createSQLQuery("SELECT * FROM picture p, event e, invitation i  " 
+        								+	"WHERE p.Id_Album = :Id_Album AND (p.Id_User=:Id_User OR (p.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event AND i.Id_User = :Id_User)) "
+        									+ "Group by p.Id_Picture")
         		.addEntity(Picture.class)
-        		.addEntity(Rating.class);
+        		.addEntity(Event.class)
+        		.addEntity(Invitation.class);
         query.setParameter("Id_User", Id_User);
         query.setParameter("Id_Album", Id_Album);
         return query.list();
@@ -268,6 +270,20 @@ public class DAO {
     public List getAlbumsHavingIdUser(long Id_user){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u " +
         									 "WHERE u.Id_User = 1 AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
+    	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
+        		.addEntity(Album.class) 
+                .addEntity(Event.class)
+                .addEntity(User.class)
+                
+        		
+        			;		
+        
+       			
+        return query.list();
+    }
+    public List getAlbumsHavingIdUserOrInvitation(long Id_user){
+        Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u, Invitation as i " +
+        									 "WHERE (u.Id_User = " + Id_user + " OR i.Id_User = " + Id_user + ") AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) GROUP BY a.Id_Album")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
         		.addEntity(Album.class) 
                 .addEntity(Event.class)

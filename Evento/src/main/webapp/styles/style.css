@@ -332,17 +332,14 @@ ul {
 	float: left;
 }
 .zdjecia .zdjecie{
-	margin-right: 25px;
-	position: relative;
-	right: 50%;
+	margin: 0 12px 24px 12px;
 	float: left;
-	text-align: center;	
-}
-.zdjecie:last-of-type{
-	margin-right: 0;	
+	text-align: center;
+	position: relative;
+	right: 50%;	
 }
 .zdjecie img{
-	height: 250px;
+	height: 230px;
 }
 .rating{
 	margin: 7px auto 15px;
@@ -350,3 +347,78 @@ ul {
 img.album{
 	height: 206px;
 }
+<!--kalendarz -->
+table.div{
+  
+}
+table.kalendarz {
+  font-size: 12px;
+  margin: 0 auto;
+
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 2px
+}
+
+table.kalendarz td,table.kalendarz th {
+  border:1px solid #ddd;
+  padding: 4px 10px;
+  border-radius: 5px;
+  text-align: center;
+  background-color: white;
+}
+
+table.kalendarz .niedziela {
+  color: red;
+  font-weight: bold;
+  background-color: pink
+}
+
+table.kalendarz .nieaktywny {
+  color: #bbb
+}
+
+table.kalendarz .niedziela.nieaktywny {
+  color: pink;
+  background-color: #fff
+}
+
+table.kalendarz .aktywny {
+  cursor: pointer
+}
+
+table.kalendarz .aktywny:hover {
+  background-color: #fff;
+}
+
+table.kalendarz .btn {
+  background-color: #eee;
+  font-size: 10px;
+  border: 1px solid #eee;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: navy
+}
+
+table.kalendarz .btn:hover {
+  background-color: #ccc;
+}
+
+table.kalendarz .rok {
+  float: right
+}
+
+table.kalendarz .miesiac {
+  float: left
+}
+
+table.kalendarz .wydarzenie {
+  color: navy;
+  font-weight: bold;
+  background-color: #e6af2a
+ } 
+ .fb-comments{
+ 	position: absolute !important;
+ 	right: 0;
+ }

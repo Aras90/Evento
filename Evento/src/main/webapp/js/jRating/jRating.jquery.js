@@ -28,8 +28,8 @@
 			decimalLength : 1, // number of decimals.. Max 3, but you can complete the function 'getNote'
 			rateMax : 5, // maximal rate - integer from 0 to 9999 (or more)
 			rateInfosX : -45, // relative position in X axis of the info box when mouseover
-			rateInfosY : 5, // relative position in Y axis of the info box when mouseover
-			nbRates : 999,
+			rateInfosY : -50, // relative position in Y axis of the info box when mouseover
+			nbRates : 1,
 
 			/** Functions **/
 			onSuccess : null,

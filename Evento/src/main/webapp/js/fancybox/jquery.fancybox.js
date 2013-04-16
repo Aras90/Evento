@@ -12,7 +12,6 @@
 
 (function (window, document, $, undefined) {
 	"use strict";
-
 	var W = $(window),
 		D = $(document),
 		F = $.fancybox = function () {
@@ -59,7 +58,7 @@
 			height    : 600,
 			minWidth  : 100,
 			minHeight : 100,
-			maxWidth  : 9999,
+			maxWidth  : $(window).width() - 680,
 			maxHeight : 9999,
 
 			autoSize   : true,
@@ -181,8 +180,17 @@
 			onCancel     : $.noop, // If canceling
 			beforeLoad   : $.noop, // Before loading
 			afterLoad    : $.noop, // After loading
-			beforeShow   : $.noop, // Before changing in current item
-			afterShow    : $.noop, // After opening
+			beforeShow   : function(){$(".fb-comments").remove();}, // Before changing in current item
+			afterShow    : function(){
+				//$('fb-comments').remove();
+				console.log($(this.element).attr('data-id'));
+							$(".fancybox-wrap").append('<div class="rat" data-average="0" data-id="' + $(this.element).attr('data-id') + '" data-glos="' + $(this.element).attr('data-glos') + '"></div>');
+							$(".fancybox-overlay").append('<div class="fb-comments" data-href="http://localhost:8080/Evento/' + $(this.element).attr('data-id') + '" data-width="300" data-num-posts="10" data-colorscheme="dark"></div>');
+							FB.XFBML.parse();
+						   $('.rat').css({top: "43px", margin: "0 auto"});
+			               $('.rat').jRating();
+			               
+			}, // After opening
 			beforeChange : $.noop, // Before changing gallery item
 			beforeClose  : $.noop, // Before closing
 			afterClose   : $.noop  // After closing
@@ -248,8 +256,9 @@
 					type,
 					rez,
 					hrefParts,
-					selector;
-
+					selector,
+					picture;
+				
 				if ($.type(element) === "object") {
 					// Check if is DOM element
 					if (element.nodeType) {
@@ -263,7 +272,7 @@
 							isDom   : true,
 							element : element
 						};
-
+						
 						if ($.metadata) {
 							$.extend(true, obj, element.metadata());
 						}
@@ -1866,7 +1875,6 @@
 			}
 
 			title = $('<div class="fancybox-title fancybox-title-' + type + '-wrap">' + text + '</div>');
-
 			switch (type) {
 				case 'inside':
 					target = F.skin;
@@ -1943,7 +1951,6 @@
 		}
 
 		this.filter('[data-fancybox-start=1]').trigger('click');
-
 		return this;
 	};
 

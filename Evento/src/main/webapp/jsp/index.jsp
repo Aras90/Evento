@@ -1,12 +1,5 @@
-<%@taglib uri="/struts-tags" prefix="s" %>
+﻿<%@taglib uri="/struts-tags" prefix="s" %>
 
-<html>
-<body>
+<h3>Evento jest projektem stworzonym przez studentów w ramach projektu zespołowego. </h3> <br>
+<h5>Dzięki plikacji mobilnej na telefon z systemem android użytkownik może utworzyć wydarzenie i dodawać do niego swoich znajomych. Podczas wydarzenia uczestnicy robią zdjęcia które następnie trafiają na portal społecznościowy. Aplikacja współpracuje z portalem na którym osoby biorące udział w wydarzeniu mogą komentować i oceniać zdjęcia zrobione wcześniej przez uczestników wydarzenie, a także tworzyć z nich albumy.</h5>
 
-ZAMIAST MainClass jest DAO stworzylem tam przykladwe "createUser" jako insert into "updateUser" jako update 
-w update NIE MA WHERE , zamiast tego musicie odpowiednia uzupelnic obiekt ktory podmieni juz istniejacy jakis tam obiekt.
-
-
-</body>
-
-</html>

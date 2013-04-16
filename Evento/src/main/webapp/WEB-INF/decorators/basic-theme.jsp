@@ -6,7 +6,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Eventoo</title>
+        <title>Evento</title>
         
         <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="styles/style.css" />
@@ -46,11 +46,7 @@
 	      $(".rating").jRating();
 		});
 		</script>
-		<script>
-			$(function(){
-				$('.fancybox').fancybox();
-			})
-		</script>
+		
     </head>
 
     <body>
@@ -75,7 +71,7 @@
                     </div>
                     <div id="logo">
 						<h1>
-                            <a href="#">Eventoo</a>
+                            <a href="/Evento/">Evento</a>
                         </h1>
                     </div>
                     <div id="nav">
