@@ -69,8 +69,8 @@ public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     public String getId(){
     	return this.id;
     }
-	public void setSession(Map arg0) {
-		// TODO Auto-generated method stub
+    public void setSession(Map map) {
+		this.session = map;
 		
 	}
     

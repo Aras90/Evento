@@ -31,6 +31,7 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 public class IndexAction extends ActionSupport implements SessionAware  {
     
     private Date now = new Date(System.currentTimeMillis());
+    private Map<String, Object> session;
 
     @TypeConversion(converter = "Evento.DateConverter")
     public Date getDateNow() { return now; }
@@ -40,8 +41,14 @@ public class IndexAction extends ActionSupport implements SessionAware  {
         return SUCCESS;
     }
 
-	public void setSession(Map arg0) {
-		// TODO Auto-generated method stub
+	public void setSession(Map map) {
+		this.session = map;
+		
+	}
+	
+	public void shutDownSession(){
+		
+		session.put("IdUser",0);
 		
 	}
 }

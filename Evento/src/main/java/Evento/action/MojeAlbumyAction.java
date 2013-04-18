@@ -56,8 +56,8 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
            
            
     }
-	public void setSession(Map arg0) {
-		// TODO Auto-generated method stub
+    public void setSession(Map map) {
+		this.session = map;
 		
 	}
 }

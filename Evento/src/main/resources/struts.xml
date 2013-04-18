@@ -47,6 +47,10 @@
  			<result name="success" >/jsp/index.jsp</result>
  		</action>
  		
+ 		<action name="shutDownSession" class="Evento.action.ShutDownSessionAction">
+ 			<result name="success" >/jsp/index.jsp</result>
+ 		</action>
+ 		
  		
  		
  		
