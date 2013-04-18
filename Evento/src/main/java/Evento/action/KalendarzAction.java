@@ -17,11 +17,15 @@ package Evento.action;
 
 import Evento.bean.DAO;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
@@ -29,24 +33,35 @@ import com.opensymphony.xwork2.conversion.annotations.Conversion;
  * 
  */
 @Conversion()
-public class KalendarzAction extends ActionSupport {
+public class KalendarzAction extends ActionSupport implements SessionAware  {
    
 	private List userEvents;
+	private Map<String, Object> session;
 	
     public List getUserEvents() {
 		return userEvents;
 	}
-    public void setUserEvents() {
+    public void setUserEvents(long id) {
     	DAO mc = new DAO();
-    	userEvents = mc.getUserEvents(1);
+    	userEvents = mc.getUserEvents(id);
 	}
 
 
     public String execute() throws Exception {
     	
-    	setUserEvents();
-      
+    	session = ActionContext.getContext().getSession();
+    	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
+    	if(id == 0){
+    		return ERROR;
+    	}
+    	else{
+    		 setUserEvents(id);
+    		 return SUCCESS;
+    	}
     	
-        return SUCCESS;
     }
+	public void setSession(Map arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

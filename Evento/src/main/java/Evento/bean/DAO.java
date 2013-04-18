@@ -70,27 +70,6 @@ public class DAO {
     	DAO.session.set(null);
     }
     
-    
-    
-    
-    
-    
-    
-    /*public List getUserPicturesData(long Id_User,long Id_Album){
-        Query query =  getSession().createSQLQuery("Select * from picture where Id_User = :Id_User AND Id_Album = :Id_Album")
-        		.addEntity(Picture.class);
-        query.setParameter("Id_User", Id_User);
-        query.setParameter("Id_Album", Id_Album);
-        return query.list();
-    }*/
-    
-    
-    
-    
-    
-    
-    
-    
     //obie funkcje(create i update) moznaby bylo chyba wjebac w jedna, bo roznia sie tylko uzyciem "cleana" i uzyciem do zapisu innej funkcji
     //ale  dla przejrzystosci zostawilem tak. Jak chcecie to uzywajcie tylko tej drugiej, tylko wtedy trzeba kontrolwac czy nie udpatuje nie tych rekordoow co chcecie. 
     public User createUser(long id,String email,String password, String desc) throws AdException
@@ -238,21 +217,22 @@ public class DAO {
     	
     	
     	
-    	Query query =  getSession().createSQLQuery("Select * from user where Email = '" +"aszymanski18@gmail.com'").addEntity(User.class);
+    	Query query =  getSession().createSQLQuery("Select * from user where Email = '" +email+"'").addEntity(User.class);
     	
         return query.list();
        
     	
     }
      
-    public List getPicturesFromAlbum(long Id_user){
-        Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u WHERE u.Id_User = 1 AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
+    public List getPicturesFromAlbum(long Id_User){
+        Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
         		.addEntity(Album.class) 
                 .addEntity(Event.class)
-                .addEntity(User.class)
-        		
-        			;						
+                .addEntity(User.class);
+        query.setParameter("Id_User", Id_User);
+       	
+        								
         									
         									
         return query.list();
@@ -267,16 +247,16 @@ public class DAO {
         return query.list();
     }
     
-    public List getAlbumsHavingIdUser(long Id_user){
+    public List getAlbumsHavingIdUser(long Id_User){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u " +
-        									 "WHERE u.Id_User = 1 AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
+        									 "WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
         		.addEntity(Album.class) 
                 .addEntity(Event.class)
-                .addEntity(User.class)
-                
+                .addEntity(User.class);
+        query.setParameter("Id_User", Id_User);        
         		
-        			;		
+        					
         
        			
         return query.list();

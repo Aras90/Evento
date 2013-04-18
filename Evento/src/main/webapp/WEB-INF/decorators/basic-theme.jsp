@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
+<%@taglib uri="/struts-tags" prefix="s" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -57,14 +58,17 @@
                     <div id="fejs">
                         <span id="fb-login" style="display: none">
                                
-                            <fb:login-button>Zaloguj do fb</fb:login-button>
+                            <s:form action="login">
+
+								<s:submit type="image" src="styles/images/fb_login.gif"/>
+							</s:form>
                                
                                 
                         </span>
                             
                             <span id="fb-logout" style="display: none">
                             
-                                <!--button onclick="fbLogout();" >Wyloguj sie</button-->
+                               
                                 <a onclick="fbLogout();">wyloguj sie</a>
                             </span>
                         

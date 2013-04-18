@@ -16,6 +16,9 @@
 package Evento.action;
 
 import java.util.Date;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
@@ -25,7 +28,7 @@ import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
  * 
  */
 @Conversion()
-public class IndexAction extends ActionSupport {
+public class IndexAction extends ActionSupport implements SessionAware  {
     
     private Date now = new Date(System.currentTimeMillis());
 
@@ -36,4 +39,9 @@ public class IndexAction extends ActionSupport {
         now = new Date(System.currentTimeMillis());
         return SUCCESS;
     }
+
+	public void setSession(Map arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

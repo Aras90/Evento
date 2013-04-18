@@ -1,16 +1,21 @@
 package Evento.action;
  
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+
+import org.apache.struts2.interceptor.SessionAware;
+
 import Evento.model.*;
  
 import Evento.bean.DAO;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
  
 @Conversion()
-public class MojeAlbumyAction extends ActionSupport {
+public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
  
         /**
          * 
@@ -19,6 +24,7 @@ public class MojeAlbumyAction extends ActionSupport {
     private List albumList;
     private List picturesList;
     DAO mc = new DAO();
+    private Map<String, Object> session;
    
     public String getPictureLink(long Id_Album){
     	picturesList = mc.getPicturesList(Id_Album);
@@ -31,11 +37,27 @@ public class MojeAlbumyAction extends ActionSupport {
     	
     	albumList = mc.getAlbumsHavingIdUser(idUser);
     	
+    	
     }
     
     public String execute() throws Exception {
-            setAlbumList(1);
+            
+    	session = ActionContext.getContext().getSession();
+    	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
+    	if(id == 0){
+    		return ERROR;
+    	}
+    	else{
+    		 setAlbumList(id);
+    		 return SUCCESS;
+    	}
+    	
+    	
            
-            return SUCCESS;
+           
     }
+	public void setSession(Map arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

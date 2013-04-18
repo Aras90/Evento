@@ -2,6 +2,9 @@ package Evento.action;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import Evento.bean.DAO;
 import Evento.model.Picture;
@@ -16,7 +19,7 @@ import com.opensymphony.xwork2.conversion.annotations.Conversion;
  * 
  */
 @Conversion()
-public class RatingAction extends ActionSupport {
+public class RatingAction extends ActionSupport implements SessionAware  {
     
     private int idBox;
     private int rate;
@@ -44,4 +47,8 @@ public class RatingAction extends ActionSupport {
 			mc.updateRating((long)idBox, new Date().toString(), rate, (long)idBox, 1l);	
         return SUCCESS;
     }
+	public void setSession(Map arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

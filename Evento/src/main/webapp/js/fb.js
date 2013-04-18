@@ -7,7 +7,7 @@
 window.onload = ustawPrzycisk;
             
             FB.init({
-               appId  : '487331951334796',
+               appId  : '170054506477361',
                status : true, 
                cookie : true, 
                xfbml  : true  
@@ -24,7 +24,7 @@ window.onload = ustawPrzycisk;
                 
                 
                  FB.getLoginStatus(function(response) {
-                        if (response.status === 'connected') {
+                        if (response.status == 'connected') {
                           // the user is logged in and has authenticated your
                           // app, and response.authResponse supplies
                           // the user's ID, a valid access token, a signed

@@ -15,10 +15,15 @@
  */
 package Evento.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
 import Evento.model.Picture;
 import Evento.model.Album;
 import Evento.bean.DAO;
@@ -27,22 +32,33 @@ import Evento.bean.DAO;
  * 
  */
 @Conversion()
-public class MojeZdjeciaAction extends ActionSupport {
+public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     
     private String id;
-  
 	private List picturesList;
+	private Map<String, Object> session;
     
     public List getPicturesList() {return picturesList; }
-    public void setPicturesList(){
+    public void setPicturesList(long idUser){
     	DAO mc = new DAO();
-    	picturesList = mc.getUserPicturesData(1, Long.parseLong(id)); //id_user, id_album
+    	picturesList = mc.getUserPicturesData(idUser, Long.parseLong(id)); //id_user, id_album
     		
     }
       
     public String execute() throws Exception {
-        setPicturesList();
-        return SUCCESS;
+        
+    	session = ActionContext.getContext().getSession();
+    	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
+    	if(id == 0){
+    		return ERROR;
+    	}
+    	else{
+    		 setPicturesList(id);
+    		 return SUCCESS;
+    	}
+    	
+    	
+       
     }
     
     public void setId(String id){
@@ -53,6 +69,10 @@ public class MojeZdjeciaAction extends ActionSupport {
     public String getId(){
     	return this.id;
     }
+	public void setSession(Map arg0) {
+		// TODO Auto-generated method stub
+		
+	}
     
    
     
