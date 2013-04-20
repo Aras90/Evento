@@ -47,10 +47,10 @@ public class RatingAction extends ActionSupport implements SessionAware  {
     		return ERROR;
     	}
     	else{
-    		if(mc.getUserRatingData(1l, (long)idBox).size() == 0)
-    			mc.createRating( new Date().toString(), rate, (long)idBox, 1l);
+    		if(mc.getUserRatingData(id, (long)idBox).size() == 0)
+    			mc.createRating( new Date().toString(), rate, (long)idBox, id);
     		else
-    			mc.updateRating(((Rating)mc.getUserRatingData(1l, (long)idBox).get(0)).getId_Rating(), new Date().toString(), rate, (long)idBox, 1l);
+    			mc.updateRating(((Rating)mc.getUserRatingData(id, (long)idBox).get(0)).getId_Rating(), new Date().toString(), rate, (long)idBox, id);
     		return SUCCESS;
     	}
     }
