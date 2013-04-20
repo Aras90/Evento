@@ -160,17 +160,23 @@ public class DAO {
     
     
     public List getUserPicturesData(long Id_User,long Id_Album){
-        Query query = getSession().createSQLQuery("SELECT * FROM picture p, event e, invitation i  " 
-        								+	"WHERE p.Id_Album = :Id_Album AND (p.Id_User=:Id_User OR (p.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event AND i.Id_User = :Id_User)) "
-        									+ "Group by p.Id_Picture")
+        Query query = getSession().createSQLQuery("SELECT * FROM picture p left join rating r on p.Id_Picture = r.Id_Picture,event e, invitation i " +  
+        										"WHERE p.Id_Album = :Id_Album AND (p.Id_User=:Id_User OR (p.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event AND i.Id_User = :Id_User)) " +
+        										"Group by p.Id_Picture")
         		.addEntity(Picture.class)
+        		.addEntity(Rating.class)
         		.addEntity(Event.class)
         		.addEntity(Invitation.class);
         query.setParameter("Id_User", Id_User);
         query.setParameter("Id_Album", Id_Album);
         return query.list();
     }
-    
+    public List getUserRatingData(long Id_User, long Id_Picture){
+    	Query query = getSession().createSQLQuery("SELECT r.* FROM user u, picture p, rating r " + 
+    											  "WHERE u.Id_User = p.Id_User AND p.Id_Picture = r.Id_Picture AND u.Id_User = " + Id_User + " AND p.Id_Picture = " + Id_Picture)
+    			.addEntity(Rating.class);
+    	return query.list();
+    }
     public List getUserPicturesDataWithRate(long Id_User,long Id_Album){
         Query query =  getSession().createSQLQuery("Select * from picture as p left join rating as r ON r.Id_Picture = p.Id_Picture " +
         									"where p.Id_User = :Id_User AND p.Id_Album = :Id_Album")

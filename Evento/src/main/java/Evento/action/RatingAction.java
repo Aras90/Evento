@@ -12,6 +12,7 @@ import Evento.model.Rating;
 import Evento.model.User;
 
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 
@@ -23,6 +24,7 @@ public class RatingAction extends ActionSupport implements SessionAware  {
     
     private int idBox;
     private int rate;
+    private Map<String, Object> session;
         
     public int getRate() {
 		return rate;
@@ -39,16 +41,21 @@ public class RatingAction extends ActionSupport implements SessionAware  {
 	
 	public String execute() throws Exception {
 		DAO mc = new DAO();
-		DAO.getSession().flush();
-		System.out.println("idBox = " + DAO.getSession().get(Rating.class, (long)idBox));
-		if(DAO.getSession().get(Rating.class, (long)idBox) == null)
-			mc.createRating( new Date().toString(), rate, (long)idBox, 1l);
-		else
-			mc.updateRating((long)idBox, new Date().toString(), rate, (long)idBox, 1l);	
-        return SUCCESS;
+		session = ActionContext.getContext().getSession();
+    	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
+    	if(id == 0){
+    		return ERROR;
+    	}
+    	else{
+    		if(mc.getUserRatingData(1l, (long)idBox).size() == 0)
+    			mc.createRating( new Date().toString(), rate, (long)idBox, 1l);
+    		else
+    			mc.updateRating(((Rating)mc.getUserRatingData(1l, (long)idBox).get(0)).getId_Rating(), new Date().toString(), rate, (long)idBox, 1l);
+    		return SUCCESS;
+    	}
     }
-	public void setSession(Map arg0) {
-		// TODO Auto-generated method stub
+	public void setSession(Map map) {
+		this.session = map;
 		
 	}
 }

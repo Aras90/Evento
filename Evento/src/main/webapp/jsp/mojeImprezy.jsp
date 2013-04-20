@@ -5,7 +5,6 @@
         <body>
         	
         		<div class="zdjecia">
-                aa
                 <s:iterator value="albumList" status="stat"> 
                         <div class="zdjecie">
                        

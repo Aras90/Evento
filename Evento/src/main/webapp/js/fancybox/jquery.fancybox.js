@@ -58,7 +58,7 @@
 			height    : 600,
 			minWidth  : 100,
 			minHeight : 100,
-			maxWidth  : $(window).width() - 680,
+			maxWidth  : $(window).width() - 750,
 			maxHeight : 9999,
 
 			autoSize   : true,
@@ -189,6 +189,10 @@
 							FB.XFBML.parse();
 						   $('.rat').css({top: "43px", margin: "0 auto"});
 			               $('.rat').jRating();
+			               var el = $(this.element);
+			               $('.rat').click(function(){
+			            	  el.attr('data-glos', parseInt($('.rat .jRatingAverage').css('width')) / 23 ); 
+			               });
 			               
 			}, // After opening
 			beforeChange : $.noop, // Before changing gallery item

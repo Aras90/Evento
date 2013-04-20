@@ -328,15 +328,14 @@ ul {
 }
 .zdjecia{
 	position: relative;
-	left: 50%;
-	float: left;
+	margin: 0 auto;
+	text-align: center;
 }
 .zdjecia .zdjecie{
-	margin: 0 12px 24px 12px;
-	float: left;
+	margin: 0 10px 24px;
+	display: inline-block;
 	text-align: center;
 	position: relative;
-	right: 50%;	
 }
 .zdjecie img{
 	height: 230px;

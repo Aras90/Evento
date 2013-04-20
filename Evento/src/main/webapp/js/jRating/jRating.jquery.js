@@ -29,7 +29,7 @@
 			rateMax : 5, // maximal rate - integer from 0 to 9999 (or more)
 			rateInfosX : -45, // relative position in X axis of the info box when mouseover
 			rateInfosY : -50, // relative position in Y axis of the info box when mouseover
-			nbRates : 1,
+			nbRates : 9999,
 
 			/** Functions **/
 			onSuccess : null,
