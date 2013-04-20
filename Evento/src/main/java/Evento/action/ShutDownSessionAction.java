@@ -33,12 +33,14 @@ public class ShutDownSessionAction extends ActionSupport implements SessionAware
   
     private Map<String, Object> session;
     long zero = 0;
+    String login = "nic";
    
 
 	public String execute() throws Exception {
 		
 		session.clear();
-		session.put("IdUser",zero);
+		session.put("IdUser", zero);
+		session.put("login", login);
         return SUCCESS;
     }
 

@@ -12,54 +12,31 @@ window.onload = ustawPrzycisk;
                cookie : true, 
                xfbml  : true  
              });
-             
-           /*FB.Event.subscribe('auth.authResponseChange', function(response) {
-                if (response.status === 'connected') {
-                     //window.top.location = 'http://localhost:8080/Eventoo/logged.jsp';
-                     ustawPrzycisk();
-                }
-            });*/
                      
             function ustawPrzycisk() {
                 
                 
                  FB.getLoginStatus(function(response) {
                         if (response.status == 'connected') {
-                          // the user is logged in and has authenticated your
-                          // app, and response.authResponse supplies
-                          // the user's ID, a valid access token, a signed
-                          // request, and the time the access token 
-                          // and signed request each expire
-
-
-                          
-                          document.getElementById("fb-login").style.display = "none";
+                   
+                          //document.getElementById("fb-login").style.display = "none";
                           var x = document.getElementById("fb-logout");
                              FB.api('/me', function(response) {
                                 x.innerHTML =  response.name + " <a onclick=\"fbLogout();\" > wyloguj sie</a>";
-                                document.getElementById("email").value = response.email;
-                                var a = document.getElementById("email").value;
+                                //document.getElementById("email").value = response.email;
+                                //var a = document.getElementById("email").value;
                                 
-                            });
+                          });
                           
-                          document.getElementById("fb-logout").style.display = "list-item";
-                          
-                         
-                         
-                           
-                         
+                          //document.getElementById("fb-logout").style.display = "list-item";
+ 
                         } else if (response.status === 'not_authorized') {
-                          // the user is logged in to Facebook, 
-                          // but has not authenticated your app
+
                         } else {
-                          // the user isn't logged in to Facebook.
-                          // alert('y');
-                           document.getElementById("fb-logout").style.display = "none";
-                           var x = document.getElementById("fb-login").style.display = "inline";
-                           
-                           
-                            
-                            
+
+                           //document.getElementById("fb-logout").style.display = "none";
+                           //var x = document.getElementById("fb-login").style.display = "inline";
+
                         }
                    });      
             };

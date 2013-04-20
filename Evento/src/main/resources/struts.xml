@@ -45,6 +45,7 @@
  		
  		<action name="facebookCallback" class="Evento.facebook.FacebookCallback">
  			<result name="success" >/jsp/index.jsp</result>
+ 			<result name="brak" >/jsp/brak.jsp</result>
  		</action>
  		
  		<action name="shutDownSession" class="Evento.action.ShutDownSessionAction">

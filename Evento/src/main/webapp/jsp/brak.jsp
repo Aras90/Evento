@@ -1,0 +1,1 @@
+Użytkownik niezarejestrwany w portalu

@@ -85,7 +85,23 @@ public class FacebookCallback extends ActionSupport implements SessionAware {
 	        
 	        DAO mc = new DAO();
 	        List idList = mc.getUserIdHavingEmail(email);
-	        long id = ((Evento.model.User)idList.get(0)).getId_User();
+	        long id = 0;
+	        if(idList.size()==1){ 
+                
+                id = ((Evento.model.User)idList.get(0)).getId_User(); 
+                session.clear(); 
+                session.put("idUser", id);
+                session.put("login", "fb");
+                
+            } else if (idList.size()==0){ 
+                
+            	id = 0;
+                System.err.println("Dodalem do sesji brak"); 
+                session.clear(); 
+                session.put("idUser", id);
+                session.put("login", "nic");
+                return "brak";
+            }
 	        System.out.println("id:"+id);
 	        session.put("accessToken", accessToken);
 	        session.put("idUser", id);

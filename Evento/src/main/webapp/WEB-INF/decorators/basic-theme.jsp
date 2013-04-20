@@ -56,22 +56,20 @@
             <div id="outer">
 				<div id="header">
                     <div id="fejs">
-                        <span id="fb-login" style="display: none">
-                               
+                    	<s:action namespace="/Evento" name="index" id="Sesja"/>
+                    	<s:set name="id" value="#Sesja.getIdUser()"/> 
+                    	<s:if test="#id == null || #id == 0">
+                        <span id="fb-login" style="display: list-item">                              
                             <s:form action="login">
-
 								<s:submit type="image" src="styles/images/fb_login.gif"/>
-							</s:form>
-                               
-                                
+							</s:form>       
                         </span>
-                            
-                            <span id="fb-logout" style="display: none">
-                            
-                               
-                                <a onclick="fbLogout();">wyloguj sie</a>
-                            </span>
-                        
+						</s:if>
+						<s:else>
+                        <span id="fb-logout" style="display: list-item">       
+                            <a onclick="fbLogout();">wyloguj sie</a>
+                        </span>
+						</s:else>
                     </div>
                     <div id="logo">
 						<h1>

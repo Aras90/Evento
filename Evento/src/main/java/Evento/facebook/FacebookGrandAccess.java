@@ -34,10 +34,7 @@ public class FacebookGrandAccess extends ActionSupport implements SessionAware {
         
         System.err.println("Service: "+fbService+", AutorizationURL: "+authorizationURL);
         
-        session.put("fbService", fbService);
-        
-        
-        
+        session.put("fbService", fbService);                
         
         return SUCCESS;
     }
