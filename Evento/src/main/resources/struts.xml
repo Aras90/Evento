@@ -37,13 +37,24 @@
 			<result>/jsp/mojeZdjecia.jsp</result>
  		</action>
  		 
- 		<action name="login" class="Evento.facebook.FacebookGrandAccess">
+ 		<action name="loginFB" class="Evento.facebook.FacebookGrandAccess">
  			<result name="success" type="redirect">
  				<param name="location">${authorizationURL}</param>
  			</result>
  		</action>
  		
  		<action name="facebookCallback" class="Evento.facebook.FacebookCallback">
+ 			<result name="success" >/jsp/index.jsp</result>
+ 			<result name="brak" >/jsp/brak.jsp</result>
+ 		</action>
+ 		
+ 		<action name="loginSD" class="Evento.skydrive.SkydriveGrandAccess">
+ 			<result name="success" type="redirect">
+ 				<param name="location">${authorizationURL}</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<action name="SkydriveCallBack" class="Evento.skydrive.SkydriveCallBack">
  			<result name="success" >/jsp/index.jsp</result>
  			<result name="brak" >/jsp/brak.jsp</result>
  		</action>

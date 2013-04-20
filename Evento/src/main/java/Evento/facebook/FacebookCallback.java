@@ -104,7 +104,6 @@ public class FacebookCallback extends ActionSupport implements SessionAware {
             }
 	        System.out.println("id:"+id);
 	        session.put("accessToken", accessToken);
-	        session.put("idUser", id);
 	        this.setKey(accessToken.getToken()); //just to see something happen
 	        this.setSecret(accessToken.getSecret());//just to see something happen
 	        return SUCCESS;

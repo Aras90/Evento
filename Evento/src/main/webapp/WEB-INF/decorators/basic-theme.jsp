@@ -59,9 +59,12 @@
                     	<s:action namespace="/Evento" name="index" id="Sesja"/>
                     	<s:set name="id" value="#Sesja.getIdUser()"/> 
                     	<s:if test="#id == null || #id == 0">
-                        <span id="fb-login" style="display: list-item">                              
-                            <s:form action="login">
+                        <span id="fb-login" style="display: inline">                              
+                            <s:form action="loginFB">
 								<s:submit type="image" src="styles/images/fb_login.gif"/>
+							</s:form>
+							<s:form action="loginSD">
+								<s:submit type="image" src="styles/images/SkyDrive.jpg"/>
 							</s:form>       
                         </span>
 						</s:if>

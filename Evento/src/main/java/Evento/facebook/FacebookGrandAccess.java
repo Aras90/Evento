@@ -17,7 +17,7 @@ public class FacebookGrandAccess extends ActionSupport implements SessionAware {
     @Override
     public String execute() {
     	
-    	System.err.println("WESZLO?");
+    	System.err.println("FB login");
         //Twitter twitter = new TwitterFactory().getInstance();
         String consumer_key = "170054506477361";
         String consumer_secret = "1c0fafa059c6cb11bbcc640e2698e3f2";
