@@ -28,13 +28,13 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
     private String oauth_token;
     private String oauth_verifier;
     private static final Token EMPTY_TOKEN = null;
-    private static final String PROTECTED_RESOURCE_URL = "https://api.foursquare.com/v2/users/self/friends?oauth_token=";
+    private static final String PROTECTED_RESOURCE_URL = "https://apis.live.net/v5.0/me";
     
     @Override
     public String execute() {
     	
     	System.err.println("SkyDriveCallBack");
-    	
+    	System.err.println("keySet:"+session.keySet());
     	OAuthService SkyDriveService = (OAuthService) session.get("SkyDriveService");
     	System.err.println("SkyDriveService:" + SkyDriveService);
     	
@@ -48,8 +48,8 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         System.err.println("VERIFIER: " + this.getOauth_verifier());
         Token accessToken = SkyDriveService.getAccessToken(EMPTY_TOKEN, new Verifier(this.getOauth_verifier()));
         System.err.println("accessToken: "+accessToken);
+        OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
         
-        OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL + accessToken.getToken());
         SkyDriveService.signRequest(accessToken, request);
         Response response2 = request.send();
         
