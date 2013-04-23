@@ -27,7 +27,7 @@ public class FacebookGrandAccess extends ActionSupport implements SessionAware {
                 .apiKey(consumer_key)
                 .apiSecret(consumer_secret)
                 .scope("email,offline_access")
-                .callback("http://localhost:8080/Evento/facebookCallback.action")
+                .callback("http://www.evento.com:8080/Evento/facebookCallback.action")
                 .build();
        
         authorizationURL = fbService.getAuthorizationUrl(EMPTY_TOKEN);

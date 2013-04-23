@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:fb="http://www.facebook.com/2008/fbml">
+      xmlns:fb="http://www.facebook.com/2008/fbml"
+      xmlns:wl="http://apis.live.net/js/2010">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,6 +13,7 @@
         <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="styles/style.css" />
         
+        <script src="http://js.live.net/v5.0/wl.js"></script>
         <script src="http://connect.facebook.net/pl_PL/all.js"></script>
         <script src="js/fb.js"></script>
 	    <script type="text/javascript" src="js/kalendarz/kalendarz.js"></script>        
@@ -59,19 +61,45 @@
                     	<s:action namespace="/Evento" name="index" id="Sesja"/>
                     	<s:set name="id" value="#Sesja.getIdUser()"/> 
                     	<s:if test="#id == null || #id == 0">
-                        <span id="fb-login" style="display: inline">                              
-                            <s:form action="loginFB">
-								<s:submit type="image" src="styles/images/fb_login.gif" title="Zaloguj przez facebook"/>
-							</s:form>
-							<s:form action="loginSD">
-								<s:submit type="image" src="styles/images/SkyDrive.jpg" title="Zaloguj przez skydrive"/>
-							</s:form>       
-                        </span>
+                        	<span id="fb-login" style="display: inline">                              
+                            	<s:form action="loginFB">
+									<s:submit type="image" src="styles/images/fb_login.gif" title="Zaloguj przez facebook"/>
+								</s:form>     
+                        	</span>
+                        	<span id="sd-login" style="display: inline">
+                        		<s:form action="loginSD">
+									<s:submit type="image" src="styles/images/SkyDrive2.jpg" title="Zaloguj przez skydrive"/>
+								</s:form>
+                       		</span>
+                        	<span id="db-login" style="display: inline">
+                        		<s:form action="loginDB">
+									<s:submit type="image" src="styles/images/dropbox2.png" title="Zaloguj przez dropbox"/>
+								</s:form>
+                        	</span>
 						</s:if>
 						<s:else>
-                        <span id="fb-logout" style="display: list-item">       
-                            <a onclick="fbLogout();">wyloguj sie</a>
-                        </span>
+							<s:set name="lg" value="#Sesja.getLogin()"/>
+							<s:if test="#lg == \"fb\"">
+                        		<span id="fb-logout" style="display: list-item">
+                            		<a onclick="fbLogout();">wyloguj sie</a>
+                        		</span>
+                        	</s:if>
+                        	<s:if test="#lg == \"sd\"">
+                        		<span id="sd-logout" style="display: list-item">       
+                            		<s:form action="shutDownSession">
+                            			<s:property value="#Sesja.getName()"/>
+										<s:submit type="image" src="styles/images/SkyDrive2.jpg" title="Wyloguj z SD"/>
+									</s:form>
+                        		</span>
+                        	</s:if>
+                        	<s:if test="#lg == \"db\"">
+                        		<span id="db-logout" style="display: inline">       
+                            		<s:form action="shutDownSession">
+                            			<s:property value="#Sesja.getName()"/>
+                            			<s:submit type="image" src="styles/images/dropbox2.png" title="Wyloguj z DB"/>
+									</s:form>
+                        		</span>
+                        	</s:if>
 						</s:else>
                     </div>
                     <div id="logo">
@@ -88,7 +116,7 @@
 								<a href="mojeAlbumy.jsp" action="mojeAlbumy">Moje albumy</a>
                             </li>
                             <li>
-								<a href="mojeImprezy.jsp">Moje imprezy</a>
+								<a href="mojeImprezy.jsp" action="mojeImprezy">Moje imprezy</a>
                             </li>
                            
                             <li>

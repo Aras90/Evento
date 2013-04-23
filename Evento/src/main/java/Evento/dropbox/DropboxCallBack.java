@@ -1,4 +1,4 @@
-package Evento.skydrive;
+package Evento.dropbox;
 
 import Evento.bean.DAO;
 import com.opensymphony.xwork2.ActionContext;
@@ -19,25 +19,25 @@ import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
-public class SkydriveCallBack extends ActionSupport implements SessionAware {
+public class DropboxCallBack extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> session;
 	private String key;
     private String secret;
-    //returned from skydrive
+    //returned from dropbox
     private String oauth_token;
     private String oauth_verifier;
     private static final Token EMPTY_TOKEN = null;
-    private static final String PROTECTED_RESOURCE_URL = "https://apis.live.net/v5.0/me";
-    private static final String redirectURL = "https://login.live.com/oauth20_logout.srf?client_id=00000000480F1854&redirect_uri=http://www.evento.com:8080/Evento/";
+    private static final String PROTECTED_RESOURCE_URL = "https://api.dropbox.com/1/account/info";
+    private static final String redirectURL = "https://www.dropbox.com/logout";
     
     @Override
     public String execute() {
     	
-    	System.err.println("SkyDriveCallBack");
+    	System.err.println("DropboxCallBack");
     	System.err.println("keySet:"+session.keySet());
-    	OAuthService SkyDriveService = (OAuthService) session.get("SkyDriveService");
-    	System.err.println("SkyDriveService:" + SkyDriveService);
+    	OAuthService DropboxService = (OAuthService) session.get("DropboxService");
+    	System.err.println("DropboxService:" + DropboxService);
       
     	HttpServletResponse response = ServletActionContext.getResponse();
         System.err.println("response: "+response.toString());
@@ -45,24 +45,26 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         for(Entry<String, Object> entry : params.entrySet()) {
             this.setOauth_verifier(((String[])entry.getValue())[0]);
         }
+        
+        Token requestToken = (Token)session.get("Token");
 
         System.err.println("VERIFIER: " + this.getOauth_verifier());
-        Token accessToken = SkyDriveService.getAccessToken(EMPTY_TOKEN, new Verifier(this.getOauth_verifier()));
+        Token accessToken = DropboxService.getAccessToken(requestToken, new Verifier(this.getOauth_verifier()));
         System.err.println("accessToken: "+accessToken);
-        OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
+        OAuthRequest request = new OAuthRequest(Verb.POST, PROTECTED_RESOURCE_URL);
         
-        SkyDriveService.signRequest(accessToken, request);
+        DropboxService.signRequest(accessToken, request);
         Response response2 = request.send();
         
         System.err.println(response2.getBody());
         
         String tmp = response2.getBody();        
-        int i = tmp.indexOf("account");
-        int j = i + 11;
-        while(tmp.charAt(j) != '\"' || tmp.charAt(j+1) != ','){
+        int i = tmp.indexOf("email");
+        int j = i + 9;
+        while(tmp.charAt(j) != '\"' || tmp.charAt(j+1) != '}'){
         	j++;
         }
-        String email = tmp.substring(i+11, j);
+        String email = tmp.substring(i+9, j);
         System.err.println(email);
         
         DAO mc = new DAO();
@@ -73,7 +75,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
             id = ((Evento.model.User)idList.get(0)).getId_User(); 
             session.clear(); 
             session.put("idUser", id);
-            session.put("login", "sd");
+            session.put("login", "db");
             
         } else if (idList.size()==0){ 
             
@@ -86,15 +88,17 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         }
         System.err.println("id:"+id);
         
-        i = tmp.indexOf("name");
-        j = i + 8;
+        i = tmp.indexOf("display_name");
+        j = i + 16;
         while(tmp.charAt(j) != '\"' || tmp.charAt(j+1) != ','){
         	j++;
         }
-        String name = tmp.substring(i+8, j);
-        session.put("name", name);
+        String name = tmp.substring(i+16, j);
+        System.err.println(name);
         
+        session.put("name", name);
         //session.put("accessToken", accessToken);
+        
         
     	return SUCCESS;
     }
@@ -134,5 +138,4 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
 	public void setOauth_verifier(String oauth_verifier) {
 		this.oauth_verifier = oauth_verifier;
 	}
-
 }

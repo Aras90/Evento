@@ -54,6 +54,14 @@ public class IndexAction extends ActionSupport implements SessionAware  {
 		return (Long)session.get("idUser");
 	}
 	
+	public String getLogin(){
+		return (String)session.get("login");
+	}
+	
+	public String getName(){
+		return (String)session.get("name");
+	}
+	
 	public void shutDownSession(){
 		
 		session.put("IdUser",0);

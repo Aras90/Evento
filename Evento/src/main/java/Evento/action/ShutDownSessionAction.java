@@ -34,14 +34,29 @@ public class ShutDownSessionAction extends ActionSupport implements SessionAware
     private Map<String, Object> session;
     long zero = 0;
     String login = "nic";
+    private static final String redirectURL = "https://login.live.com/oauth20_logout.srf?client_id=00000000480F1854&redirect_uri=http://www.evento.com:8080/Evento/";
+    private static final String redirectURL2 = "https://www.dropbox.com/logout";
    
 
 	public String execute() throws Exception {
-		
-		session.clear();
-		session.put("IdUser", zero);
-		session.put("login", login);
-        return SUCCESS;
+		if(session.get("login").equals("sd")){
+			session.clear();
+			session.put("IdUser", zero);
+			session.put("login", login);
+			System.err.println(redirectURL);
+	        return "sd";
+		}else if(session.get("login").equals("db")){
+			session.clear();
+			session.put("IdUser", zero);
+			session.put("login", login);
+			System.err.println(redirectURL2);
+	        return "db";
+		}else{
+			session.clear();
+			session.put("IdUser", zero);
+			session.put("login", login);
+			return SUCCESS;
+		}
     }
 
 	public void setSession(Map map) {

@@ -56,11 +56,32 @@
  		
  		<action name="SkydriveCallBack" class="Evento.skydrive.SkydriveCallBack">
  			<result name="success" >/jsp/index.jsp</result>
- 			<result name="brak" >/jsp/brak.jsp</result>
+ 			<result name="brak" type="redirect">
+ 				<param name="location">${redirectURL}</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<action name="loginDB" class="Evento.dropbox.DropboxGrandAccess">
+ 			<result name="success" type="redirect">
+ 				<param name="location">${authorizationURL}</param>
+ 			</result>
+ 		</action>
+ 		
+ 		<action name="DropboxCallBack" class="Evento.dropbox.DropboxCallBack">
+ 			<result name="success" >/jsp/index.jsp</result>
+ 			<result name="brak" type="redirect">
+ 				<param name="location">${redirectURL}</param>
+ 			</result>
  		</action>
  		
  		<action name="shutDownSession" class="Evento.action.ShutDownSessionAction">
  			<result name="success" >/jsp/index.jsp</result>
+ 			<result name="sd" type="redirect">
+ 				<param name="location">${redirectURL}</param>
+ 			</result>
+ 			<result name="db" type="redirect">
+ 				<param name="location">${redirectURL2}</param>
+ 			</result>
  		</action>
  		
  		

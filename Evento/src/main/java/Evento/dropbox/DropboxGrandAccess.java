@@ -1,4 +1,4 @@
-package Evento.skydrive;
+package Evento.dropbox;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -18,32 +18,36 @@ import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
-public class SkydriveGrandAccess extends ActionSupport implements SessionAware {
+public class DropboxGrandAccess extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> session;
     private String authorizationURL = null;
-    private static final Token EMPTY_TOKEN = null;
+    private Token requestToken = null;
     
     @Override
     public String execute() {
     	
-    	System.err.println("SkyDrive login");
-    	String consumer_key = "00000000480F1854";
-        String consumer_secret = "ahdDvnX0Zu7AyBEqUvdHVBMx7GjgKimL";
+    	System.err.println("DropBox login");
+    	String consumer_key = "eoswf5cgr3vlr1t";
+        String consumer_secret = "ng5wo7bgj6iakjz";
         
-        OAuthService SkyDriveService = new ServiceBuilder()
-        	.provider(LiveApi.class)
+        OAuthService DropboxService = new ServiceBuilder()
+        	.provider(DropBoxApi.class)
         	.apiKey(consumer_key)
         	.apiSecret(consumer_secret)
-        	.scope("wl.offline_access,wl.emails")
-        	.callback("http://www.evento.com:8080/Evento/SkydriveCallBack.action")
+        	//.scope("wl.offline_access,wl.emails")
+        	//.callback("http://www.evento.com:8080/Evento/DropboxCallBack.action")
         	.build();
+        System.err.println("aaa");
         
-        authorizationURL = SkyDriveService.getAuthorizationUrl(EMPTY_TOKEN);
+        requestToken = DropboxService.getRequestToken();
         
-        System.err.println("Service: "+ SkyDriveService +", AutorizationURL: "+ authorizationURL);
+        authorizationURL = DropboxService.getAuthorizationUrl(requestToken) + "&oauth_callback=http://www.evento.com:8080/Evento/DropboxCallBack.action";
+        
+        System.err.println("Service: "+ DropboxService +", AutorizationURL: "+ authorizationURL);
     	
-        session.put("SkyDriveService", SkyDriveService);
+        session.put("DropboxService", DropboxService);
+        session.put("Token", requestToken);
 
         
     	return SUCCESS;
@@ -52,7 +56,7 @@ public class SkydriveGrandAccess extends ActionSupport implements SessionAware {
     public String getAuthorizationURL() {
         return this.authorizationURL;
     }
-
+    
 	public void setSession(Map map) {
 		this.session = map;
 	}

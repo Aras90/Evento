@@ -421,3 +421,11 @@ table.kalendarz .wydarzenie {
  	position: absolute !important;
  	right: 0;
  }
+ 
+ form {
+ 	display:inline-block;
+ 	float:left; 
+ }
+
+ 
+ 
