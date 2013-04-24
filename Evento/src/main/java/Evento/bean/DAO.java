@@ -76,13 +76,13 @@ public class DAO {
 	{
 		try{
 			begin();
-			User user = new User(email,password,desc); //tutaj tworzysz sobie tego usera ktorego chcesz dodac
-			getSession().save(user);
+			User User = new User(email,password,desc); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
+			getSession().save(User);
 			commit();
-			return user;
+			return User;
 		} catch (HibernateException e){
 			rollback();
-			throw new AdException("nie udalo sie stworzyc usera",e);
+			throw new AdException("nie udalo sie stworzyc Usera",e);
 		}
 	}
     
@@ -90,56 +90,56 @@ public class DAO {
    	{
    		try{
    			begin();
-   			User user = new User(email,password,desc); //tutaj tworzysz sobie tego usera ktorego chcesz zmienic
+   			User User = new User(email,password,desc); //tutaj tworzysz sobie tego Usera ktorego chcesz zmienic
    			getSession().clear();
-   			getSession().saveOrUpdate(user);
+   			getSession().saveOrUpdate(User);
    			commit();
-   			return user;
+   			return User;
    		} catch (HibernateException e){
    			rollback();
-   			throw new AdException("nie udalo sie stworzyc usera",e);
+   			throw new AdException("nie udalo sie stworzyc Usera",e);
    		}
    	}
 
-    public Picture createPicture(long id,String name,String CreatedAt, String Link,User user, Event event) throws AdException
+    public Picture createPicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
    	{
    		try{
    			begin();
-   			Picture picture = new Picture(id,name,CreatedAt,Link,user,event); //tutaj tworzysz sobie tego usera ktorego chcesz dodac
-   			getSession().save(picture);
+   			Picture Picture = new Picture(id,name,CreatedAt,Link,User,Event); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
+   			getSession().save(Picture);
    			commit();
-   			return picture;
+   			return Picture;
    		} catch (HibernateException e){
    			rollback();
-   			throw new AdException("nie udalo sie stworzyc usera",e);
+   			throw new AdException("nie udalo sie stworzyc Usera",e);
    		}
    	}
     
-    public Picture updatePicture(long id,String name,String CreatedAt, String Link,User user, Event event) throws AdException
+    public Picture updatePicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
    	{
    		try{
    			begin();
-   			Picture picture = new Picture(id,name,CreatedAt,Link,user,event); //tutaj tworzysz sobie tego usera ktorego chcesz dodac
+   			Picture Picture = new Picture(id,name,CreatedAt,Link,User,Event); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
    			getSession().clear();
-   			getSession().saveOrUpdate(picture);
+   			getSession().saveOrUpdate(Picture);
    			commit();
-   			return picture;
+   			return Picture;
    		} catch (HibernateException e){
    			rollback();
-   			throw new AdException("nie udalo sie stworzyc usera",e);
+   			throw new AdException("nie udalo sie stworzyc Usera",e);
    		}
    	}
     public Rating createRating(String createdAt,int value, long idPicture, long idUser) throws AdException
 	{
 		try{
 			begin();
-			Rating rating = new Rating(createdAt, value, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego usera ktorego chcesz dodac
-			getSession().save(rating);
+			Rating Rating = new Rating(createdAt, value, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
+			getSession().save(Rating);
 			commit();
-			return rating;
+			return Rating;
 		} catch (HibernateException e){
 			rollback();
-			throw new AdException("nie udalo sie stworzyc ratingu",e);
+			throw new AdException("nie udalo sie stworzyc Ratingu",e);
 		}
 	}
     
@@ -147,20 +147,20 @@ public class DAO {
    	{
    		try{
    			begin();
-   			Rating rating = new Rating(id, createdAt, value, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego usera ktorego chcesz zmienic
+   			Rating Rating = new Rating(id, createdAt, value, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego Usera ktorego chcesz zmienic
    			getSession().clear();
-   			getSession().saveOrUpdate(rating);
+   			getSession().saveOrUpdate(Rating);
    			commit();
-   			return rating;
+   			return Rating;
    		} catch (HibernateException e){
    			rollback();
-   			throw new AdException("nie udalo sie stworzyc usera",e);
+   			throw new AdException("nie udalo sie stworzyc Usera",e);
    		}
    	}
     
     
     public List getUserPicturesData(long Id_User,long Id_Album){
-        Query query = getSession().createSQLQuery("SELECT * FROM picture p left join rating r on p.Id_Picture = r.Id_Picture,event e, invitation i " +  
+        Query query = getSession().createSQLQuery("SELECT * FROM Picture p left join Rating r on p.Id_Picture = r.Id_Picture,Event e, Invitation i " +  
         										"WHERE p.Id_Album = :Id_Album AND (p.Id_User=:Id_User OR (p.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event AND i.Id_User = :Id_User)) " +
         										"Group by p.Id_Picture")
         		.addEntity(Picture.class)
@@ -172,13 +172,13 @@ public class DAO {
         return query.list();
     }
     public List getUserRatingData(long Id_User, long Id_Picture){
-    	Query query = getSession().createSQLQuery("SELECT r.* FROM user u, picture p, rating r " + 
+    	Query query = getSession().createSQLQuery("SELECT r.* FROM User u, Picture p, Rating r " + 
     											  "WHERE u.Id_User = p.Id_User AND p.Id_Picture = r.Id_Picture AND u.Id_User = " + Id_User + " AND p.Id_Picture = " + Id_Picture)
     			.addEntity(Rating.class);
     	return query.list();
     }
     public List getUserPicturesDataWithRate(long Id_User,long Id_Album){
-        Query query =  getSession().createSQLQuery("Select * from picture as p left join rating as r ON r.Id_Picture = p.Id_Picture " +
+        Query query =  getSession().createSQLQuery("Select * from Picture as p left join Rating as r ON r.Id_Picture = p.Id_Picture " +
         									"where p.Id_User = :Id_User AND p.Id_Album = :Id_Album")
         		.addEntity(Picture.class)
         		.addEntity(Rating.class);
@@ -188,34 +188,34 @@ public class DAO {
     }
     
     public List getUserData(){
-        Query query =  getSession().createSQLQuery("Select * from user").addEntity(User.class);
+        Query query =  getSession().createSQLQuery("Select * from User").addEntity(User.class);
         return query.list(); 
     }
     public List getRatingData(){
-        Query query =  getSession().createSQLQuery("Select * from rating").addEntity(Rating.class); 
+        Query query =  getSession().createSQLQuery("Select * from Rating").addEntity(Rating.class); 
         return query.list();
     }
     public List getPictureData(){
-        Query query =  getSession().createSQLQuery("Select * from picture").addEntity(Picture.class); 
+        Query query =  getSession().createSQLQuery("Select * from Picture").addEntity(Picture.class); 
         return query.list();
     }
     
     public List getInvitationData(){
-        Query query = getSession().createSQLQuery("Select * from invitation").addEntity(Invitation.class); 
+        Query query = getSession().createSQLQuery("Select * from Invitation").addEntity(Invitation.class); 
         return query.list();
     }
     
     public List getEventData(){
-        Query query =  getSession().createSQLQuery("Select * from event").addEntity(Event.class); 
+        Query query =  getSession().createSQLQuery("Select * from Event").addEntity(Event.class); 
         return query.list();
     }
     
     public List getCommentData(){
-        Query query =  getSession().createSQLQuery("Select * from comment").addEntity(Comment.class); 
+        Query query =  getSession().createSQLQuery("Select * from Comment").addEntity(Comment.class); 
         return query.list();
     }
     public List getAlbumData(){
-        Query query =  getSession().createSQLQuery("Select * from album").addEntity(Album.class); 
+        Query query =  getSession().createSQLQuery("Select * from Album").addEntity(Album.class); 
         return query.list();
     }
     
@@ -223,7 +223,7 @@ public class DAO {
     	
     	
     	
-    	Query query =  getSession().createSQLQuery("Select * from user where Email = '" +email+"'").addEntity(User.class);
+    	Query query =  getSession().createSQLQuery("Select * from User where Email = '" +email+"'").addEntity(User.class);
     	
         return query.list();
        
@@ -245,7 +245,7 @@ public class DAO {
     }
     
     public List getUserEvents(long Id_User){
-        Query query =  getSession().createSQLQuery("Select * FROM event, user WHERE event.Id_User=user.Id_User AND user.Id_User=:Id_User")
+        Query query =  getSession().createSQLQuery("Select * FROM Event, User WHERE Event.Id_User=User.Id_User AND User.Id_User=:Id_User")
         		.addEntity(Event.class)
         		.addEntity(User.class)		              
         		; 
@@ -267,9 +267,9 @@ public class DAO {
        			
         return query.list();
     }
-    public List getAlbumsHavingIdUserOrInvitation(long Id_user){
+    public List getAlbumsHavingIdUserOrInvitation(long Id_User){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u, Invitation as i " +
-        									 "WHERE (u.Id_User = " + Id_user + " OR i.Id_User = " + Id_user + ") AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) GROUP BY a.Id_Album")
+        									 "WHERE (u.Id_User = " + Id_User + " OR i.Id_User = " + Id_User + ") AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) GROUP BY a.Id_Album")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
         		.addEntity(Album.class) 
                 .addEntity(Event.class)
@@ -283,7 +283,7 @@ public class DAO {
     }
     
     public List getPicturesList(long Id_Album){
-    	Query query =  getSession().createSQLQuery("SELECT * from picture where Id_Album = :Id_Album").addEntity(Picture.class);
+    	Query query =  getSession().createSQLQuery("SELECT * from Picture where Id_Album = :Id_Album").addEntity(Picture.class);
     	query.setParameter("Id_Album", Id_Album);
     	
     	return query.list();
