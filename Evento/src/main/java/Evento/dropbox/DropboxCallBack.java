@@ -97,7 +97,43 @@ public class DropboxCallBack extends ActionSupport implements SessionAware {
         System.err.println(name);
         
         session.put("name", name);
-        //session.put("accessToken", accessToken);
+       
+        
+        
+        /* Przyklad zamiany linku skroconego na zwykly
+         * 
+         * 
+         * 
+        	//atrybut i metoda w klasie
+        private String link = "http://db.tt/e6JcxkQw";
+
+		public String getShareURL(String strURL) {
+			URLConnection conn = null;
+			try {
+				URL inputURL = new URL(strURL);
+				conn = inputURL.openConnection();
+	
+			} catch (MalformedURLException e) {
+				System.out.println("zjebalo sie 1");
+			} catch (IOException ioe) {
+				System.out.println("zjebalo sie 2");
+			}
+
+			return conn.getHeaderField("location");
+
+		}
+
+			//kod wykonywalny
+		String shareAddress = getShareURL(link).replaceFirst("https://www", "https://dl");
+		shareAddress += "?dl=1";
+		System.out.println("dropbox share link " + shareAddress);
+	
+       	 *	
+         *
+         */
+        
+        
+        
         
         
     	return SUCCESS;

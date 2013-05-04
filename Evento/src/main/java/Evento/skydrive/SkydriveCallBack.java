@@ -48,9 +48,9 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
 
         System.err.println("VERIFIER: " + this.getOauth_verifier());
         Token accessToken = SkyDriveService.getAccessToken(EMPTY_TOKEN, new Verifier(this.getOauth_verifier()));
-        System.err.println("accessToken: "+accessToken);
+        System.err.println("accessToken: "+accessToken.getToken());
         OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
-        
+        request.setCharset("UTF-8");
         SkyDriveService.signRequest(accessToken, request);
         Response response2 = request.send();
         
@@ -94,7 +94,13 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         String name = tmp.substring(i+8, j);
         session.put("name", name);
         
-        //session.put("accessToken", accessToken);
+       
+        
+        //PRZYKLAD pobierania dokladniego linku ze skydrive ( wynik trzeba przeparsowac)
+        OAuthRequest request1 = new OAuthRequest(Verb.GET, "https://apis.live.net/v5.0/photo.938823656776a0a0.938823656776A0A0!111?access_token="+accessToken.getToken() );
+        Response response3 = request1.send();
+        System.err.println(response3.getBody());
+        
         
     	return SUCCESS;
     }

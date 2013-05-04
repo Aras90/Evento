@@ -35,7 +35,7 @@ public class SkydriveGrandAccess extends ActionSupport implements SessionAware {
         	.provider(LiveApi.class)
         	.apiKey(consumer_key)
         	.apiSecret(consumer_secret)
-        	.scope("wl.offline_access,wl.emails")
+        	.scope("wl.offline_access,wl.emails,wl.photos,wl.contacts_photos,wl.contacts_skydrive")
         	.callback("http://www.evento.com:8080/Evento/SkydriveCallBack.action")
         	.build();
         

@@ -1,8 +1,16 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
-<div class="title">Kalendarz</div>
-<div id="calendar"></div>
+<html>
+
+<head>
+
+	
+</head>
+
+<body>
+
+
 	<script type="text/javascript" 
-		src="http://localhost:8080/Evento/js/kalendarz/kalendarz.js"></script>
+		src="http://www.evento.com:8080/Evento/js/kalendarz/kalendarz.js"></script>
 	<script>
 		var GenerujKalendarz = function(e, m, y) {
 			var k = new Kalendarz();
@@ -17,7 +25,8 @@
 				var month = date.substring(3, 5);
 				var day = date.substring(0,2);
 				var name = '<s:property value="userEvents [# stat.index][0].Name"  />';
-				events[itr] = {"i":name,"d":[{"d":day,"m":month,"y":year}]};		
+				var id = '<s:property value="userEvents [# stat.index][0].Id_Album.getId_Album()"  />'
+				events[itr] = {"h":id,"i":name,"d":[{"d":day,"m":month,"y":year}]};		
 				itr++;
 			'</s:iterator>';
 			
@@ -145,11 +154,36 @@
 					function() {
 						GenerujKalendarz(e, info.miesiac.nr, ++info.rok);
 					}, false);
+			
+			e.onclick = function(elem){
+			    var element = elem.target;
+				if(element.className == 'dzien aktywny wydarzenie'){
+					
+					for(var i=0;i<events.length;i++){
+						
+						 var a = new String(events[i].i);
+						 var a1 = new String(element.title);
+						 
+					     if(a.trim() === a1.trim()){
+					    	 var idAlbumu = events[i].h
+					    	 
+					    	 var nazwa = a.replace(" ", "%20");
+					    	 window.location = "mojeZdjecia.action?id="+idAlbumu+"&name="+nazwa;
+					    	 
+					     }
+					}
+					    	
+				}
+			}
 		};
 		
 		
 
 		addEventListener('DOMContentLoaded', function() {
-			GenerujKalendarz(document.getElementById('calendar'));
+			GenerujKalendarz(document.getElementById('main'));
 		});
 	</script>
+
+
+</body>
+</html>
