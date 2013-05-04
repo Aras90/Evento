@@ -135,7 +135,7 @@
     
     
    		<div id="copyright">
-                 <a>   &copy; Eventoo </a>
+                 &copy; <a href="mailto:i0b2s1.wat@gmail.com"> I0B2S1 </a>
 		</div>
      </div>
         

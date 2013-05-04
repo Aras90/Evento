@@ -34,7 +34,7 @@ import Evento.bean.DAO;
 @Conversion()
 public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     
-    private String id;
+    private String id, Name;
 	private List picturesList;
 	private Map<String, Object> session;
     
@@ -72,6 +72,12 @@ public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     public void setSession(Map map) {
 		this.session = map;
 		
+	}
+	public String getName() {
+		return Name;
+	}
+	public void setName(String name) {
+		Name = name;
 	}
     
    

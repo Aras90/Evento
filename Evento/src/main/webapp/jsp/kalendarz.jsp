@@ -1,14 +1,6 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
-<html>
-
-<head>
-
-	
-</head>
-
-<body>
-
-
+<div class="title">Kalendarz</div>
+<div id="calendar"></div>
 	<script type="text/javascript" 
 		src="http://localhost:8080/Evento/js/kalendarz/kalendarz.js"></script>
 	<script>
@@ -158,10 +150,6 @@
 		
 
 		addEventListener('DOMContentLoaded', function() {
-			GenerujKalendarz(document.getElementById('main'));
+			GenerujKalendarz(document.getElementById('calendar'));
 		});
 	</script>
-
-
-</body>
-</html>

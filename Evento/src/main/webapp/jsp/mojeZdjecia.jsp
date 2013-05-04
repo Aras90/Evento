@@ -1,4 +1,7 @@
 <%@taglib uri="/struts-tags" prefix="s" %>
+<style>
+	#main{padding-bottom: 0}
+</style>
 <script>
    (function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
@@ -11,6 +14,7 @@
 				$('.fancybox').fancybox();
 			})
 		</script>
+	<div class="title"><s:property value="Name" /></div>
 	<div class="zdjecia">
 		 <s:iterator value="picturesList" status="stat"> 
                        <!--                    
