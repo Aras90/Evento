@@ -13,12 +13,12 @@ Co potrzeba?
 127.0.0.1 www.evento.com
 
 3. Server mysql musi mieæ ustawiony:
-login: root
-password: sql
+-login: root
+-password: sql
 
-W mysql workbench trzeba stworzyæ schemat o nazwie: eventoo_db
+4.W mysql workbench trzeba stworzyæ schemat o nazwie: eventoo_db
 
-4. W bazie musi byæ u¿ytkownik z wype³nionym adresem email za pomoc¹ którego bêdziecie siê logowaæ przez fb, skydrive albo dropbox.
+5. W bazie musi byæ u¿ytkownik z wype³nionym adresem email za pomoc¹ którego bêdziecie siê logowaæ przez fb, skydrive albo dropbox.
 Schemat naszej bazy:
 https://docs.google.com/file/d/0B_GeNWigRVmMcWlqa3dEdFktU0k/edit?usp=sharing
 
