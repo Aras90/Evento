@@ -160,9 +160,7 @@ public class DAO {
     
     
     public List getUserPicturesData(long Id_User,long Id_Album){
-        Query query = getSession().createSQLQuery("SELECT * FROM Picture p left join Rating r on p.Id_Picture = r.Id_Picture,Event e, Invitation i " +  
-        										"WHERE p.Id_Album = :Id_Album AND (p.Id_User=:Id_User OR (p.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event AND i.Id_User = :Id_User)) " +
-        										"Group by p.Id_Picture")
+        Query query = getSession().createSQLQuery("Select * FROM Picture p LEFT JOIN Rating r ON p.Id_Picture = r.Id_Picture and r.Id_User= :Id_User , User u LEFT JOIN Invitation i ON u.Id_User = i.Id_User, User JOIN  Rating on  Rating.Id_User= :Id_User ,Event e WHERE p.Id_Album = :Id_Album GROUP BY p.Id_Picture ")
         		.addEntity(Picture.class)
         		.addEntity(Rating.class)
         		.addEntity(Event.class)

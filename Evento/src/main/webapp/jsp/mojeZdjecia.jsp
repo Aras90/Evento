@@ -29,6 +29,7 @@
               			</a>                     
                         <s:property value="picturesList [# stat.index][0].Name" />   <br>
                         Utworzono: 	<s:property value="picturesList [# stat.index][0].CreatedAt" />   <br>
+                         <input id="<s:property value="#stat.index" />" type="checkbox" name="<s:property value="picturesList [# stat.index][0].Link" />" onclick="javascript:check('<s:property value="#stat.index" />');" value="bar" /> 
 					<!-- 	<div class="rating" data-average="0" data-id=" <s:property value="picturesList [# stat.index][0].Id_Picture" />" data-glos="<s:property value="picturesList [# stat.index][1].Value" />"></div>
 							 
                         
@@ -61,5 +62,96 @@
                        -->
 						
                 </s:iterator>
+            <div class="zippp"> 
+
+
+                <input id="elo" type="submit" value="GenerateZip" onclick="checkButtonZIP()"/> 
+                <div id="hidenZip" style="display:none;" class="answer_list" > 
+                <s:url id="fileDownload" namespace="/" action="pobierzZip.action" ></s:url> 
+                <s:a href="%{fileDownload}">Pobierz</s:a> 
+                </div> 
+                </div> 
+
+                <div class="pdfff"> 
+                <input id="pdf" type="submit" value="GeneratePDF" onclick="checkButtonPDF()"/> 
+                <div id="hidenPdf" style="display:none;" class="answer_list" > 
+                <s:url id="DownloadPdf" namespace="/" action="pobierzPdf.action" ></s:url> 
+                <s:a href="%{DownloadPdf}">Pobierz</s:a> 
+                </div> 
+                </div> 
+
+            <script>  
+
+                  function checkButtonZIP(){ 
+                      var invoke=[]; 
+                      var licz=0; 
+                        console.log('W button przed petla'); 
+                                <s:iterator value="picturesList" status="stat"> 
+
+                                console.log(licz); 
+                                if(document.getElementById(<s:property value="#stat.index" />).checked){ 
+
+                                    var link=document.getElementById(<s:property value="#stat.index" />).name; 
+                                    invoke[licz]=(link); 
+                                    console.log(invoke); 
+                                    licz=licz+1; 
+
+                                }    
+
+                                </s:iterator> 
+                                if(invoke[0]!=null ){ 
+                                $.ajaxSettings.traditional = true; 
+                                $.ajax({ 
+                                    type: 'POST', 
+                                    url: 'testZip.action', 
+                                    data: { 
+                                        invoke: invoke 
+                                    } 
+                                }); 
+                                alert("Czekaj na pojawienie sie linku Pobierz"); 
+                                setTimeout(function() {document.getElementById('hidenZip').style.display = "block";},3250) 
+
+                                } 
+                            }; 
+                      function checkButtonPDF(){ 
+                          var invoke1=[]; 
+                          var licz=0; 
+                          console.log('W button przed petla'); 
+                          <s:iterator value="picturesList" status="stat"> 
+                              console.log(licz); 
+                              if(document.getElementById(<s:property value="#stat.index" />).checked){ 
+                                  var link=document.getElementById(<s:property value="#stat.index" />).name; 
+                                  invoke1[licz]=link; 
+                                  console.log(invoke1); 
+                                  licz=licz+1; 
+
+                              }    
+
+                          </s:iterator> 
+                              if(invoke1[0]!=null ){ 
+                                  $.ajaxSettings.traditional = true; 
+                                $.ajax({ 
+                                    type: 'POST', 
+                                    url: 'convertPdf.action', 
+                                    data: { 
+                                        pdff: invoke1 
+                                    } 
+                                }); 
+                                alert("Czekaj na pojawienie sie linku Pobierz"); 
+                                setTimeout(function() {document.getElementById('hidenPdf').style.display = "block";},3250); 
+
+                              } 
+
+                      };            
+
+
+
+
+
+
+
+
+
+            </script> 
           </div>
           <br style="clear:both">
