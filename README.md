@@ -10,7 +10,7 @@ Co potrzeba?
 - Eclipse IDE for Java EE Developers
 
 2.Ponadto trzeba dodaæ w pliku hosts w œcie¿ce: Windows\System32\drivers\etc wpis:
-127.0.0.1 www.evento.com
+-127.0.0.1 www.evento.com
 
 3. Server mysql musi mieæ ustawiony:
 -login: root
@@ -18,9 +18,7 @@ Co potrzeba?
 
 4.W mysql workbench trzeba stworzyæ schemat o nazwie: eventoo_db
 
-5. W bazie musi byæ u¿ytkownik z wype³nionym adresem email za pomoc¹ którego bêdziecie siê logowaæ przez fb, skydrive albo dropbox.
-Schemat naszej bazy:
-https://docs.google.com/file/d/0B_GeNWigRVmMcWlqa3dEdFktU0k/edit?usp=sharing
+5. W bazie musi byæ u¿ytkownik z wype³nionym adresem email za pomoc¹ którego bêdziecie siê logowaæ przez fb, skydrive albo dropbox. Schemat naszej bazy: https://docs.google.com/file/d/0B_GeNWigRVmMcWlqa3dEdFktU0k/edit?usp=sharing
 
 Jak logujemy siê na stronê ?
 ------------------------------------
