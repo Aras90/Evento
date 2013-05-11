@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -286,5 +287,126 @@ public class DAO {
     	
     	return query.list();
     }
+    
+    
+    public List<Picture> getPicturesListWithoutAlbum(String Email, long Id_Album){
+    	Query query =  getSession().createSQLQuery("SELECT * from picture p, user u where p.Id_Album=:Id_Album and u.Email=:Email ").addEntity(Picture.class);
+    	query.setParameter("Id_Album", Id_Album);
+    	return query.list();
+    }
+ 
+    public void assignPictureToAlbum(long Id_Picture, long Id_Album) {
+    	
+    			Session session = getSession();
+    			Transaction transaction = session.beginTransaction();
+    	
+    	
+    			transaction.commit();
+    			session.close(); 	
+    		}
+    
+    public List<Event> getEventDataById(Event Id_Event, String Email){
+    	Query query =  getSession().createSQLQuery("SELECT * from event e, user u where e.Id_Event = :Id_Event and u.Email:=Email ").addEntity(Event.class);
+    	query.setParameter("Id_Event", Id_Event);
+    	query.setParameter("Email", Email);
+    	
+    	return query.list();
+    }
+    
+    public void createNewAlbum(List choosenList, Event event, long User_Id){
+    	System.out.println(" &&&&&&&&&&&&& Ceate new Album -zmiana 4 ###################");
+    	
+
+    	Album album = new Album();
+    	album.setCreatedAt("2012-05-05");
+    	album.setId_Event(event);
+    	
+    	
+       
+    	
+    	
+    	Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		transaction.begin();
+		
+		session.saveOrUpdate(album);
+    	
+		long Id_Album = getNewAlbumId(session);
+	       long Id_Event = event.getId_Event();
+	 	
+		
+    	
+    	
+    	//session.save(album);
+    	
+    	 
+        String eventUpdateHql = "update Event e set e.Id_Album = :Id_Album where e.Id_Event = :Id_Event";
+		int updatedEvent = session.createQuery(eventUpdateHql)
+				.setLong("Id_Album", Id_Album)
+				.setLong("Id_Event", Id_Event).executeUpdate();
+     
+    	
+    	for(int i=0; i < choosenList.size(); i++){
+    		String Id_Picture = (String) choosenList.get(i);
+    		System.out.println(Id_Picture);
+    		String hqlUpdate = "update Picture c set c.Id_Album = :Id_Album where c.Id_Picture = :Id_Picture";
+    		int updatedEntities = session.createQuery(hqlUpdate)
+    				.setString("Id_Picture", Id_Picture)
+    				.setLong("Id_Album", Id_Album).executeUpdate();
+    	}
+    	
+    	
+    	transaction.commit();
+		session.close();
+		
+    }
+ 
+    
+    public Long getNewAlbumId(Session session){
+    	
+    	long Id_Album;
+    	
+    	String HQL_QUERY = "select max(Id_Album) from Album a";
+        Query query = session.createQuery(HQL_QUERY);
+        System.out.println(query.list().get(0) + " rozmiar listy ");
+        if(query.list().get(0) != null){
+        	Id_Album = (Long) query.list().get(0);
+        }else{
+        	Id_Album =1;
+        }
+        
+        System.out.println(Id_Album + " idAlbumu");
+        
+      
+        	return Id_Album;       
+    }
+    
+    
+    public List<Event> getEventDataWhichHaveAlbum(String Email){
+    	Query query =  getSession().createSQLQuery("SELECT * from event e, user u where e.Id_Album is not null and u.Email=:Email").addEntity(Event.class);
+    	query.setParameter("Email", Email);
+    	
+    	return query.list();
+    }
+    
+    
+    public List<Picture> getPictureToPublish(String Email,long Id_Album){
+    	Query query =  getSession().createSQLQuery("SELECT * from picture p, user u where p.Id_Album is not null and u.Email=:Email and p.Id_Album=:Id_Album").addEntity(Picture.class);
+    	query.setParameter("Email", Email);
+    	query.setParameter("Id_Album", Id_Album);
+    	
+    	
+    	
+    	
+    	return query.list();
+    }
+    
+    public List getEventListWithoutAlbum(long Id_User){
+    	Query query =  getSession().createSQLQuery("select * from event where Id_Album is null and Id_User=:Id_User").addEntity(Event.class);
+    	query.setParameter("Id_User", Id_User);
+    	return query.list();
+    	
+    }
+    
  
 }

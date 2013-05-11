@@ -92,6 +92,7 @@ public class FacebookCallback extends ActionSupport implements SessionAware {
                 session.clear(); 
                 session.put("idUser", id);
                 session.put("login", "fb");
+                session.put("email", email);
                 
             } else if (idList.size()==0){ 
                 

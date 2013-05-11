@@ -2,6 +2,26 @@
 <style>
 	#main{padding-bottom: 0}
 </style>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+ <div id="dialog" title="Example"></div>
+	
+<s:set name="Name" value="albumEventList [# stat.index][0].Name" />
+<s:form action="publishAlbumAction">	
+	Albumy: <select name="choosenEvent" id="choosenEventId"> 
+		<s:iterator value="albumEventList" status="stat">
+		    <option value="<s:property value="Id_Event" />"><s:property value="Name" /></option> 
+		 </s:iterator>
+	</select> 
+	<s:submit label="Zapisz" value="Publikuj" />
+</s:form>	
+
+
+
+
+
 <div class="title">Moje Imprezy</div>     	
         		<div class="zdjecia">
                 <s:iterator value="albumList" status="stat"> 

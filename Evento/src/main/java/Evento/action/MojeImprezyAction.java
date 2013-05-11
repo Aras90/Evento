@@ -25,8 +25,15 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     private List picturesList;
     DAO mc = new DAO();
     private Map<String, Object> session;
+    private List<Event> albumEventList;
    
-    public String getPictureLink(long Id_Album){
+    public List<Event> getAlbumEventList() {
+		return albumEventList;
+	}
+	public void setAlbumEventList(List<Event> albumEventList) {
+		this.albumEventList = albumEventList;
+	}
+	public String getPictureLink(long Id_Album){
     	picturesList = mc.getPicturesList(Id_Album);
     	Random r = new Random(); 
     	int a = r.nextInt(picturesList.size());
@@ -42,7 +49,10 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     public String execute() throws Exception {
             
     	session = ActionContext.getContext().getSession();
+    	String email = (String)session.get("email");
+    	System.out.println(email);
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
+    	albumEventList = mc.getEventDataWhichHaveAlbum(email);
     	if(id == 0){
     		return ERROR;
     	}
