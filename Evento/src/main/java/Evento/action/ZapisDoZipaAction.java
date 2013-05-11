@@ -27,6 +27,11 @@ import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.JFileChooser;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -37,7 +42,7 @@ import com.opensymphony.xwork2.conversion.annotations.Conversion;
  * 
  */
 @Conversion()
-public class ZapisDoZipaAction extends ActionSupport {
+public class ZapisDoZipaAction extends ActionSupport implements ServletRequestAware  {
     
 	/**
 	 * 
@@ -46,17 +51,18 @@ public class ZapisDoZipaAction extends ActionSupport {
 	static String destinationFile;
 	private InputStream is;
 	private ZipOutputStream outStream;
+	private HttpServletRequest servletRequest;
 	private String katalog;
 	private String [] invoke;
-	
-    
-
-	
+    public static ZapisDoZipaAction zapis=new ZapisDoZipaAction();
+    private String zipFileName;
 	
 	
 	
-    public void createZipFile(String[] imageUrl,String zipFileName) throws FileNotFoundException {
-    	outStream = new ZipOutputStream(new FileOutputStream(zipFileName));
+	
+    public void createZipFile(String[] imageUrl,String path) throws FileNotFoundException {
+         File selectedFile =  new File(path, "nowy.zip");;
+    	outStream = new ZipOutputStream(new FileOutputStream(selectedFile));
         try {
         	
         	for(int j=0;j<imageUrl.length;j++){
@@ -90,6 +96,7 @@ public class ZapisDoZipaAction extends ActionSupport {
         }
     }
     
+    
 
    
 		
@@ -98,8 +105,10 @@ public class ZapisDoZipaAction extends ActionSupport {
 
 	public String execute() throws Exception {
 		
-		ZapisDoZipaAction zapis=new ZapisDoZipaAction();
-		 zapis.createZipFile(invoke,"nowy2.zip");
+		String filePath = servletRequest.getRealPath("/");
+		System.out.println("Server path:" + filePath);
+		
+		 zapis.createZipFile(invoke,filePath);
 		
 		 return SUCCESS;
     }
@@ -134,6 +143,37 @@ public class ZapisDoZipaAction extends ActionSupport {
 	}
 
 
+
+
+
+
+
+	public String getZipFileName() {
+		return zipFileName;
+	}
+
+
+
+
+
+
+
+	public void setZipFileName(String zipFileName) {
+		this.zipFileName = zipFileName;
+	}
+
+
+
+
+
+
+
+	public void setServletRequest(HttpServletRequest servletRequest) {
+		this.servletRequest = servletRequest;
+		
+	}
+
+    
 
 	
 
