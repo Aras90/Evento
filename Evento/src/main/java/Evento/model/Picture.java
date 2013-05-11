@@ -13,6 +13,7 @@ public class Picture {
     private String Name;
     private String CreatedAt;
     private String Link;
+    private String TymczasowyBezposredniLink;
     private Event Id_Event;
     private Album Id_Album;
     private User Id_User;
@@ -20,7 +21,24 @@ public class Picture {
     public Picture() {
     }
 
-    public Picture(long Id_Picture, String Name, String CreatedAt, String Link, Event Id_Event, Album Id_Album, User Id_User) {
+    
+   
+
+	public Picture(long id_Picture, String name, String createdAt, String link, String tymczasowyBezposredniLink, Event id_Event, Album id_Album, User id_User) {
+		this.Id_Picture = id_Picture;
+		this.Name = name;
+		this.CreatedAt = createdAt;
+		this.Link = link;
+		this.TymczasowyBezposredniLink = tymczasowyBezposredniLink;
+		this.Id_Event = id_Event;
+		this.Id_Album = id_Album;
+		this.Id_User = id_User;
+	}
+
+
+
+
+	public Picture(long Id_Picture, String Name, String CreatedAt, String Link, Event Id_Event, Album Id_Album, User Id_User) {
         this.Id_Picture = Id_Picture;
         this.Name = Name;
         this.CreatedAt = CreatedAt;
@@ -48,6 +66,16 @@ public class Picture {
 		// TODO Auto-generated constructor stub
 	}
 
+    public String getTymczasowyBezposredniLink() {
+		return TymczasowyBezposredniLink;
+	}
+
+
+	public void setTymczasowyBezposredniLink(String tymczasowyBezposredniLink) {
+		TymczasowyBezposredniLink = tymczasowyBezposredniLink;
+	}
+
+    
 	public Event getId_Event() {
         return Id_Event;
     }

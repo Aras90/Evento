@@ -6,6 +6,7 @@
       <property column="Name" name ="Name" type = "string" not-null="true"></property>
       <property column="CreatedAt" name ="CreatedAt" type = "string"></property>
       <property column="Link" name ="Link" type = "string"></property>
+      <property column="TymczasowyBezposredniLink" name ="TymczasowyBezposredniLink" type = "string"></property>
       <many-to-one name="Id_User" column="Id_User" class="Evento.model.User" not-null="true" foreign-key="fk_picture_user" ></many-to-one>
       <many-to-one name="Id_Event" column="Id_Event" class="Evento.model.Event" not-null="true" foreign-key="fk_picture_event" ></many-to-one>
       <many-to-one name="Id_Album" column="Id_Album" class="Evento.model.Album" foreign-key="fk_picture_album" ></many-to-one>
