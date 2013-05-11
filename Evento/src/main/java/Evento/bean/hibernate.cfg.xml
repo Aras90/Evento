@@ -10,7 +10,7 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.connection.autocommit">true</property> 
-	<property name="hibernate.connection.autoReconnect">true</property> 
+	<property name="hibernate.connection.autoReconnectForPools">true</property> 
     <mapping resource="Evento/model/UserMapping.hbm.xml"/>
     <mapping resource="Evento/model/RatingMapping.hbm.xml"/>
     <mapping resource="Evento/model/PictureMapping.hbm.xml"/>
