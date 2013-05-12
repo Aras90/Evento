@@ -52,15 +52,15 @@ public class ZapisDoZipaAction extends ActionSupport implements ServletRequestAw
 	private InputStream is;
 	private ZipOutputStream outStream;
 	private HttpServletRequest servletRequest;
-	private String katalog;
 	private String [] invoke;
+	private String [] namePhoto;
     public static ZapisDoZipaAction zapis=new ZapisDoZipaAction();
     private String zipFileName;
 	
 	
 	
 	
-    public void createZipFile(String[] imageUrl,String path) throws FileNotFoundException {
+    public void createZipFile(String[] imageUrl,String[] imageName,String path) throws FileNotFoundException {
          File selectedFile =  new File(path, "nowy.zip");;
     	outStream = new ZipOutputStream(new FileOutputStream(selectedFile));
         try {
@@ -72,7 +72,7 @@ public class ZapisDoZipaAction extends ActionSupport implements ServletRequestAw
            
             
            
-            	outStream.putNextEntry(new ZipEntry(j+".jpg"));
+            	outStream.putNextEntry(new ZipEntry(imageName[j]+".jpg"));
             	 byte[] buffer = new byte[1024];
                  int bytesRead;
                  
@@ -108,7 +108,7 @@ public class ZapisDoZipaAction extends ActionSupport implements ServletRequestAw
 		String filePath = servletRequest.getRealPath("/");
 		System.out.println("Server path:" + filePath);
 		
-		 zapis.createZipFile(invoke,filePath);
+		 zapis.createZipFile(invoke,namePhoto,filePath);
 		
 		 return SUCCESS;
     }
@@ -133,14 +133,29 @@ public class ZapisDoZipaAction extends ActionSupport implements ServletRequestAw
 	}
 
 
-	public String getKatalog() {
-		return katalog;
+	
+
+
+
+
+
+
+
+	public String[] getNamePhoto() {
+		return namePhoto;
 	}
 
 
-	public void setKatalog(String katalog) {
-		this.katalog = katalog;
+
+
+
+
+
+
+	public void setNamePhoto(String[] namePhoto) {
+		this.namePhoto = namePhoto;
 	}
+
 
 
 

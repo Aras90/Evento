@@ -15,49 +15,95 @@
  */
 package Evento.action;
 
+import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
+import com.itextpdf.text.pdf.GrayColor;
 
 /**
  * 
  */
 @Conversion()
-public class ZapisDoPdfAction extends ActionSupport implements ServletRequestAware {
+public class ZapisDoPdfAction extends ActionSupport implements
+		ServletRequestAware {
 	private static final long serialVersionUID = 1L;
 	private String[] pdff;
-	private String katalog1;
+	private String nameAlbum;
+	private float szerokosc = 875;
+	private float wysokosc = 600;
+	private String zdjecieTla = "http://www.wallsoc.com/images/1024x768/2012/08/03/black-red-202217.jpg";
 	private HttpServletRequest servletRequest;
 
-	public void createPDF(String[] imgURL, String place) {
+	public void createPDF(String[] imgURL, String place, String album)
+			throws DocumentException {
 		Document document = new Document();
+		Rectangle pageSize = new Rectangle(szerokosc, wysokosc);
+		document.setPageSize(pageSize);
 
 		try {
-			PdfWriter.getInstance(document, new FileOutputStream(new File(place,"nowy.pdf")));
+
+			PdfWriter.getInstance(document, new FileOutputStream(new File(
+					place, "nowy.pdf")));
 			document.open();
-			 Paragraph preface = new Paragraph();
-			 preface.add("NazwaALbumu");
+
+			Image tlo = Image.getInstance(new URL(zdjecieTla));
+			tlo.setAbsolutePosition(0f, 0f);
+			document.add(tlo);
+			Paragraph preface = new Paragraph(album, new Font(
+					FontFamily.HELVETICA, 72, Font.BOLDITALIC, new BaseColor(
+							255, 255, 255)));
+			preface.setAlignment(Element.ALIGN_CENTER);
 			document.add(preface);
+			document.newPage();
 			for (int i = 0; i < imgURL.length; i++) {
-				
+
+				Image tlo2 = Image.getInstance(new URL(zdjecieTla));
+				tlo2.setAbsolutePosition(0f, 0f);
+				document.add(tlo2);
 				Image image2 = Image.getInstance(new URL(imgURL[i]));
-				image2.scaleAbsolute(250f, 250f);
-				
+				if (szerokosc * 0.8f <= image2.getWidth()
+						|| wysokosc * 0.8f <= image2.getHeight()) {
+					image2.scaleAbsolute(image2.getWidth() * 0.85f,
+							image2.getHeight() * 0.85f);
+
+					image2.setAbsolutePosition(
+							szerokosc / 2f - (image2.getWidth() * 0.85f) / 2,
+							wysokosc / 2 - (image2.getHeight() * 0.85f) / 2);
+				} else {
+					image2.scaleAbsolute(image2.getWidth(), image2.getHeight());
+					image2.setAbsolutePosition(
+							szerokosc / 2f - (image2.getWidth()) / 2, wysokosc
+									/ 2 - (image2.getHeight()) / 2);
+				}
 				document.add(image2);
-				
+				document.newPage();
 			}
 
 			document.close();
@@ -71,7 +117,8 @@ public class ZapisDoPdfAction extends ActionSupport implements ServletRequestAwa
 		ZapisDoPdfAction pdf = new ZapisDoPdfAction();
 		String filePath = servletRequest.getRealPath("/");
 		System.out.println("Server path:" + filePath);
-		pdf.createPDF(pdff, filePath);
+		pdf.createPDF(pdff, filePath, nameAlbum);
+
 		return SUCCESS;
 	}
 
@@ -83,16 +130,17 @@ public class ZapisDoPdfAction extends ActionSupport implements ServletRequestAwa
 		this.pdff = pdff;
 	}
 
-	public String getKatalog1() {
-		return katalog1;
+	public String getNameAlbum() {
+		return nameAlbum;
 	}
 
-	public void setKatalog1(String katalog1) {
-		this.katalog1 = katalog1;
+	public void setNameAlbum(String nameAlbum) {
+		this.nameAlbum = nameAlbum;
 	}
+
 	public void setServletRequest(HttpServletRequest servletRequest) {
 		this.servletRequest = servletRequest;
-		
+
 	}
 
 }

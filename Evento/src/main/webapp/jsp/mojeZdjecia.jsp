@@ -62,35 +62,38 @@
                        -->
 						
                 </s:iterator>
-            <div class="zippp"> 
+            <br>
+            <div class="zippp" style="display: inline-block; margin-top:15px"> 
+            	<input id="elo" type="submit"  value="Generuj Zipa" onclick="checkButtonZIP()"/> 
+            	<div id="Loading" style="display:none;">Loading...</div>
+	                <div id="hidenZip" style="display:none;" class="answer_list" > 
+	                <s:url id="fileDownload" namespace="/" action="pobierzZip.action" ></s:url> 
+	                <s:a href="%{fileDownload}" onclick="UkryjZ()">Pobierz</s:a> 
+                </div> 
+            </div> 
 
-
-                <input id="elo" type="submit" value="GenerateZip" onclick="checkButtonZIP()"/> 
-                <div id="hidenZip" style="display:none;" class="answer_list" > 
-                <s:url id="fileDownload" namespace="/" action="pobierzZip.action" ></s:url> 
-                <s:a href="%{fileDownload}">Pobierz</s:a> 
+            <div class="pdfff" style="display: inline-block;margin-top:15px"> 
+                <input id="pdf" type="submit"  value="Generuj album w PDF" onclick="checkButtonPDF()"/> 
+                 <div id="Loading1" style="display:none;">Loading...</div>
+	                <div id="hidenPdf" style="display:none;" class="answer_list" > 
+	                <s:url id="DownloadPdf" namespace="/" action="pobierzPdf.action" ></s:url> 
+	                <s:a href="%{DownloadPdf}" onclick="UkryjP()">Pobierz</s:a> 
                 </div> 
-                </div> 
-
-                <div class="pdfff"> 
-                <input id="pdf" type="submit" value="GeneratePDF" onclick="checkButtonPDF()"/> 
-                <div id="hidenPdf" style="display:none;" class="answer_list" > 
-                <s:url id="DownloadPdf" namespace="/" action="pobierzPdf.action" ></s:url> 
-                <s:a href="%{DownloadPdf}">Pobierz</s:a> 
-                </div> 
-                </div> 
+            </div> 
 
             <script>  
 
                   function checkButtonZIP(){ 
                       var invoke=[]; 
+                      var namePhoto=[];
                       var licz=0; 
                         console.log('W button przed petla'); 
                                 <s:iterator value="picturesList" status="stat"> 
 
                                 console.log(licz); 
                                 if(document.getElementById(<s:property value="#stat.index" />).checked){ 
-
+                                	var nameP="<s:property value="picturesList [# stat.index][0].Name" />";
+                                	namePhoto[licz]=(nameP);
                                     var link=document.getElementById(<s:property value="#stat.index" />).name; 
                                     invoke[licz]=(link); 
                                     console.log(invoke); 
@@ -105,21 +108,25 @@
                                     type: 'POST', 
                                     url: 'testZip.action', 
                                     data: { 
-                                        invoke: invoke 
+                                        invoke: invoke,
+                                        namePhoto:namePhoto
                                     } 
                                 }); 
-                                alert("Czekaj na pojawienie sie linku Pobierz"); 
-                                setTimeout(function() {document.getElementById('hidenZip').style.display = "block";},3250) 
+                                $('#Loading').show();
+                                setTimeout(function() {$('#Loading').hide(); document.getElementById('hidenZip').style.display = "block";},3250) 
 
                                 } 
                             }; 
                       function checkButtonPDF(){ 
                           var invoke1=[]; 
+                         
+                          var albumN=new String("<s:property value="Name" />");
                           var licz=0; 
                           console.log('W button przed petla'); 
                           <s:iterator value="picturesList" status="stat"> 
                               console.log(licz); 
                               if(document.getElementById(<s:property value="#stat.index" />).checked){ 
+                            	  
                                   var link=document.getElementById(<s:property value="#stat.index" />).name; 
                                   invoke1[licz]=link; 
                                   console.log(invoke1); 
@@ -134,22 +141,23 @@
                                     type: 'POST', 
                                     url: 'convertPdf.action', 
                                     data: { 
-                                        pdff: invoke1 
+                                        pdff: invoke1,
+                                        nameAlbum: albumN
                                     } 
                                 }); 
-                                alert("Czekaj na pojawienie sie linku Pobierz"); 
-                                setTimeout(function() {document.getElementById('hidenPdf').style.display = "block";},3250); 
+                                $('#Loading1').show();
+                                setTimeout(function() {$('#Loading1').hide(); document.getElementById('hidenPdf').style.display = "block";},3250); 
 
                               } 
 
-                      };            
-
-
-
-
-
-
-
+                      };  
+                      
+                      function UkryjZ(){
+                    	  document.getElementById('hidenZip').style.display = "none";
+                      };
+                      function UkryjP(){
+                    	  document.getElementById('hidenPdf').style.display = "none";
+                      };
 
 
             </script> 
