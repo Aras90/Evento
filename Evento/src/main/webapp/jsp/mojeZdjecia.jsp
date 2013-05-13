@@ -1,4 +1,4 @@
-<%@taglib uri="/struts-tags" prefix="s"%>
+﻿<%@taglib uri="/struts-tags" prefix="s"%>
 <style>
 #main {
 	padding-bottom: 0
@@ -35,9 +35,9 @@
 				data-fancybox-group="gallery"
 				data-id="<s:property value="picturesList [# stat.index][0].Id_Picture" />"
 				data-glos="<s:property value="picturesList [# stat.index][1].Value" />"
-				href="<s:property value="picturesList [# stat.index][0].Link" />">
+				href="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />">
 				<img rel="foto"
-				src="<s:property value="picturesList [# stat.index][0].Link" />" />
+				src="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />" />
 				<br>
 			</a>
 			<s:property value="picturesList [# stat.index][0].Name" />
