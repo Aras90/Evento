@@ -4,11 +4,19 @@
  */
 package Evento.bean;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 import Evento.model.*;
+import Evento.skydrive.SkydriveCallBack;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -16,6 +24,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Verb;
 
 /**
  *
@@ -407,6 +418,136 @@ public class DAO {
     	return query.list();
     	
     }
+    
+    
+  //zwraca liste zdjec zalogowanego uzytkownika
+    public void getUserPictures(long Id_User){
+        Query query =  getSession().createSQLQuery("Select * from Picture as p, User as u where p.Id_User = u.Id_User AND u.Id_User = :Id_User ")
+        		.addEntity(Picture.class);
+        		//.addEntity(User.class);
+        query.setParameter("Id_User", Id_User);
+        getLinkList(query.list());
+    }
+    
+    public void getLinkList(List list){
+    	List lista = list;
+    	List<String> listaZLinkami = new ArrayList<String>();
+    	java.util.ListIterator li = lista.listIterator();
+    	
+    	while(li.hasNext()){
+    		Picture p = (Picture) li.next();
+    		listaZLinkami.add(p.getLink());  		
+    	}
+
+    	
+    	String tmpLink = "";
+    	for(int i=0;i<listaZLinkami.size();i++){
+    		tmpLink = listaZLinkami.get(i);
+    		if(tmpLink.substring(0, "https://skydrive".length()).equals("https://skydrive")){
+    			transformSkyDriveLink(listaZLinkami.get(i));
+    		}else if(tmpLink.substring(0, "http://db".length()).equals("http://db")){
+    			transformDropBoxLink(listaZLinkami.get(i));
+    		}else{
+    			System.out.println("przepisuje");
+    			replace(listaZLinkami.get(i),listaZLinkami.get(i));
+    		}
+    	}
+    	
+        
+    }
+    
+    
+	public void replace(String s1, String s2){
+    	Session session = getSession();
+    	//w workbenchu musialem to zrobic zeby update zrobic
+    	//Query query1 =  session.createQuery("SET SQL_SAFE_UPDATES=0");
+    	Transaction tr = session.beginTransaction();
+    	
+    	Query query =  session.createQuery("UPDATE Picture set TymczasowyBezposredniLink = :LinkTmp where Link = :Link");
+    	query.setString("Link", s1);
+    	query.setString("LinkTmp", s2).executeUpdate();
+    	tr.commit();
+    	
+    	//session.close();
+    }
+    
+    
+    public void transformDropBoxLink(String s1){
+    	String shareAddress = getShareURL(s1).replaceFirst("https://www", "https://dl");
+		shareAddress += "?dl=1";
+		System.out.println("dropbox share link " + shareAddress);
+		replace(s1 , shareAddress);
+		
+    
+    }
+    
+    public static String getShareURL(String strURL) {
+		URLConnection conn = null;
+		try {
+			URL inputURL = new URL(strURL);
+			conn = inputURL.openConnection();
+
+		} catch (MalformedURLException e) {
+			System.out.println("zjebalo sie 1");
+		} catch (IOException ioe) {
+			System.out.println("zjebalo sie 2");
+		}
+
+		return conn.getHeaderField("location");
+
+	}
+    
+    
+    
+    public void transformSkyDriveLink(String s1){
+    	
+    	String s = s1;
+    	//String skyLink = "https://apis.live.net/v5.0/photo.938823656776a0a0.938823656776A0A0!111?access_token="
+    	String skyLink = "https://apis.live.net/v5.0/photo.";
+    	    	
+    	//wycinanie cida
+		int index = s.indexOf("cid="); //Szukasz wzorca  
+			if(index == -1) return ; // nie znalazl  
+			String cid = s.substring(index+"cid=".length()); 
+			index = cid.indexOf("&");
+			cid = cid.substring(0, index);
+			skyLink += cid;
+			skyLink += ".";
+			
+		//wycinanie id i sklejenie linku 
+		int index1 = s.indexOf("&resid=");
+			if(index1 == -1) return; // nie znalazl  
+			String id = s.substring(index1+"&resid=".length()); 
+			index1 = id.indexOf("&");
+			id = id.substring(0, index1);
+			skyLink += id;
+			skyLink += "?access_token=";
+			
+			System.err.println("before \n\n\n\n\n");
+			if(SkydriveCallBack.accessToken != null){
+				System.err.println("after \n\n\n\n\n");
+				skyLink += SkydriveCallBack.accessToken.getToken().toString();
+				OAuthRequest request = new OAuthRequest(Verb.GET, skyLink );
+		        Response response = request.send();
+		        
+		        String responseS = response.getBody();
+
+		        //wycinanie source
+		        int index2 = responseS.indexOf("\"source\": \""); 
+		       
+		        if(index2 == -1) return; // nie znalazl  
+					String source = responseS.substring(index2+"\"source\": \"".length()); 
+					int index3 = source.indexOf("\"");
+					source = source.substring(0, index3);
+					replace(s1 , source);
+			}
+			
+			
+			
+		System.out.println("koniec skydrive");		
+			
+    }
+    
     
  
 }

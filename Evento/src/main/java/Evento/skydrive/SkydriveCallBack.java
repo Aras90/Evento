@@ -30,7 +30,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
     private static final Token EMPTY_TOKEN = null;
     private static final String PROTECTED_RESOURCE_URL = "https://apis.live.net/v5.0/me";
     private static final String redirectURL = "https://login.live.com/oauth20_logout.srf?client_id=00000000480F1854&redirect_uri=http://www.evento.com:8080/Evento/";
-    
+    public static Token accessToken;
     @Override
     public String execute() {
     	
@@ -47,13 +47,14 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         }
 
         System.err.println("VERIFIER: " + this.getOauth_verifier());
-        Token accessToken = SkyDriveService.getAccessToken(EMPTY_TOKEN, new Verifier(this.getOauth_verifier()));
+        accessToken = SkyDriveService.getAccessToken(EMPTY_TOKEN, new Verifier(this.getOauth_verifier()));
         System.err.println("accessToken: "+accessToken.getToken());
         OAuthRequest request = new OAuthRequest(Verb.GET, PROTECTED_RESOURCE_URL);
         request.setCharset("UTF-8");
         SkyDriveService.signRequest(accessToken, request);
         Response response2 = request.send();
         
+       // System.out.println("sex  a  a a a ");
         System.err.println(response2.getBody());
         
         String tmp = response2.getBody();        
@@ -78,7 +79,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         } else if (idList.size()==0){ 
             
         	id = 0;
-            System.err.println("Dodalem do sesji brak"); 
+            System.err.println("Dodalem do sesji brak ab"); 
             session.clear(); 
             session.put("idUser", id);
             session.put("login", "nic");
@@ -94,12 +95,15 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         String name = tmp.substring(i+8, j);
         session.put("name", name);
         
-       
+        
+        
         
         //PRZYKLAD pobierania dokladniego linku ze skydrive ( wynik trzeba przeparsowac)
-        OAuthRequest request1 = new OAuthRequest(Verb.GET, "https://apis.live.net/v5.0/photo.938823656776a0a0.938823656776A0A0!111?access_token="+accessToken.getToken() );
-        Response response3 = request1.send();
-        System.err.println(response3.getBody());
+      //  OAuthRequest request1 = new OAuthRequest(Verb.GET, "https://apis.live.net/v5.0/photo.938823656776a0a0.938823656776A0A0!111?access_token="+accessToken.getToken() );
+      //  Response response3 = request1.send();
+        //System.out.println(" a a  a a a a a  a a a");
+        //System.err.println(response3.getBody());
+        mc.getUserPictures(id);
         
         
     	return SUCCESS;

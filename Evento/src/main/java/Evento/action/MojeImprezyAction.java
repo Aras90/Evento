@@ -37,7 +37,7 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     	picturesList = mc.getPicturesList(Id_Album);
     	Random r = new Random(); 
     	int a = r.nextInt(picturesList.size());
-    	return ((Picture)picturesList.get(a)).getLink();
+    	return ((Picture)picturesList.get(a)).getTymczasowyBezposredniLink();
     }
     public List getAlbumList() {return albumList; }
     public void setAlbumList(long idUser){
