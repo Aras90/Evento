@@ -24,7 +24,7 @@
 <div class="zdjecia">
 	<s:iterator value="picturesList" status="stat">
 		<!--                    
-                        <img src="<s:property value="Link" />" /> <br>                      
+                        <img src="<s:property value="TymczasowyBezposredniLink" />" /> <br>                      
                         nazwa:	<s:property value="Name" />   <br>
                         data: 	<s:property value="CreatedAt" />   <br>
               			-->
@@ -35,9 +35,9 @@
 				data-fancybox-group="gallery"
 				data-id="<s:property value="picturesList [# stat.index][0].Id_Picture" />"
 				data-glos="<s:property value="picturesList [# stat.index][1].Value" />"
-				href="<s:property value="picturesList [# stat.index][0].Link" />">
+				href="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />">
 				<img rel="foto"
-				src="<s:property value="picturesList [# stat.index][0].Link" />" />
+				src="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />" />
 				<br>
 			</a>
 			<s:property value="picturesList [# stat.index][0].Name" />
@@ -45,7 +45,7 @@
 			<s:property value="picturesList [# stat.index][0].CreatedAt" />
 			<br> <input id="<s:property value="#stat.index" />"
 				type="checkbox"
-				name="<s:property value="picturesList [# stat.index][0].Link" />"
+				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"
 				onclick="javascript:check('<s:property value="#stat.index" />');"
 				value="bar" />
 			<!-- 	<div class="rating" data-average="0" data-id=" <s:property value="picturesList [# stat.index][0].Id_Picture" />" data-glos="<s:property value="picturesList [# stat.index][1].Value" />"></div>
