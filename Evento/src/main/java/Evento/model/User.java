@@ -15,6 +15,8 @@ public class User {
     private String CreatedAt; //timestamp?
     private String EditetAt;
     private String Email;
+    private String CloudType;
+    private String CloudLogin;
 
     public User() {
     }
@@ -89,6 +91,22 @@ public class User {
     public void setEmail(String Email) {
         this.Email = Email;
     }
+
+	public String getCloudType() {
+		return CloudType;
+	}
+
+	public void setCloudType(String cloudType) {
+		CloudType = cloudType;
+	}
+
+	public String getCloudLogin() {
+		return CloudLogin;
+	}
+
+	public void setCloudLogin(String cloudLogin) {
+		CloudLogin = cloudLogin;
+	}
 
     
 }

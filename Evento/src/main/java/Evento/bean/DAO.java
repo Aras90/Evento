@@ -233,7 +233,7 @@ public class DAO {
     	
     	
     	
-    	Query query =  getSession().createSQLQuery("Select * from User where Email = '" +email+"'").addEntity(User.class);
+    	Query query =  getSession().createSQLQuery("Select * from User where CloudLogin = '" +email+"'").addEntity(User.class);
     	
         return query.list();
        

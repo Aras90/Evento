@@ -8,5 +8,7 @@
       <property column="CreatedAt" name ="CreatedAt" type = "string"></property>
       <property column="EditetAt" name ="EditetAt" type = "string"></property>
       <property column="Email" name ="Email" type = "string"></property>
+      <property column="CloudLogin" name="CloudLogin" type = "string"></property>
+      <property column="CloudType" name="CloudType" type = "string"></property>
   </class>
 </hibernate-mapping>
