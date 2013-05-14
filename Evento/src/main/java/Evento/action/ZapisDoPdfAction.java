@@ -56,8 +56,8 @@ public class ZapisDoPdfAction extends ActionSupport implements
 	private static final long serialVersionUID = 1L;
 	private String[] pdff;
 	private String nameAlbum;
-	private float szerokosc = 875;
-	private float wysokosc = 600;
+	private float szerokosc = 1024;
+	private float wysokosc = 768;
 	private String zdjecieTla = "http://www.wallsoc.com/images/1024x768/2012/08/03/black-red-202217.jpg";
 	private HttpServletRequest servletRequest;
 
@@ -88,19 +88,19 @@ public class ZapisDoPdfAction extends ActionSupport implements
 				tlo2.setAbsolutePosition(0f, 0f);
 				document.add(tlo2);
 				Image image2 = Image.getInstance(new URL(imgURL[i]));
-				if (szerokosc * 0.8f <= image2.getWidth()
-						|| wysokosc * 0.8f <= image2.getHeight()) {
-					image2.scaleAbsolute(image2.getWidth() * 0.85f,
-							image2.getHeight() * 0.85f);
-
-					image2.setAbsolutePosition(
-							szerokosc / 2f - (image2.getWidth() * 0.85f) / 2,
-							wysokosc / 2 - (image2.getHeight() * 0.85f) / 2);
-				} else {
-					image2.scaleAbsolute(image2.getWidth(), image2.getHeight());
-					image2.setAbsolutePosition(
-							szerokosc / 2f - (image2.getWidth()) / 2, wysokosc
-									/ 2 - (image2.getHeight()) / 2);
+				if (szerokosc * 1.5f <= image2.getWidth()|| wysokosc * 1.5f <= image2.getHeight()) {
+					image2.scaleAbsolute(image2.getWidth() * 0.25f,image2.getHeight() * 0.25f);
+					image2.setAbsolutePosition(szerokosc / 2f - (image2.getWidth() * 0.25f) / 2,wysokosc / 2 - (image2.getHeight() * 0.25f) / 2);
+				}else if((szerokosc * 0.8f <= image2.getWidth()|| wysokosc * 0.8f <= image2.getHeight())&&(szerokosc * 1.2f >= image2.getWidth()|| wysokosc * 1.2f >= image2.getHeight())){
+					image2.scaleAbsolute(image2.getWidth() * 0.8f,image2.getHeight() * 0.8f);
+					image2.setAbsolutePosition(szerokosc / 2f - (image2.getWidth() * 0.8f) / 2,wysokosc / 2 - (image2.getHeight() * 0.8f) / 2);
+				}else if((szerokosc * 0.4f >= image2.getWidth()|| wysokosc * 0.4f >= image2.getHeight())&&(szerokosc * 0.7f <= image2.getWidth()|| wysokosc * 0.7f <= image2.getHeight())){
+					image2.scaleAbsolute(image2.getWidth()*1.4f,image2.getHeight()*1.4f);
+					image2.setAbsolutePosition(szerokosc / 2f - (image2.getWidth()*1.4f) / 2, wysokosc/ 2 - (image2.getHeight()*1.4f) / 2);
+				}
+				else{
+					image2.scaleAbsolute(image2.getWidth(),image2.getHeight());
+					image2.setAbsolutePosition(szerokosc / 2f - (image2.getWidth()) / 2, wysokosc/ 2 - (image2.getHeight()) / 2);
 				}
 				document.add(image2);
 				document.newPage();

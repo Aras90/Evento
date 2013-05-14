@@ -94,6 +94,24 @@ public class DropboxCallBack extends ActionSupport implements SessionAware {
         	j++;
         }
         String name = tmp.substring(i+16, j);
+        if(name.contains("\\u0104")) name = name.replace("\\u0104", "•");
+        if(name.contains("\\u0105")) name = name.replace("\\u0105", "π");
+        if(name.contains("\\u0106")) name = name.replace("\\u0106", "∆");
+        if(name.contains("\\u0107")) name = name.replace("\\u0107", "Ê");
+        if(name.contains("\\u0118")) name = name.replace("\\u0118", " ");
+        if(name.contains("\\u0119")) name = name.replace("\\u0119", "Í");
+        if(name.contains("\\u0141")) name = name.replace("\\u0141", "£");
+        if(name.contains("\\u0142")) name = name.replace("\\u0142", "≥");
+        if(name.contains("\\u0143")) name = name.replace("\\u0143", "—");
+        if(name.contains("\\u0144")) name = name.replace("\\u0144", "Ò");
+        if(name.contains("\\u00d3")) name = name.replace("\\u00d3", "”");
+        if(name.contains("\\u00f3")) name = name.replace("\\u00f3", "Û");
+        if(name.contains("\\u015a")) name = name.replace("\\u015a", "å");
+        if(name.contains("\\u015b")) name = name.replace("\\u015b", "ú");
+        if(name.contains("\\u0179")) name = name.replace("\\u0179", "è");
+        if(name.contains("\\u017a")) name = name.replace("\\u017a", "ü");
+        if(name.contains("\\u017b")) name = name.replace("\\u017b", "Ø");
+        if(name.contains("\\u017c")) name = name.replace("\\u017c", "ø");
         System.err.println(name);
         
         session.put("name", name);

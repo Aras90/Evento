@@ -105,9 +105,7 @@
  			<result name="sd" type="redirect">
  				<param name="location">${redirectURL}</param>
  			</result>
- 			<result name="db" type="redirect">
- 				<param name="location">${redirectURL2}</param>
- 			</result>
+ 			<result name="db" >/jsp/logout.jsp</result>
  		</action>
  		
  		

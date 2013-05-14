@@ -1,4 +1,4 @@
-﻿<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="/struts-tags" prefix="s"%>
 <style>
 #main {
 	padding-bottom: 0
