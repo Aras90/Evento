@@ -1,4 +1,4 @@
-﻿<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="/struts-tags" prefix="s"%>
 <style>
 #main {
 	padding-bottom: 0
@@ -45,7 +45,7 @@
 			<s:property value="picturesList [# stat.index][0].CreatedAt" />
 			<br> <input id="<s:property value="#stat.index" />"
 				type="checkbox"
-				name="<s:property value="picturesList [# stat.index][0].Link" />"
+				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"
 				onclick="javascript:check('<s:property value="#stat.index" />');"
 				value="bar" />
 			<!-- 	<div class="rating" data-average="0" data-id=" <s:property value="picturesList [# stat.index][0].Id_Picture" />" data-glos="<s:property value="picturesList [# stat.index][1].Value" />"></div>
