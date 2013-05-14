@@ -72,13 +72,22 @@ public class PublishAlbumAction extends ActionSupport implements SessionAware  {
       	session = ActionContext.getContext().getSession();
 //    	String email = (String)session.get("email");
     	long id = (Long) session.get("idUser");
+    	Long Id_Album = null;
 
-    	
-    	Long Id_Album = Long.parseLong(choosenEvent);
+    	try{
+    		 Id_Album = Long.parseLong(choosenEvent);
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
 
-    	pictureList = mc.getPictureToPublish(id, Id_Album);
-    	
+    	if(Id_Album!= null){
+    		pictureList = mc.getPictureToPublish(id, Id_Album);
     		return SUCCESS;
+    	}else{
+    		return "bad";
+    	}
+    	
+    		
     	
     }
     

@@ -21,7 +21,7 @@ public class CreateNewAlbumAction extends ActionSupport implements SessionAware 
 	 */
 	private static final long serialVersionUID = 1L;
 	private List choosenList;
-	private List eventList;
+	private String eventList;
 	private Map<String, Object> session;
    private List<Event> albumList;
    
@@ -42,16 +42,21 @@ public void setAlbumList(List<Event> albumList) {
 
 
 
-	public List getEventList() {
-		return eventList;
-	}
 
 
 
 
-	public void setEventList(List eventList) {
-		this.eventList = eventList;
-	}
+
+	public String getEventList() {
+	return eventList;
+}
+
+
+
+
+public void setEventList(String eventList) {
+	this.eventList = eventList;
+}
 
 
 
@@ -110,8 +115,8 @@ public void setAlbumList(List<Event> albumList) {
     
   
 
-		long ID_EVENT=Long.parseLong(choosenEvent);
-    	
+		long ID_EVENT=Long.parseLong(eventList);
+    	System.out.println("Id_event: " + ID_EVENT);
 		Event event = (Event) mc.getEventDataById(ID_EVENT,id).get(0);
 		mc.createNewAlbum(choosenList,event,id);
 		

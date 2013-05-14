@@ -72,6 +72,7 @@ $( "#dialog" ).dialog('close');
 
 <script type="text/javascript">
 function showPicture(){
+	alert("pokaz ");
 	 $('#albumPictureSection').show();
 }
 </script>
@@ -84,7 +85,7 @@ function showPicture(){
 		<tr><s:textfield value="wprowadz tytul" id="titleAlbum" label="Tytul albumu"  /></tr>
 		<tr><s:textarea id="descriptionAlbum" value="wprowadz opis" cols="40" rows="5" label="Opis albumu" /></tr>
 	</table>
-	<button id="showImages" value="pokaz zdjecia" onclick="showPicture()">Pokaz zdjecia</button>
+<!-- 	<button id="showImages" value="pokaz zdjecia" onclick="showPicture()">Pokaz zdjecia</button> -->
 	</div>
 	
 	
@@ -95,9 +96,10 @@ function showPicture(){
 			
 				<s:set name="Id_Picture" value="pictureList [# stat.index][0].Id_Picture" />
 				<s:set name="Link" value="pictureList [# stat.index][0].Link" />
+				<s:set name="TymczasowyBezposredniLink" value="pictureList [# stat.index][0].TymczasowyBezposredniLink" />
 				
-				<td  style="padding-left: 10px;"><img width="100" height="150" border="5"  src="<s:property value="Link" />" />
-					<input type="hidden" class="unkn"  id="<s:property value="#stat.count" />"  value="<s:property value="Link" />" />
+				<td  style="padding-left: 10px;"><img width="100" height="150" border="5"  src="<s:property value="TymczasowyBezposredniLink" />" />
+					<input type="hidden" class="unkn"  id="<s:property value="#stat.count" />"  value="<s:property value="TymczasowyBezposredniLink" />" />
 				</td>
 			
 				<s:if test="%{#stat.modulus(4) == 0}">  
