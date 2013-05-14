@@ -1,4 +1,4 @@
-﻿<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="/struts-tags" prefix="s" %>
 
 <html>
 
@@ -55,16 +55,16 @@ function addImage(id){
 	FB.api('/'+ id + '/photos', 'post',data , function(response){
 
 	    if (!response || response.error) {
- 	        alert('Error occured');
+ 	       // alert('Error occured');
 	    } else {
- 	        alert('foto ID: ' + response.id);
+ 	      //  alert('foto ID: ' + response.id);
 	    }
 
 	});
 	 
 }
 licznik=1;
-alert("przed dialog close");
+//alert("przed dialog close");
 $( "#dialog" ).dialog('close');
 }
 $( "#dialog" ).dialog('close');

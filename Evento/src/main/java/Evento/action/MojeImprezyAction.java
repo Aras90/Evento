@@ -26,8 +26,15 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     DAO mc = new DAO();
     private Map<String, Object> session;
     private List<Event> albumEventList;
+    private List<Event> eventList;
    
-    public List<Event> getAlbumEventList() {
+    public List<Event> getEventList() {
+		return eventList;
+	}
+	public void setEventList(List<Event> eventList) {
+		this.eventList = eventList;
+	}
+	public List<Event> getAlbumEventList() {
 		return albumEventList;
 	}
 	public void setAlbumEventList(List<Event> albumEventList) {
@@ -52,7 +59,8 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     	String email = (String)session.get("email");
     	System.out.println(email);
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
-    	albumEventList = mc.getEventDataWhichHaveAlbum(email);
+    	albumEventList = mc.getEventDataWhichHaveAlbum(id);
+    	eventList = mc.getEventListWithoutAlbum(id);
     	if(id == 0){
     		return ERROR;
     	}
