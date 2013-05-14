@@ -69,13 +69,14 @@ public class PublishAlbumAction extends ActionSupport implements SessionAware  {
 	DAO mc = new DAO();
     
     public String execute() throws Exception {
-    	session = ActionContext.getContext().getSession();
-    	String email = (String)session.get("email");
+      	session = ActionContext.getContext().getSession();
+//    	String email = (String)session.get("email");
+    	long id = (Long) session.get("idUser");
 
     	
     	Long Id_Album = Long.parseLong(choosenEvent);
 
-    	pictureList = mc.getPictureToPublish(email, Id_Album);
+    	pictureList = mc.getPictureToPublish(id, Id_Album);
     	
     		return SUCCESS;
     	

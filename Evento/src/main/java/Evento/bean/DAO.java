@@ -316,25 +316,18 @@ public class DAO {
     			session.close(); 	
     		}
     
-    public List<Event> getEventDataById(Event Id_Event, String Email){
-    	Query query =  getSession().createSQLQuery("SELECT * from event e, user u where e.Id_Event = :Id_Event and u.Email:=Email ").addEntity(Event.class);
-    	query.setParameter("Id_Event", Id_Event);
-    	query.setParameter("Email", Email);
+    public List<Event> getEventDataById(long iD_EVENT, long id){
+    	Query query =  getSession().createSQLQuery("SELECT * from event e, user u where e.Id_Event=:Id_Event and u.Id_User=:Id_User and u.Id_User=e.Id_User ").addEntity(Event.class);
+    	query.setParameter("Id_Event", iD_EVENT);
+    	query.setParameter("Id_User", id);
     	
     	return query.list();
     }
     
     public void createNewAlbum(List choosenList, Event event, long User_Id){
-    	System.out.println(" &&&&&&&&&&&&& Ceate new Album -zmiana 4 ###################");
-    	
-
     	Album album = new Album();
     	album.setCreatedAt("2012-05-05");
     	album.setId_Event(event);
-    	
-    	
-       
-    	
     	
     	Session session = getSession();
 		Transaction transaction = session.beginTransaction();
@@ -345,9 +338,6 @@ public class DAO {
 		long Id_Album = getNewAlbumId(session);
 	       long Id_Event = event.getId_Event();
 	 	
-		
-    	
-    	
     	//session.save(album);
     	
     	 
@@ -368,7 +358,7 @@ public class DAO {
     	
     	
     	transaction.commit();
-		session.close();
+//		session.close();
 		
     }
  
@@ -393,31 +383,35 @@ public class DAO {
     }
     
     
-    public List<Event> getEventDataWhichHaveAlbum(String Email){
-    	Query query =  getSession().createSQLQuery("SELECT * from event e, user u where e.Id_Album is not null and u.Email=:Email").addEntity(Event.class);
-    	query.setParameter("Email", Email);
+    public List<Event> getEventDataWhichHaveAlbum(long id){
+    	Query query =  getSession().createSQLQuery("SELECT * from event e, user u where e.Id_Album is not null and u.Id_User=:Id_User and u.Id_User=e.Id_User").addEntity(Event.class);
+    	query.setParameter("Id_User", id);
     	
     	return query.list();
     }
     
     
-    public List<Picture> getPictureToPublish(String Email,long Id_Album){
-    	Query query =  getSession().createSQLQuery("SELECT * from picture p, user u where p.Id_Album is not null and u.Email=:Email and p.Id_Album=:Id_Album").addEntity(Picture.class);
-    	query.setParameter("Email", Email);
+    public List<Picture> getPictureToPublish(Long id,long Id_Album){
+    	Query query =  getSession().createSQLQuery("SELECT * from picture p, user u where p.Id_Album is not null and u.Id_User=:Id_User and u.Id_User=p.Id_User and p.Id_Album=:Id_Album").addEntity(Picture.class);
+    	query.setParameter("Id_User", id);
     	query.setParameter("Id_Album", Id_Album);
-    	
-    	
-    	
-    	
     	return query.list();
     }
     
-    public List getEventListWithoutAlbum(long Id_User){
-    	Query query =  getSession().createSQLQuery("select * from event where Id_Album is null and Id_User=:Id_User").addEntity(Event.class);
-    	query.setParameter("Id_User", Id_User);
+    public List getEventListWithoutAlbum(long id){
+    	Query query =  getSession().createSQLQuery("select * from event e, user u where e.Id_Album is null and u.Id_User=:Id_User and u.Id_User=e.Id_User").addEntity(Event.class);
+    	query.setParameter("Id_User", id);
     	return query.list();
     	
     }
+    
+    public List<Picture> getPictureToNewAlbum(Long Id_User, Long Id_Event){
+		Query query =  getSession().createSQLQuery("select * from picture p, user u where u.Id_User=:Id_User and u.Id_User=p.Id_User and p.Id_Event=:Id_Event and p.Id_Album is NULL").addEntity(Picture.class);
+	   	query.setParameter("Id_User",Id_User);
+	   	query.setParameter("Id_Event", Id_Event);
+	   	return query.list();
+  
+   }
     
     
   //zwraca liste zdjec zalogowanego uzytkownika

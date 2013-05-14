@@ -1,4 +1,4 @@
-<%@taglib uri="/struts-tags" prefix="s" %>
+﻿<%@taglib uri="/struts-tags" prefix="s" %>
 <style>
 	#main{padding-bottom: 0}
 </style>
@@ -8,16 +8,30 @@
 
  <div id="dialog" title="Example"></div>
 	
-<s:set name="Name" value="albumEventList [# stat.index][0].Name" />
-<s:form action="publishAlbumAction">	
-	Albumy: <select name="choosenEvent" id="choosenEventId"> 
-		<s:iterator value="albumEventList" status="stat">
-		    <option value="<s:property value="Id_Event" />"><s:property value="Name" /></option> 
-		 </s:iterator>
-	</select> 
-	<s:submit label="Zapisz" value="Publikuj" />
-</s:form>	
-
+<table>
+	<s:set name="Name" value="albumEventList [# stat.index][0].Name" />
+	<td>
+		<s:form action="publishAlbumAction">	
+			Albumy: <select name="choosenEvent" id="choosenEventId"> 
+				<s:iterator value="albumEventList" status="stat">
+				    <option value="<s:property value="Id_Event" />"><s:property value="Name" /> <-> <s:property value="CreatedAt" /></option> 
+				 </s:iterator>
+			</select> 
+			<s:submit label="Zapisz" value="Publikuj" />
+		</s:form>	
+	</td>
+	
+	<td style="padding-left:20px">
+		<s:form action="newAlbumPictureList">	
+			Wydarzenia: <select name="choosenEvent" id="choosenEventId"> 
+				<s:iterator value="eventList" status="stat">
+				    <option value="<s:property value="Id_Event" />"><s:property value="Name" /> <-> <s:property value="CreatedAt" /></option> 
+				 </s:iterator>
+			</select> 
+			<s:submit label="Zapisz" value="Utw�rz album" />
+		</s:form>
+	</td>	
+</table>	
 
 
 
