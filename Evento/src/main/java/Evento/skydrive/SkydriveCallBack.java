@@ -95,7 +95,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         String name = tmp.substring(i+8, j);
         session.put("name", name);
         
-        
+        session.put("accessToken", accessToken);
         
         
         //PRZYKLAD pobierania dokladniego linku ze skydrive ( wynik trzeba przeparsowac)
@@ -103,7 +103,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
       //  Response response3 = request1.send();
         //System.out.println(" a a  a a a a a  a a a");
         //System.err.println(response3.getBody());
-        mc.getUserPictures(id);
+//        mc.getUserPictures(id);
         
         
     	return SUCCESS;

@@ -7,8 +7,6 @@
 <struts>
 	<package name="myPackage" extends="struts-default">
 		
- 		
- 		
  		<action name="index" class="Evento.action.IndexAction" >
 			<result name="success">/jsp/index.jsp</result>
 		</action>
@@ -108,9 +106,6 @@
  			<result name="db" >/jsp/logout.jsp</result>
  		</action>
  		
- 		
- 		
- 		
  		<action name="publishAlbumAction" class="Evento.action.PublishAlbumAction" method="execute">
  			<result name="success">/jsp/publishAlbumDialog.jsp</result> 
  			<result name="bad">/jsp/publishAlbumDialog.jsp</result>
@@ -125,10 +120,6 @@
  			<result name="success">/jsp/index.jsp</result>
  			  
 		</action>
- 		
- 		
- 		
- 		
 		
 	</package>
 </struts>
