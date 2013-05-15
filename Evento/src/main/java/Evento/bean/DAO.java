@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import Evento.model.*;
 import Evento.skydrive.SkydriveCallBack;
 
+import org.apache.struts2.interceptor.SessionAware;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,19 +28,23 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
+import org.scribe.model.Token;
 import org.scribe.model.Verb;
+
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  *
  * @author Baro
  */
-public class DAO {                 
+public class DAO implements SessionAware {                 
 	
     private static final SessionFactory sessionFactory= NewHibernateUtil.getSessionFactory();
     
     		//
     private static final ThreadLocal session = new ThreadLocal();
     private static final Logger log = Logger.getAnonymousLogger();
+    private Map<String, Object> sessionAware;
     
     
     
@@ -127,11 +133,26 @@ public class DAO {
    		}
    	}
     
-    public Picture updatePicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
+    /*public Picture updatePicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
    	{
    		try{
    			begin();
    			Picture Picture = new Picture(id,name,CreatedAt,Link,User,Event); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
+   			getSession().clear();
+   			getSession().saveOrUpdate(Picture);
+   			commit();
+   			return Picture;
+   		} catch (HibernateException e){
+   			rollback();
+   			throw new AdException("nie udalo sie stworzyc Usera",e);
+   		}
+   	}*/
+    public Picture updatePicture(long id,String name,String CreatedAt, String Link, String tymczasowyBezposredniLink, Event Event, Album Album, User User) throws AdException
+   	{
+   		try{
+   			begin();
+
+   			Picture Picture = new Picture(id,name,CreatedAt,Link, tymczasowyBezposredniLink, Event, Album, User); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
    			getSession().clear();
    			getSession().saveOrUpdate(Picture);
    			commit();
@@ -179,6 +200,9 @@ public class DAO {
         		.addEntity(Invitation.class);
         query.setParameter("Id_User", Id_User);
         query.setParameter("Id_Album", Id_Album);
+        
+        wypelnijTymczasowyBezposredniLink2(query);
+        
         return query.list();
     }
     public List getUserRatingData(long Id_User, long Id_Picture){
@@ -295,6 +319,8 @@ public class DAO {
     public List getPicturesList(long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture where Id_Album = :Id_Album").addEntity(Picture.class);
     	query.setParameter("Id_Album", Id_Album);
+    	
+    	wypelnijTymczasowyBezposredniLink(query);
     	
     	return query.list();
     }
@@ -465,7 +491,7 @@ public class DAO {
     
     public void transformDropBoxLink(String s1){
     	String shareAddress = getShareURL(s1).replaceFirst("https://www", "https://dl");
-		shareAddress += "?dl=1";
+		//shareAddress += "?dl=1";
 		System.out.println("dropbox share link " + shareAddress);
 		replace(s1 , shareAddress);
 		
@@ -539,6 +565,182 @@ public class DAO {
 			
     }
     
+  //obowiazkowe przy SessionAware
+    public void setSession(Map map) {
+		this.sessionAware = map;
+		
+	}
     
+
+    //dla MojeAlbumy i mojeImprezy
+    public void wypelnijTymczasowyBezposredniLink(Query query){
+    	
+    	sessionAware = ActionContext.getContext().getSession();
+    	
+    	List<Picture> result = query.list();
+    	String linkTymczasowy;
+    	for(Picture p : result){
+    		linkTymczasowy="";
+    		if(p.getLink().contains("db.tt")){ // jezeli jest to dropbox
+    			
+    			linkTymczasowy = getShareURL(p.getLink()).replaceFirst("https://www", "https://dl");
+    			//linkTymczasowy += "?dl=1";
+    			
+    			
+    			try {
+					updatePicture(p.getId_Picture(),p.getName(),p.getCreatedAt(),p.getLink(),linkTymczasowy,p.getId_Event(),p.getId_Album(),p.getId_User());
+				} catch (AdException e) {
+					System.err.println("ZJEBALO SIE NA <MAXA1");
+					e.printStackTrace();
+				}
+    		
+    			
+    			
+    		} else if(p.getLink().contains("skydrive.live.com")){ // jezeli jest to skydrive
+    			String login = (String) sessionAware.get("login");
+    			if(login.equals("sd")){
+	    			String link = p.getLink();
+	    			//wyluskanie cid oraz resid
+	    			String cid;
+	    			String resid;
+	    			int i = link.indexOf("cid");
+	    			
+	    		    int j = i + 1;
+	    		    while(link.charAt(j) != '&'){
+	    		    	j++;
+	    		    }
+	    		    cid = link.substring(i+4, j);	
+	    		    i=link.indexOf("resid");
+	    			j=i+1;
+	    			while(link.charAt(j) != '&'){
+	    		    	j++;
+	    		    }
+	    		    resid = link.substring(i+6, j);
+	    		    
+	    		    Token accessToken = (Token) sessionAware.get("accessToken");
+	    	        OAuthRequest request = new OAuthRequest(Verb.GET, "https://apis.live.net/v5.0/photo."+cid+"."+resid+"?access_token="+accessToken.getToken() );
+	    	        Response response = request.send();
+	    	        
+	    	        String tmp = response.getBody(); 
+	    	        i=tmp.indexOf("source");
+	    	        i+=10;
+	    			j=i+1;
+	    			while(tmp.charAt(j) != '\"'){
+	    		    	j++;
+	    		    }
+	    	        
+	    	        
+	    	        linkTymczasowy = tmp.substring(i, j);
+	    	        
+	    	        
+	    	        try {
+						updatePicture(p.getId_Picture(),p.getName(),p.getCreatedAt(),p.getLink(),linkTymczasowy,p.getId_Event(),p.getId_Album(),p.getId_User());
+					} catch (AdException e) {
+						System.err.println("ZJEBALO SIE NA <MAXA2");
+						e.printStackTrace();
+					}
+    			}
+
+    		} else { // dla innych linkow: docelowo tego nie bedzie. Jest tylko dlatego, ze tak baze mamy uzupelniona
+    			 try {
+  					updatePicture(p.getId_Picture(),p.getName(),p.getCreatedAt(),p.getLink(),p.getLink(),p.getId_Event(),p.getId_Album(),p.getId_User());
+  				} catch (AdException e) {
+  					System.err.println("ZJEBALO SIE NA <MAXA3");
+  					e.printStackTrace();
+  				}
+    		}
+    	}
+    	
+    	
+    }
+    
+    //dla mojeZdjecia
+    public void wypelnijTymczasowyBezposredniLink2(Query query){
+    	
+    	sessionAware = ActionContext.getContext().getSession();
+    	
+    	List<Object[]> all =  query.list();
+    	
+    	String linkTymczasowy;
+    	for(int k=0; k<all.size(); k++){
+    		Picture p = (Picture)all.get(k)[0];
+    		
+    		linkTymczasowy="";
+    		if(p.getLink().contains("db.tt")){ // jezeli jest to dropbox
+    			
+    			linkTymczasowy = getShareURL(p.getLink()).replaceFirst("https://www", "https://dl");
+    			//linkTymczasowy += "?dl=1";
+    			
+    			
+    			try {
+					updatePicture(p.getId_Picture(),p.getName(),p.getCreatedAt(),p.getLink(),linkTymczasowy,p.getId_Event(),p.getId_Album(),p.getId_User());
+				} catch (AdException e) {
+					System.err.println("ZJEBALO SIE NA <MAXA4");
+					e.printStackTrace();
+				}
+    		
+    			
+    			
+    		} else if(p.getLink().contains("skydrive.live.com")){ // jezeli jest to skydrive
+    			String login = (String) sessionAware.get("login");
+    			if(login.equals("sd")){
+    				
+    				String link = p.getLink();
+        			//wyluskanie cid oraz resid
+        			String cid;
+        			String resid;
+        			int i = link.indexOf("cid");
+        			
+        		    int j = i + 1;
+        		    while(link.charAt(j) != '&'){
+        		    	j++;
+        		    }
+        		    cid = link.substring(i+4, j);	
+        		    i=link.indexOf("resid");
+        			j=i+1;
+        			while(link.charAt(j) != '&'){
+        		    	j++;
+        		    }
+        		    resid = link.substring(i+6, j);
+        		    Token accessToken = (Token) sessionAware.get("accessToken");
+        	        OAuthRequest request = new OAuthRequest(Verb.GET, "https://apis.live.net/v5.0/photo."+cid+"."+resid+"?access_token="+accessToken.getToken() );
+        	        Response response = request.send();
+        	        
+        	        String tmp = response.getBody(); 
+        	        i=tmp.indexOf("source");
+        	        i+=10;
+        			j=i+1;
+        			while(tmp.charAt(j) != '\"'){
+        		    	j++;
+        		    }
+        	       	        
+        	        linkTymczasowy = tmp.substring(i, j);
+        
+        	        try {
+    					updatePicture(p.getId_Picture(),p.getName(),p.getCreatedAt(),p.getLink(),linkTymczasowy,p.getId_Event(),p.getId_Album(),p.getId_User());
+    				} catch (AdException e) {
+    					System.err.println("ZJEBALO SIE NA <MAXA5");
+    					e.printStackTrace();
+    				}
+        	        
+    				
+    			}
+    			
+    			
+    			
+    		} else { // dla innych linkow: docelowo tego nie bedzie. Jest tylko dlatego, ze tak baze mamy uzupelniona
+    			
+    			 try {
+ 					updatePicture(p.getId_Picture(),p.getName(),p.getCreatedAt(),p.getLink(),p.getLink(),p.getId_Event(),p.getId_Album(),p.getId_User());
+ 				} catch (AdException e) {
+ 					System.err.println("ZJEBALO SIE NA <MAXA6");
+ 					e.printStackTrace();
+ 				}
+    			
+    		}
+    	}
+    	
+    	
+    }
  
 }

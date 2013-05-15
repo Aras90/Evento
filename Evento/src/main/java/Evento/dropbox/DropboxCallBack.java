@@ -117,8 +117,8 @@ public class DropboxCallBack extends ActionSupport implements SessionAware {
         session.put("name", name);
        
         
-        DAO dao = new DAO();
-        dao.getUserPictures(id);
+//        DAO dao = new DAO();
+//        dao.getUserPictures(id);
         /* Przyklad zamiany linku skroconego na zwykly
          * 
          * 
