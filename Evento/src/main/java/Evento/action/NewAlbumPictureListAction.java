@@ -52,7 +52,8 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     	if(eventId != null){
     		pictureToAlbumList = dao.getPictureToNewAlbum(id, eventId);
     		System.out.println(pictureToAlbumList.size());
-    		System.out.println(pictureToAlbumList.get(0).getTymczasowyBezposredniLink());
+    		//System.out.println(pictureToAlbumList.get(0).getTymczasowyBezposredniLink());
+    		
     		return SUCCESS;
     	}else{
     		return ERROR;

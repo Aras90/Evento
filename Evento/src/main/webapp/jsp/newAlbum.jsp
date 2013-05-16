@@ -1,4 +1,4 @@
-<%@taglib uri="/struts-tags" prefix="s" %>
+﻿<%@taglib uri="/struts-tags" prefix="s" %>
 
 <html>
 
@@ -34,10 +34,10 @@ function showPicture(){
 			
 			
 				<s:set name="Id_Picture" value="pictureToAlbumList [# stat.index][0].Id_Picture" />
-				<s:set name="Link" value="pictureToAlbumList [# stat.index][0].Link" />
+				<s:set name="Link" value="pictureToAlbumList [# stat.index][0].TymczasowyBezposredniLink" />
 				<s:set name="TymczasowyBezposredniLink" value="pictureToAlbumList [# stat.index][0].TymczasowyBezposredniLink" />
 				
-				<td  style="padding-left: 10px;"><img width="100" height="150" border="5"  src="<s:property value="Link" />" />
+				<td  style="padding-left: 10px;"><img width="100" height="150" border="5"  src="<s:property value="TymczasowyBezposredniLink" />" />
 					<input type="hidden" class="unkn"  id="<s:property value="#stat.count" />"  value="<s:property value="TymczasowyBezposredniLink" />" />
 					<input type="checkbox" name="choosenList" value="<s:property value="Id_Picture" />"> - <s:property value="Name" />
 				</td>

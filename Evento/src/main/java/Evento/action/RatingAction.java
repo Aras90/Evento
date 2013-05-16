@@ -1,5 +1,6 @@
 package Evento.action;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +48,12 @@ public class RatingAction extends ActionSupport implements SessionAware  {
     		return ERROR;
     	}
     	else{
+    		java.util.Date date= new java.util.Date();
     		if(mc.getUserRatingData(id, (long)idBox).size() == 0)
-    			mc.createRating( new Date().toString(), rate, (long)idBox, id);
+    			
+    			mc.createRating( new Timestamp(date.getTime()), rate, (long)idBox, id);
     		else
-    			mc.updateRating(((Rating)mc.getUserRatingData(id, (long)idBox).get(0)).getId_Rating(), new Date().toString(), rate, (long)idBox, id);
+    			mc.updateRating(((Rating)mc.getUserRatingData(id, (long)idBox).get(0)).getId_Rating(), new Timestamp(date.getTime()), rate, (long)idBox, id);
     		return SUCCESS;
     	}
     }

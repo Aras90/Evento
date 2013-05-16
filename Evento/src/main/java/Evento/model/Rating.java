@@ -4,13 +4,15 @@
  */
 package Evento.model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Baro
  */
 public class Rating {
      private long Id_Rating;
-     private String CreatedAt;
+     private Timestamp CreatedAt;
      private int Value;
      private Picture Id_Picture;
      private User Id_User;
@@ -19,14 +21,14 @@ public class Rating {
     public Rating() {
     }
 
-    public Rating(long Id_Rating, String CreatedAt, int Value, Picture Id_Picture, User Id_User) {
+    public Rating(long Id_Rating, Timestamp CreatedAt, int Value, Picture Id_Picture, User Id_User) {
         this.Id_Rating = Id_Rating;
         this.CreatedAt = CreatedAt;
         this.Value = Value;
         this.Id_Picture = Id_Picture;
         this.Id_User = Id_User;
     }
-    public Rating(String CreatedAt, int Value, Picture Id_Picture, User Id_User) {
+    public Rating(Timestamp CreatedAt, int Value, Picture Id_Picture, User Id_User) {
         this.CreatedAt = CreatedAt;
         this.Value = Value;
         this.Id_Picture = Id_Picture;
@@ -60,11 +62,11 @@ public class Rating {
         this.Id_Rating = Id_Rating;
     }
 
-    public String getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return CreatedAt;
     }
 
-    public void setCreatedAt(String CreatedAt) {
+    public void setCreatedAt(Timestamp CreatedAt) {
         this.CreatedAt = CreatedAt;
     }
 

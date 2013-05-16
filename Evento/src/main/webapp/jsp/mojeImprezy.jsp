@@ -1,4 +1,4 @@
-ï»¿<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <style>
 	#main{padding-bottom: 0}
 </style>
@@ -28,7 +28,7 @@
 				    <option value="<s:property value="Id_Event" />"><s:property value="Name" /> <-> <s:property value="CreatedAt" /></option> 
 				 </s:iterator>
 			</select> 
-			<s:submit label="Zapisz" value="Utwï¿½rz album" />
+			<s:submit label="Zapisz" value="Utwórz album" />
 		</s:form>
 	</td>	
 </table>	

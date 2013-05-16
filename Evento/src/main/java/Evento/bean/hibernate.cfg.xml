@@ -4,9 +4,9 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/eventoo_db</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">sql</property>
+    <property name="hibernate.connection.url">jdbc:mysql://178.63.37.174:3306/sql1202</property>
+    <property name="hibernate.connection.username">sql1202</property>
+    <property name="hibernate.connection.password">cJd8dm7s</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.connection.autocommit">true</property> 

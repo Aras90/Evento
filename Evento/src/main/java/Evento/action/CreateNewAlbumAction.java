@@ -116,6 +116,7 @@ public void setEventList(String eventList) {
   
 
 		long ID_EVENT=Long.parseLong(eventList);
+		System.err.println("ChoosekListSize:"+choosenList.size());
     	System.out.println("Id_event: " + ID_EVENT);
 		Event event = (Event) mc.getEventDataById(ID_EVENT,id).get(0);
 		mc.createNewAlbum(choosenList,event,id);
