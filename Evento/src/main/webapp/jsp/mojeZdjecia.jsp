@@ -23,12 +23,7 @@
 </div>
 <div class="zdjecia">
 	<s:iterator value="picturesList" status="stat">
-		<!--                    
-                        <img src="<s:property value="TymczasowyBezposredniLink" />" /> <br>                      
-                        nazwa:	<s:property value="Name" />   <br>
-                        data: 	<s:property value="CreatedAt" />   <br>
-              			-->
-
+	
 		<div class="zdjecie">
 			<a class="fancybox"
 				title="<s:property value="picturesList [# stat.index][0].Name" />"
@@ -45,46 +40,17 @@
 			
 			<s:property value="picturesList [# stat.index][0].Name" />
 			
-			<input id="555555555" type="button" value="edytuj"
-			onclick="edytuj('<s:property value="#stat.index" />')" />
+			<input type="button" value="edytuj"
+			onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
 			
 			<br> Utworzono:
 			<s:property value="picturesList [# stat.index][0].CreatedAt" />
-			<br> <input id="<s:property value="#stat.index" />"
+			<br> <input id="checkbox:<s:property value="#stat.index" />"
 				type="checkbox"
 				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"
-				onclick="javascript:check('<s:property value="#stat.index" />');"
+				onclick="check('<s:property value="#stat.index" />')"
 				value="bar" />
-			<!-- 	<div class="rating" data-average="0" data-id=" <s:property value="picturesList [# stat.index][0].Id_Picture" />" data-glos="<s:property value="picturesList [# stat.index][1].Value" />"></div>
-							 
-                        
-						 <div class="fb-comments" data-href="http://localhost:8080/Evento/<s:property value="#stat.index"/>" data-width="200" data-num-posts="10"></div> -->
 		</div>
-
-		<!--<s:set name="ocena" value="picturesList[#stat.index][1].Value" />
-						
-                        <s:if test="#ocena == null">
-							TUTAJ WSTAWIC GLOWSOWANIE
-							<div class="exemple">
-							 
-							   <div class="basic" data-average="12" data-id="1"></div>
-							 
-							   <div class="basic" data-average="8" data-id="2"></div>
-							 
-							</div>-->
-		<!--
-							<s:form name="searchForm" action="ocen" method="post">
-    							
-								Podaj liczbe od 1-5:<s:textfield id="aaa" value="" />
-    							<s:submit value="Ocen" method="doSearch"/>
-   								 
-							</s:form>
-							-->
-		<!--</s:if>
-						<s:else>
-    						rating: <s:property value="#ocena"/> <br>
-						</s:else>
-                       -->
 
 	</s:iterator>
 	
@@ -119,11 +85,12 @@
 			<s:iterator value="picturesList" status="stat">
 
 			console.log(licz);
-			if (document.getElementById(<s:property value="#stat.index" />).checked) {
+			if (document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked) {
+				console.log("wchodzi> zip");
 				var nameP = "<s:property value="picturesList [# stat.index][0].Name" />";
 				namePhoto[licz] = (nameP);
 				var link = document
-						.getElementById(<s:property value="#stat.index" />).name;
+						.getElementById('checkbox:'+<s:property value="#stat.index" />).name;
 				invoke[licz] = (link);
 				console.log(invoke);
 				licz = licz + 1;
@@ -163,10 +130,11 @@
 			console.log('W button przed petla');
 			<s:iterator value="picturesList" status="stat">
 			console.log(licz);
-			if (document.getElementById(<s:property value="#stat.index" />).checked) {
+			if (document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked) {
+				console.log("wchodzi> pdf");
 
 				var link = document
-						.getElementById(<s:property value="#stat.index" />).name;
+						.getElementById('checkbox:'+<s:property value="#stat.index" />).name;
 				invoke1[licz] = link;
 				console.log(invoke1);
 				licz = licz + 1;
@@ -206,6 +174,16 @@
 		};
 		function UkryjP() {
 			document.getElementById('hidenPdf').style.display = "none";
+		};
+		function check(id) {
+			console.log("id"+id);
+		  if(document.getElementById(id).checked){
+			  document.getElementById(id).checked = false;
+			  console.log("false"+id);
+		  } else if(!document.getElementById(id).checked){
+			  document.getElementById(id).checked = true;
+			  console.log("true"+id);
+		  }
 		};
 		/*EDYCJA ZDJEC*/
 		Filters={};
