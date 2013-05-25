@@ -59,7 +59,7 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     	String email = (String)session.get("email");
     	System.out.println(email);
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
-    	albumEventList = mc.getEventDataWhichHaveAlbum(id);
+    	//albumEventList = mc.getEventDataWhichHaveAlbum(id);
     	eventList = mc.getEventListWithoutAlbum(id);
     	if(id == 0){
     		return ERROR;

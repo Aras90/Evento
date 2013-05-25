@@ -327,21 +327,142 @@ public class DAO implements SessionAware {
     }
     
     
+//    public List<Picture> getPicturesListWithoutAlbum(String Email, long Id_Album){
+//    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ").addEntity(Picture.class);
+//    	query.setParameter("Id_Album", Id_Album);
+//    	return query.list();
+//    }
+ 
+//    public void assignPictureToAlbum(long Id_Picture, long Id_Album) {
+//    	
+//    			Session session = getSession();
+//    			Transaction transaction = session.beginTransaction();
+//    	
+//    	
+//    			transaction.commit();
+//    			session.close(); 	
+//    		}
+//    
+//    public List<Event> getEventDataById(long iD_EVENT, long id){
+//    	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Event=:Id_Event  and u.Id_User=:Id_User and u.Id_User=e.Id_User ").addEntity(Event.class);
+//    	query.setParameter("Id_Event", iD_EVENT);
+//    	query.setParameter("Id_User", id);
+//    	
+//    	return query.list();
+//    }
+    
+//    public void createNewAlbum(List choosenList, Event event, long User_Id){
+//    	Album album = new Album();
+//    	album.setCreatedAt("2012-05-05");
+//    	album.setId_Event(event);
+//    	
+//    	Session session = getSession();
+//		Transaction transaction = session.beginTransaction();
+//		//transaction.begin();
+//		
+//		session.saveOrUpdate(album);
+//    	
+//		long Id_Album = getNewAlbumId(session);
+//	       long Id_Event = event.getId_Event();
+//	 	
+//    	//session.save(album);
+//    	
+//    	 
+//        String eventUpdateHql = "update Event e set e.Id_Album = :Id_Album where e.Id_Event = :Id_Event";
+//		int updatedEvent = session.createQuery(eventUpdateHql)
+//				.setLong("Id_Album", Id_Album)
+//				.setLong("Id_Event", Id_Event).executeUpdate();
+//     
+//    	
+//    	for(int i=0; i < choosenList.size(); i++){
+//    		System.err.println("ITERUJE????? +0"+i);
+//    		String Id_Picture = (String) choosenList.get(i);
+//    		System.out.println(Id_Picture);
+//    		String hqlUpdate = "update Picture c set c.Id_Album = :Id_Album where c.Id_Picture = :Id_Picture";
+//    		int updatedEntities = session.createQuery(hqlUpdate)
+//    				.setString("Id_Picture", Id_Picture)
+//    				.setLong("Id_Album", Id_Album).executeUpdate();
+//    	}
+//    	
+//    	
+//    	transaction.commit();
+////		session.close();
+//    	
+//    	System.err.println("DOSZLO???");
+//    }
+// 
+    
+//    public Long getNewAlbumId(Session session){
+//    	
+//    	long Id_Album;
+//    	
+//    	String HQL_QUERY = "select max(Id_Album) from Album a";
+//        Query query = session.createQuery(HQL_QUERY);
+//        if(query.list().get(0) != null){
+//        	Id_Album = (Long) query.list().get(0);
+//        }else{
+//        	Id_Album =1;
+//        }
+//        	return Id_Album;       
+//    }
+    
+    
+//    public List<Event> getEventDataWhichHaveAlbum(long id){
+//    	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Album is not null and u.Id_User=:Id_User and u.Id_User=e.Id_User").addEntity(Event.class);
+//    	query.setParameter("Id_User", id);
+//    	
+//    	return query.list();
+//    }
+    
+//    //zmienione
+//    public List<Picture> getPictureToPublish(Long id,long Id_Album){
+//    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u, Event e where p.Id_Album is not null and e.Id_Album=p.Id_Album and p.Id_Album=:Id_Album").addEntity(Picture.class);
+////    	query.setParameter("Id_User", id);
+//    	query.setParameter("Id_Album", Id_Album);
+//    	return query.list();
+//    }
+//    //zmienioone
+//    public List getEventListWithoutAlbum(long id){
+//    	Query query =  getSession().createSQLQuery("select * from Event e, User u where e.Id_Album is null and e.Id_User=u.Id_User and e.Id_User=:Id_User").addEntity(Event.class);
+//    	query.setParameter("Id_User", id);
+//    	return query.list();
+//    	
+//    }
+    //zmienione
+//    public List<Picture> getPictureToNewAlbum(Long Id_User, Long Id_Event){
+//		//Query query =  getSession().createSQLQuery("select * from Picture p, User u, Event e where p.Id_Event=e.Id_Event and u.Id_User=e.Id_User and p.Id_Event=:Id_Event and p.Id_Album is NULL").addEntity(Picture.class);
+//    	Query query =  getSession().createSQLQuery("select * from Picture p, Event e where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and p.Id_Album is NULL")
+//    			.addEntity(Picture.class);
+////	   	query.setParameter("Id_User",Id_User);
+//	   	query.setParameter("Id_Event", Id_Event);
+//	   	wypelnijTymczasowyBezposredniLink(query);
+//	   	return query.list();
+//  
+//   }
+//    
+    
+    
+    
+    // ###################################### - dao  do tworzenia albumu - skwaro ################################################
+    
     public List<Picture> getPicturesListWithoutAlbum(String Email, long Id_Album){
-    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ").addEntity(Picture.class);
+    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ");
     	query.setParameter("Id_Album", Id_Album);
+    	query.setParameter("Email", Email);
+    	 List picture = query.list();
+    	 for(int i=0; i<picture.size(); i++){
+    		 Picture pic = (Picture) picture.get(i);
+    	 }
+    	
     	return query.list();
     }
- 
-    public void assignPictureToAlbum(long Id_Picture, long Id_Album) {
-    	
-    			Session session = getSession();
-    			Transaction transaction = session.beginTransaction();
-    	
-    	
-    			transaction.commit();
-    			session.close(); 	
-    		}
+    
+    public List getPicturesListWithRatingWithoutAlbum(String Email, long Id_Album){
+    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ");
+    	query.setParameter("Id_Album", Id_Album);
+    	query.setParameter("Email", Email);
+    	return query.list();
+    }
     
     public List<Event> getEventDataById(long iD_EVENT, long id){
     	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Event=:Id_Event  and u.Id_User=:Id_User and u.Id_User=e.Id_User ").addEntity(Event.class);
@@ -355,47 +476,44 @@ public class DAO implements SessionAware {
     	Album album = new Album();
     	album.setCreatedAt("2012-05-05");
     	album.setId_Event(event);
+    	Transaction transaction = null;
     	
-    	Session session = getSession();
-		Transaction transaction = session.beginTransaction();
-		//transaction.begin();
-		
-		session.saveOrUpdate(album);
-    	
-		long Id_Album = getNewAlbumId(session);
-	       long Id_Event = event.getId_Event();
-	 	
-    	//session.save(album);
-    	
-    	 
-        String eventUpdateHql = "update Event e set e.Id_Album = :Id_Album where e.Id_Event = :Id_Event";
-		int updatedEvent = session.createQuery(eventUpdateHql)
-				.setLong("Id_Album", Id_Album)
-				.setLong("Id_Event", Id_Event).executeUpdate();
-     
-    	
-    	for(int i=0; i < choosenList.size(); i++){
-    		System.err.println("ITERUJE????? +0"+i);
-    		String Id_Picture = (String) choosenList.get(i);
-    		System.out.println(Id_Picture);
-    		String hqlUpdate = "update Picture c set c.Id_Album = :Id_Album where c.Id_Picture = :Id_Picture";
-    		int updatedEntities = session.createQuery(hqlUpdate)
-    				.setString("Id_Picture", Id_Picture)
-    				.setLong("Id_Album", Id_Album).executeUpdate();
+    	try{
+	    	Session session = getSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(album);
+	    	
+			long Id_Album = getNewAlbumId(session);
+		       long Id_Event = event.getId_Event();
+		 	
+	
+	        String eventUpdateHql = "update Event e set e.Id_Album = :Id_Album where e.Id_Event = :Id_Event";
+			int updatedEvent = session.createQuery(eventUpdateHql)
+					.setLong("Id_Album", Id_Album)
+					.setLong("Id_Event", Id_Event).executeUpdate();
+	     
+	    	
+	    	for(int i=0; i < choosenList.size(); i++){
+	    		System.err.println("ITERUJE????? +0"+i);
+	    		String Id_Picture = (String) choosenList.get(i);
+	    		System.out.println(Id_Picture);
+	    		String hqlUpdate = "update Picture c set c.Id_Album = :Id_Album where c.Id_Picture = :Id_Picture";
+	    		int updatedEntities = session.createQuery(hqlUpdate)
+	    				.setString("Id_Picture", Id_Picture)
+	    				.setLong("Id_Album", Id_Album).executeUpdate();
+	    	}
+	    	
+	    	transaction.commit();
+    	}catch(Exception e){
+    		transaction.rollback();
+    		e.printStackTrace();
     	}
-    	
-    	
-    	transaction.commit();
-//		session.close();
-    	
-    	System.err.println("DOSZLO???");
     }
  
     
     public Long getNewAlbumId(Session session){
     	
     	long Id_Album;
-    	
     	String HQL_QUERY = "select max(Id_Album) from Album a";
         Query query = session.createQuery(HQL_QUERY);
         if(query.list().get(0) != null){
@@ -410,35 +528,132 @@ public class DAO implements SessionAware {
     public List<Event> getEventDataWhichHaveAlbum(long id){
     	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Album is not null and u.Id_User=:Id_User and u.Id_User=e.Id_User").addEntity(Event.class);
     	query.setParameter("Id_User", id);
-    	
     	return query.list();
     }
     
-    //zmienione
+    
     public List<Picture> getPictureToPublish(Long id,long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u, Event e where p.Id_Album is not null and e.Id_Album=p.Id_Album and p.Id_Album=:Id_Album").addEntity(Picture.class);
 //    	query.setParameter("Id_User", id);
     	query.setParameter("Id_Album", Id_Album);
     	return query.list();
     }
-    //zmienioone
-    public List getEventListWithoutAlbum(long id){
-    	Query query =  getSession().createSQLQuery("select * from Event e, User u where e.Id_Album is null and e.Id_User=u.Id_User and e.Id_User=:Id_User").addEntity(Event.class);
+   
+    
+    public List<Event> getEventListWithoutAlbum(long id){
+    	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album from Event e, Invitation i, Picture p" +
+    			" where (e.Id_User=:Id_User OR i.Id_User=:Id_UserInvent) and p.Id_Event=e.Id_Event and e.Id_Album IS NULL").addEntity(Event.class);
     	query.setParameter("Id_User", id);
-    	return query.list();
+    	query.setParameter("Id_UserInvent", id);
+    	
+    return query.list();
     	
     }
-    //zmienione
-    public List<Picture> getPictureToNewAlbum(Long Id_User, Long Id_Event){
-		//Query query =  getSession().createSQLQuery("select * from Picture p, User u, Event e where p.Id_Event=e.Id_Event and u.Id_User=e.Id_User and p.Id_Event=:Id_Event and p.Id_Album is NULL").addEntity(Picture.class);
+    
+    
+    public List<Picture> getPictureToNewAlbum(Long Id_User, int Id_Event){
     	Query query =  getSession().createSQLQuery("select * from Picture p, Event e where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and p.Id_Album is NULL")
     			.addEntity(Picture.class);
-//	   	query.setParameter("Id_User",Id_User);
 	   	query.setParameter("Id_Event", Id_Event);
 	   	wypelnijTymczasowyBezposredniLink(query);
+	   	
 	   	return query.list();
   
    }
+    
+    public List<Picture> getPictureToNewAlbumByTopRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
+    	System.out.println("Wybrany event= " + Id_Event);
+    	Query query =  getSession().createSQLQuery("select * from Picture p LEFT JOIN Rating r on(p.Id_Picture=r.Id_Picture), Event e, User u" +
+    	" where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event " +
+    	" and p.Id_Album is NULL and p.Id_User in (:idUserList) "+
+		" GROUP BY p.Id_Picture HAVING avg(r.Value) between 1 and 5 or avg(r.Value) is null order by avg(r.Value) desc").addEntity(Picture.class);
+	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameterList("idUserList", idUserList);
+		query.setMaxResults(quantityOfPicture);
+	   	wypelnijTymczasowyBezposredniLink(query);
+	   	return query.list();
+   }
+    
+    public List<Picture> getPictureToNewAlbumByWorstRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
+    	System.out.println("Wybrany event= " + Id_Event);
+    	Query query =  getSession().createSQLQuery("select * from Picture p, Event e, Rating r, User u where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and r.Id_Picture=p.Id_Picture and p.Id_Album is NULL and p.Id_User in (:idUserList) "+
+		" GROUP BY r.Id_Picture HAVING avg(r.Value) between 1 and 5 or avg(r.Value) is null order by avg(r.Value) asc").addEntity(Picture.class);
+	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameterList("idUserList", idUserList);
+		query.setMaxResults(quantityOfPicture);
+	   	wypelnijTymczasowyBezposredniLink(query);
+	   	return query.list();
+   }
+
+    
+    public List<Picture> getPictureToNewAlbumByRangeRating(List idUserList, Long Id_Event, long quantityOfPicture, String minMark, String maxMark){
+    	System.out.println("Wybrany event= " + Id_Event);
+    	System.out.println("Zakres w DAAO: " + minMark + " gorny: " + maxMark);
+    	Query query =  getSession().createSQLQuery("select * from Picture p, Event e, Rating r where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and r.Id_Picture=p.Id_Picture and p.Id_Album is NULL and p.Id_User in (:idUserList)"+
+		" GROUP BY r.Id_Picture HAVING avg(r.Value) between :minMark and :maxMark or or avg(r.Value) is null order by avg(r.Value) asc").addEntity(Picture.class);
+	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameter("minMark", minMark);
+	   	query.setParameter("maxMark", maxMark);
+	   	query.setParameter("idUserList", idUserList);
+	   	wypelnijTymczasowyBezposredniLink(query);
+	   	return query.list();
+   }
+    
+    
+    public List<Picture> getPictureToNewAlbumByMostComment(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
+    	System.out.println("Wybrany event= " + Id_Event);
+    	Query query =  getSession().createSQLQuery("Select a.* from " +
+    			"Comment c RIGHT JOIN (SELECT p.* from Picture p LEFT JOIN Rating r on (p.Id_Picture=r.Id_Picture) group by p.Id_Picture " +
+    			"HAVING avg(r.value) between :minMark and :maxMark or avg(r.Value) is null) as a ON c.Id_Picture=a.Id_Picture " +
+    			" WHERE a.Id_User in (:idUserList)  and a.Id_Event=:Id_Event GROUP BY a.Id_Picture order by count(c.Id_Picture) DESC")
+    	    	.addEntity(Picture.class);
+        	
+	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameterList("idUserList", idUserList);
+	   	query.setInteger("minMark", minMark);
+	   	query.setInteger("maxMark", maxMark);
+	   	query.setMaxResults(quantityOfPicture);
+	   	wypelnijTymczasowyBezposredniLink(query);
+	   	return query.list();
+   }
+    
+    
+    public List<Picture> getPictureToNewAlbumByMostRated(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
+
+    	Query query =  getSession().createSQLQuery("Select a.* from " +
+    			" Rating c RIGHT JOIN (SELECT p.* from Picture p LEFT JOIN Rating r on (p.Id_Picture=r.Id_Picture) group by p.Id_Picture " +
+    			" HAVING avg(r.value) between :minMark and :maxMark or avg(r.Value) is null) as a ON c.Id_Picture=a.Id_Picture " +
+    			" WHERE a.Id_User in (:idUserList)  and a.Id_Event=:Id_Event GROUP BY a.Id_Picture order by count(c.Id_Picture) DESC")
+    	    	.addEntity(Picture.class);
+        	
+	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameterList("idUserList", idUserList);
+	   	query.setInteger("minMark", minMark);
+	   	query.setInteger("maxMark", maxMark);
+	   	query.setMaxResults(quantityOfPicture);
+	   	wypelnijTymczasowyBezposredniLink(query);
+	   	return query.list();
+   }
+    
+    
+    public List getIdUsersWhoWasOnParty(Long Id_Event){
+    	Query query = getSession().createSQLQuery("select distinct(Id_User) from Picture where Id_Event=:Id_Event ");
+    	query.setParameter("Id_Event",Id_Event);
+		return query.list();
+    	
+    }
+    
+// ############################################### - koniec publikacja dao -skwaro - ####################################
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
   //zwraca liste zdjec zalogowanego uzytkownika

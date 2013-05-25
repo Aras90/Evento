@@ -65,8 +65,15 @@ img.top {
 }
 
 p {
-	margin-bottom: 1.25em;
+	margin-bottom: 1.25em; 
 }
+
+.pp{
+	
+	text-align:left; 
+	margin-bottom:1px;
+}
+
 
 ul {
 	margin-bottom: 3em;
