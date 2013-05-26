@@ -327,119 +327,7 @@ public class DAO implements SessionAware {
     }
     
     
-//    public List<Picture> getPicturesListWithoutAlbum(String Email, long Id_Album){
-//    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ").addEntity(Picture.class);
-//    	query.setParameter("Id_Album", Id_Album);
-//    	return query.list();
-//    }
- 
-//    public void assignPictureToAlbum(long Id_Picture, long Id_Album) {
-//    	
-//    			Session session = getSession();
-//    			Transaction transaction = session.beginTransaction();
-//    	
-//    	
-//    			transaction.commit();
-//    			session.close(); 	
-//    		}
-//    
-//    public List<Event> getEventDataById(long iD_EVENT, long id){
-//    	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Event=:Id_Event  and u.Id_User=:Id_User and u.Id_User=e.Id_User ").addEntity(Event.class);
-//    	query.setParameter("Id_Event", iD_EVENT);
-//    	query.setParameter("Id_User", id);
-//    	
-//    	return query.list();
-//    }
-    
-//    public void createNewAlbum(List choosenList, Event event, long User_Id){
-//    	Album album = new Album();
-//    	album.setCreatedAt("2012-05-05");
-//    	album.setId_Event(event);
-//    	
-//    	Session session = getSession();
-//		Transaction transaction = session.beginTransaction();
-//		//transaction.begin();
-//		
-//		session.saveOrUpdate(album);
-//    	
-//		long Id_Album = getNewAlbumId(session);
-//	       long Id_Event = event.getId_Event();
-//	 	
-//    	//session.save(album);
-//    	
-//    	 
-//        String eventUpdateHql = "update Event e set e.Id_Album = :Id_Album where e.Id_Event = :Id_Event";
-//		int updatedEvent = session.createQuery(eventUpdateHql)
-//				.setLong("Id_Album", Id_Album)
-//				.setLong("Id_Event", Id_Event).executeUpdate();
-//     
-//    	
-//    	for(int i=0; i < choosenList.size(); i++){
-//    		System.err.println("ITERUJE????? +0"+i);
-//    		String Id_Picture = (String) choosenList.get(i);
-//    		System.out.println(Id_Picture);
-//    		String hqlUpdate = "update Picture c set c.Id_Album = :Id_Album where c.Id_Picture = :Id_Picture";
-//    		int updatedEntities = session.createQuery(hqlUpdate)
-//    				.setString("Id_Picture", Id_Picture)
-//    				.setLong("Id_Album", Id_Album).executeUpdate();
-//    	}
-//    	
-//    	
-//    	transaction.commit();
-////		session.close();
-//    	
-//    	System.err.println("DOSZLO???");
-//    }
-// 
-    
-//    public Long getNewAlbumId(Session session){
-//    	
-//    	long Id_Album;
-//    	
-//    	String HQL_QUERY = "select max(Id_Album) from Album a";
-//        Query query = session.createQuery(HQL_QUERY);
-//        if(query.list().get(0) != null){
-//        	Id_Album = (Long) query.list().get(0);
-//        }else{
-//        	Id_Album =1;
-//        }
-//        	return Id_Album;       
-//    }
-    
-    
-//    public List<Event> getEventDataWhichHaveAlbum(long id){
-//    	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Album is not null and u.Id_User=:Id_User and u.Id_User=e.Id_User").addEntity(Event.class);
-//    	query.setParameter("Id_User", id);
-//    	
-//    	return query.list();
-//    }
-    
-//    //zmienione
-//    public List<Picture> getPictureToPublish(Long id,long Id_Album){
-//    	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u, Event e where p.Id_Album is not null and e.Id_Album=p.Id_Album and p.Id_Album=:Id_Album").addEntity(Picture.class);
-////    	query.setParameter("Id_User", id);
-//    	query.setParameter("Id_Album", Id_Album);
-//    	return query.list();
-//    }
-//    //zmienioone
-//    public List getEventListWithoutAlbum(long id){
-//    	Query query =  getSession().createSQLQuery("select * from Event e, User u where e.Id_Album is null and e.Id_User=u.Id_User and e.Id_User=:Id_User").addEntity(Event.class);
-//    	query.setParameter("Id_User", id);
-//    	return query.list();
-//    	
-//    }
-    //zmienione
-//    public List<Picture> getPictureToNewAlbum(Long Id_User, Long Id_Event){
-//		//Query query =  getSession().createSQLQuery("select * from Picture p, User u, Event e where p.Id_Event=e.Id_Event and u.Id_User=e.Id_User and p.Id_Event=:Id_Event and p.Id_Album is NULL").addEntity(Picture.class);
-//    	Query query =  getSession().createSQLQuery("select * from Picture p, Event e where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and p.Id_Album is NULL")
-//    			.addEntity(Picture.class);
-////	   	query.setParameter("Id_User",Id_User);
-//	   	query.setParameter("Id_Event", Id_Event);
-//	   	wypelnijTymczasowyBezposredniLink(query);
-//	   	return query.list();
-//  
-//   }
-//    
+
     
     
     
@@ -464,10 +352,10 @@ public class DAO implements SessionAware {
     	return query.list();
     }
     
-    public List<Event> getEventDataById(long iD_EVENT, long id){
-    	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Event=:Id_Event  and u.Id_User=:Id_User and u.Id_User=e.Id_User ").addEntity(Event.class);
+    public List<Event> getEventDataById(long iD_EVENT){
+    	Query query =  getSession().createSQLQuery("SELECT * from Event e  where e.Id_Event=:Id_Event").addEntity(Event.class);
     	query.setParameter("Id_Event", iD_EVENT);
-    	query.setParameter("Id_User", id);
+//    	query.setParameter("Id_User", id);
     	
     	return query.list();
     }
@@ -541,8 +429,9 @@ public class DAO implements SessionAware {
    
     
     public List<Event> getEventListWithoutAlbum(long id){
-    	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album from Event e, Invitation i, Picture p" +
-    			" where (e.Id_User=:Id_User OR i.Id_User=:Id_UserInvent) and p.Id_Event=e.Id_Event and e.Id_Album IS NULL").addEntity(Event.class);
+    	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album" +
+    			" from Event e, Invitation i" +
+    			" where (e.Id_User=:Id_User OR i.Id_User=:Id_UserInvent) and i.Id_Event=e.Id_Event and e.Id_Album IS NULL").addEntity(Event.class);
     	query.setParameter("Id_User", id);
     	query.setParameter("Id_UserInvent", id);
     	

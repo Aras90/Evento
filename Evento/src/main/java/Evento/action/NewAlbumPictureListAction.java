@@ -110,6 +110,10 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 		
     	String email = (String)session.get("email");
     	long id = (Long) session.get("idUser");
+    	
+    	
+    	System.out.println("Id uzytkownika: " + id + " zalogowany na " + session.get("login"));
+    	
     	Long eventId = null;
     	
     	try{
