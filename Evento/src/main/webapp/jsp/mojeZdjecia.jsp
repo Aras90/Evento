@@ -55,6 +55,13 @@
 	</s:iterator>
 	
 	<br>
+	<div class="select_checbox" style="display: inline-block; margin-top: 15px">
+		<input id="zaznacz" type="submit" value="Zaznacz wszystkie"
+			onclick="checkZAznacz()" />
+		<input id="odznacz" type="submit" value="Odznacz wszystkie"
+			onclick="checkODznacz()" />
+	</div>
+	<br>
 	<div class="zippp" style="display: inline-block; margin-top: 15px">
 		<input id="elo" type="submit" value="Generuj Zipa"
 			onclick="checkButtonZIP()" />
@@ -77,7 +84,18 @@
 
 	<script>
 		/* DLA ZIPA I PDFA*/
+		function checkZAznacz(){
+			<s:iterator value="picturesList" status="stat">
+			document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked=true;
+			</s:iterator>
+		};
+		function checkODznacz(){
+			<s:iterator value="picturesList" status="stat">
+			document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked=false;
+			</s:iterator>
+		};
 		function checkButtonZIP() {
+			document.getElementById('hidenZip').style.display = "none";
 			var invoke = [];
 			var namePhoto = [];
 			var licz = 0;
@@ -93,6 +111,7 @@
 						.getElementById('checkbox:'+<s:property value="#stat.index" />).name;
 				invoke[licz] = (link);
 				console.log(invoke);
+				console.log("licz "+licz);
 				licz = licz + 1;
 
 			}
@@ -120,11 +139,14 @@
 							document.getElementById('hidenZip').style.display = "block";
 						});
 
+			}else{
+				alert("Zaznacz zdjecie");
 			}
 		};
 		function checkButtonPDF() {
+			
 			var invoke1 = [];
-
+			document.getElementById('hidenPdf').style.display = "none";
 			var albumN = new String("<s:property value="Name" />");
 			var licz = 0;
 			console.log('W button przed petla');
@@ -165,6 +187,8 @@
 							document.getElementById('hidenPdf').style.display = "block";
 						})
 
+			}else{
+				alert("Zaznacz zdjecie");
 			}
 
 		};

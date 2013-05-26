@@ -431,7 +431,7 @@ public class DAO implements SessionAware {
     public List<Event> getEventListWithoutAlbum(long id){
     	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album" +
     			" from Event e, Invitation i" +
-    			" where (e.Id_User=:Id_User OR i.Id_User=:Id_UserInvent) and i.Id_Event=e.Id_Event and e.Id_Album IS NULL").addEntity(Event.class);
+    			" where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent) and e.Id_Album is null").addEntity(Event.class);
     	query.setParameter("Id_User", id);
     	query.setParameter("Id_UserInvent", id);
     	

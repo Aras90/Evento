@@ -1,6 +1,6 @@
 <%@taglib uri="/struts-tags" prefix="s" %>
 
-<html>
+
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -11,20 +11,12 @@
 $(function() {
 		$( "#dialog" ).dialog({ width: 550,  });
 });
+
 </script>
 
 
-
-
-
-<script type="text/javascript">
-function showPicture(){
-	 $('#albumPictureSection').show();
-}
-</script>
-
-<body>
 	<div id="dialog" title="Tworzenie albumu">
+	
 	
 	<s:form action="save">
 	<input type="hidden" name="eventList" value="<s:property value="choosenEvent" />" >
@@ -52,12 +44,11 @@ function showPicture(){
 			
 			</s:iterator>
 		</table>
-		<s:submit  value="Utwórz album" type="button"/>
+		<s:submit  value="UtwÃ³rz album" type="button"/>
 	</s:form>
 	</div>
 	
 
 	
 	
-</body>
-</html>
+

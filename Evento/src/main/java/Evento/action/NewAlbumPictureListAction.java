@@ -111,8 +111,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     	String email = (String)session.get("email");
     	long id = (Long) session.get("idUser");
     	
-    	
-    	System.out.println("Id uzytkownika: " + id + " zalogowany na " + session.get("login"));
+    
     	
     	Long eventId = null;
     	
@@ -120,6 +119,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     		 eventId = Long.parseLong(choosenEvent);
     	}catch(Exception e){
     		e.printStackTrace();
+    		return "error";
     	}
     	
     	Integer nr = null;
@@ -154,6 +154,10 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     	}else if(publicationOption.equals(MOST_RATED)){	
     		pictureToAlbumList = dao.getPictureToNewAlbumByMostRated(idUserList, eventId, nr, minMark, maxMark);
     	}
+    	if( pictureToAlbumList.isEmpty() || pictureToAlbumList==null){
+    		return "noPictureError";
+    	}
+    	
     	return SUCCESS;
 	}
 	
