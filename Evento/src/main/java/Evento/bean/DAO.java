@@ -303,7 +303,7 @@ public class DAO implements SessionAware {
         return query.list();
     }
     public List getAlbumsHavingIdUserOrInvitation(long Id_User){
-        Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u, Invitation as i " +
+        Query query =  getSession().createSQLQuery("SELECT * from Album as a, User as u, Event as e left join Invitation as i on e.Id_Event = i.Id_Event " +
         									 "WHERE (u.Id_User = " + Id_User + " OR i.Id_User = " + Id_User + ") AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) GROUP BY a.Id_Album")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
         		.addEntity(Album.class) 
@@ -430,10 +430,12 @@ public class DAO implements SessionAware {
     
     public List<Event> getEventListWithoutAlbum(long id){
     	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album" +
-    			" from Event e, Invitation i" +
-    			" where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent) and e.Id_Album is null").addEntity(Event.class);
+    			" from Event e left join Invitation i on e.Id_Event = i.Id_Event" +
+    			" where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent ) and e.Id_Album is null ").addEntity(Event.class);
     	query.setParameter("Id_User", id);
     	query.setParameter("Id_UserInvent", id);
+    	
+ //   	System.err.println("SASDASDASDASAS:ID:"+id +",    size:"+(query.list()).size());
     	
     return query.list();
     	
