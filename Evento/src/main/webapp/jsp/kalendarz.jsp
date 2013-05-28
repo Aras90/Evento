@@ -1,4 +1,4 @@
-﻿<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib uri="/struts-tags" prefix="s"%>
 <html>
 
 <head>
@@ -7,11 +7,9 @@
 </head>
 
 <body>
-
-
-	<script type="text/javascript" 
-		src="http://www.evento.com:8080/Evento/js/kalendarz/kalendarz.js"></script>
+	
 	<script>
+	
 		var GenerujKalendarz = function(e, m, y) {
 			var k = new Kalendarz();
 			var info = k.info(m, y), code;
@@ -21,9 +19,9 @@
 			var itr = 0;
 			'<s:iterator value="userEvents" status="stat">';
 				var date = '<s:property value="userEvents [# stat.index][0].CreatedAt" />';
-				var year = date.substring(6,10);
-				var month = date.substring(3, 5);
-				var day = date.substring(0,2);
+				var year = date.substring(0,4);
+				var month = date.substring(5, 7);
+				var day = date.substring(8,10);
 				var name = '<s:property value="userEvents [# stat.index][0].Name"  />';
 				var id = '<s:property value="userEvents [# stat.index][0].Id_Album.getId_Album()"  />'
 				events[itr] = {"h":id,"i":name,"d":[{"d":day,"m":month,"y":year}]};		
