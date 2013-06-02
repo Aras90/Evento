@@ -163,6 +163,21 @@ public class DAO implements SessionAware {
    			throw new AdException("nie udalo sie stworzyc Usera",e);
    		}
    	}
+    
+    public Comment createComment(String Description, Timestamp createdAt, long idPicture, long idUser ) throws AdException
+	{
+		try{
+			begin();
+			Comment Comment = new Comment(Description, createdAt, (Picture)getSession().get(Picture.class, idPicture), (User)getSession().get(User.class, idUser)); //tutaj tworzysz sobie tego Usera ktorego chcesz dodac
+			getSession().save(Comment);
+			commit();
+			return Comment;
+		} catch (HibernateException e){
+			rollback();
+			throw new AdException("nie udalo sie stworzyc Komentarza",e);
+		}
+	}
+    
     public Rating createRating(Timestamp createdAt,int value, long idPicture, long idUser) throws AdException
 	{
 		try{
@@ -192,6 +207,15 @@ public class DAO implements SessionAware {
    		}
    	}
     
+    public List getComments(int Id_Picture ){
+    	Query query =  getSession().createSQLQuery("select * from Comment c, Picture p, User u WHERE c.Id_Picture = p.Id_Picture AND c.Id_User = u.Id_User AND c.Id_Picture = :Id_Picture  ")
+    			.addEntity(Comment.class)
+    			.addEntity(Picture.class)
+    			.addEntity(User.class);
+	   	query.setParameter("Id_Picture", Id_Picture);	   	
+	   	return query.list();
+  
+   }
     
     public List getUserPicturesData(long Id_User,long Id_Album){
         Query query = getSession().createSQLQuery("select * FROM Picture p LEFT JOIN Rating r ON p.Id_Picture = r.Id_Picture and r.Id_User= :Id_User , User u LEFT JOIN Invitation i ON u.Id_User = i.Id_User,Event e WHERE p.Id_Album = :Id_Album GROUP BY p.Id_Picture")

@@ -76,7 +76,7 @@ public class DropboxCallBack extends ActionSupport implements SessionAware {
             session.clear(); 
             session.put("idUser", id);
             session.put("login", "db");
-            
+            session.put("email", email);
         } else if (idList.size()==0){ 
             
         	id = 0;

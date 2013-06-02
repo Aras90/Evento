@@ -423,6 +423,7 @@ table.kalendarz .wydarzenie {
  .fb-comments{
  	position: absolute !important;
  	right: 0;
+ 	top: 0;
  }
  
  form {
@@ -510,4 +511,16 @@ button.edytor-button:hover{
 #edytor-leftnav p { margin: 0 0 1em 0; }
 #edytor-content h2 { margin: 0 0 .5em 0; }
 .edytor-hidden{display:none;}
+
+.comments{
+	position: absolute;
+	width: 300px;
+	top: 0;
+	left: 0;
+	color: #ccc;	
+}
+.comment{
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 5px;
+}
  

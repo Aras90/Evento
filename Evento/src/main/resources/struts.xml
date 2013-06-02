@@ -60,6 +60,14 @@
  		<action name="rating"  class="Evento.action.RatingAction">
 			<result>/jsp/mojeZdjecia.jsp</result>
  		</action>
+ 		<action name="addComments"  class="Evento.action.AddCommentAction">
+			<result name="success">/jsp/comments.jsp</result>
+			<result name="error" >/jsp/brak.jsp</result>
+ 		</action>
+ 		<action name="comments"  class="Evento.action.CommentAction">
+			<result name="success">/jsp/comments.jsp</result>
+			<result name="error" >/jsp/brak.jsp</result>
+ 		</action>
  		 
  		<action name="loginFB" class="Evento.facebook.FacebookGrandAccess">
  			<result name="success" type="redirect">

@@ -180,12 +180,27 @@
 			onCancel     : $.noop, // If canceling
 			beforeLoad   : $.noop, // Before loading
 			afterLoad    : $.noop, // After loading
-			beforeShow   : function(){$(".fb-comments").remove();}, // Before changing in current item
+			beforeShow   : function(){$(".fb-comments").remove(); $('.comments').remove();}, // Before changing in current item
 			afterShow    : function(){
-				//$('fb-comments').remove();
-				console.log($(this.element).attr('data-id'));
+							$('.fancybox-overlay').prepend('<div class="comments"></div>');
+							var idPicture = parseInt($(this.element).attr('data-id'));
+							 $.ajax({
+					            	type:"POST",
+					   				url : 'comments.action',
+					   				data: {idPicture : idPicture},
+					   				context : document.body	
+					   			}).done(function(data) {
+					   				$('.comments').hide().html(data);
+					   				$('.comments').html($('#comments_box')).show();
+					   				});
+							$('#dodaj').click(function(){
+								alert('aaa');
+								return false;
+								//$('textarea').
+							});
 							$(".fancybox-wrap").append('<div class="rat" data-average="0" data-id="' + $(this.element).attr('data-id') + '" data-glos="' + $(this.element).attr('data-glos') + '"></div>');
 							$(".fancybox-overlay").append('<div class="fb-comments" data-href="http://localhost:8080/Evento/' + $(this.element).attr('data-id') + '" data-width="300" data-num-posts="10" data-colorscheme="dark"></div>');
+							
 							FB.XFBML.parse();
 						   $('.rat').css({top: "43px", margin: "0 auto"});
 			               $('.rat').jRating();
@@ -193,6 +208,7 @@
 			               $('.rat').click(function(){
 			            	  el.attr('data-glos', parseInt($('.rat .jRatingAverage').css('width')) / 23 ); 
 			               });
+			              
 			               
 			}, // After opening
 			beforeChange : $.noop, // Before changing gallery item
