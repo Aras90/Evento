@@ -1,0 +1,3 @@
+
+
+<% response.sendRedirect("comments.action"); %>
