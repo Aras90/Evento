@@ -18,7 +18,7 @@ function show(){
  
 <div class="title">Moje Eventy</div>    
 <button onclick="show()" style="float:left; margin-bottom:5px;">Tworzenie albumu</button><br>     	
-        		<div class="zdjecia">
+        		
 
 			<div id="publicationSection" style="display:none; background-color:#262636 float:left">
         		
