@@ -23,7 +23,8 @@
 				var month = date.substring(5, 7);
 				var day = date.substring(8,10);
 				var name = '<s:property value="userEvents [# stat.index][0].Name"  />';
-				var id = '<s:property value="userEvents [# stat.index][0].Id_Album.getId_Album()"  />'
+				console.log('aaaa'+name);
+				var id = '<s:property value="userEvents [# stat.index][0].Id_Event"  />';
 				events[itr] = {"h":id,"i":name,"d":[{"d":day,"m":month,"y":year}]};		
 				itr++;
 			'</s:iterator>';
@@ -166,7 +167,7 @@
 					    	 var idAlbumu = events[i].h
 					    	 
 					    	 var nazwa = a.replace(" ", "%20");
-					    	 window.location = "mojeZdjecia.action?id="+idAlbumu+"&name="+nazwa;
+					    	// window.location = "mojeZdjecia.action?id="+idAlbumu+"&name="+nazwa;
 					    	 
 					     }
 					}

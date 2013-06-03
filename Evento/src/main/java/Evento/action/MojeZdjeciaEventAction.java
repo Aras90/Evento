@@ -27,6 +27,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import Evento.model.Event;
 import Evento.model.Picture;
 import Evento.model.Album;
+import Evento.model.User;
 import Evento.bean.DAO;
 
 /**
@@ -36,8 +37,9 @@ import Evento.bean.DAO;
 public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAware {
     
     private String id, Name;
-	private List picturesList;
+	private List<Object[]> picturesList;
 	private Map<String, Object> session;
+	int i = 0;
 	 DAO mc = new DAO();
     public List getPicturesList() {return picturesList; }
     public void setPicturesList(long idUser){
@@ -46,40 +48,36 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     		
     }
     
- /*   public void deletePicture(long Id_Picture){
-    	mc.deletePicture(Id_Picture);
-    }*/
-    public void deletePicture(){
-    	//mc.deletePicture(Id_Picture);
-    	System.err.println("DUPA!!!!");
-    }
-    
     public boolean check(){
     	
     	long aktualnieZalogowany = (Long)session.get("idUser");
+    	//long autorZdjecia
     	long tworcaEventu;
-    	System.err.println("id:"+id);
-    	List<Event> tmp = mc.getTworcaEventu(Long.parseLong(id));
-    	if(tmp.size()==1){
-    		
-    		tworcaEventu = ((tmp.get(0).getId_User()).getId_User());
-    		System.err.println("tE:"+tworcaEventu +" aZ:"+aktualnieZalogowany);
-    		if(tworcaEventu == aktualnieZalogowany){
-    			
-    			return true;
+    	long idZdjecia = ((Picture)picturesList.get(i++)[0]).getId_Picture();
+    	System.err.println("id:"+Long.parseLong(id));
+    	List<User> tmp = mc.getTworcaEventu(Long.parseLong(id));
+    	
+    	tworcaEventu = tmp.get(0).getId_User();
+        System.err.println("IdUser:"+tworcaEventu);
         		
-        	}
-    		
-    	} else{
-    		//blad
-    	}
+        System.err.println("tE:"+tworcaEventu +" aZ:"+aktualnieZalogowany);
+    	
+    	
+    	User tZdjecia = (User)mc.getTworcaZdjecia(idZdjecia).get(0);
+    	System.err.println("TwoZdj::"+tZdjecia.getId_User());
+    	
+    	if(tworcaEventu == aktualnieZalogowany || aktualnieZalogowany == tZdjecia.getId_User()){
+    			
+    		return true;
+    	} 
+    	
     	
     	return false;
-    	
- 
     }
     
-    
+    public void check1(){
+    	
+    }
     
     public String execute() throws Exception {
         

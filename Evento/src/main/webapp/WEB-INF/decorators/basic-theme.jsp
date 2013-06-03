@@ -115,9 +115,7 @@
                             <li>
 								<a href="mojeEventy.jsp" action="mojeEventy">Moje eventy</a>
                             </li>
-                            <li>
-								<a href="mojeAlbumy.jsp" action="mojeAlbumy">Moje albumy</a>
-                            </li>
+                            
                             <li>
 								<a href="mojeImprezy.jsp" action="mojeImprezy">Moje imprezy</a>
                             </li>

@@ -959,11 +959,22 @@ public class DAO implements SessionAware {
   //tworca ecetnu
     public List getTworcaEventu(long Id_Event){
     	System.err.println("IDE:"+Id_Event);
-    	Query query =  getSession().createSQLQuery("SELECT * from Event where Id_Event = :Id_Event").addEntity(Event.class);
+    	Query query =  getSession().createSQLQuery("SELECT * from User u,Event e where u.Id_User=e.ID_User AND e.Id_Event = :Id_Event").addEntity(User.class);
     	query.setParameter("Id_Event", Id_Event);
     	
     	//wypelnijTymczasowyBezposredniLink(query);
+    	System.err.println("DOSZLO??");
+    	return query.list();
+    }
+    
+    
+    public List getTworcaZdjecia(long Id_Picture){
+    	System.err.println("IDP:"+Id_Picture);
+    	Query query =  getSession().createSQLQuery("SELECT u.* from User u,Picture p where u.Id_User=p.Id_User AND p.Id_Picture = :Id_Picture").addEntity(User.class);
+    	query.setParameter("Id_Picture", Id_Picture);
     	
+    	//wypelnijTymczasowyBezposredniLink(query);
+    	System.err.println("DOSZLO??");
     	return query.list();
     }
     

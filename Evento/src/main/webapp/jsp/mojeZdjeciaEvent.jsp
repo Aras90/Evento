@@ -58,7 +58,8 @@
 			<s:property value="picturesList [# stat.index][0].Name" />
 			
 			
-		<!-- 	<s:if test="check()" >
+			
+		 	<s:if test="check()" >
 			
 				<input type="button" value="edytuj"
 				onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
@@ -67,20 +68,15 @@
 				onclick="usun('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
 			
 			</s:if>
-			
-			<s:else>
-			
-					asdasdasasd
-			</s:else>
-		-->	
 		
 		
+		<!--  
 				<input type="button" value="edytuj"
 				onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
 			
 				<input id="usun" type="button" value="usun"
 				onclick="usun('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
-				
+			-->	
 				
 			<s:set name="Id_Picture" value="picturesList [# stat.index][0].Id_Picture" /> 
 			
