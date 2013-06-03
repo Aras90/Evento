@@ -876,5 +876,97 @@ public class DAO implements SessionAware {
     	
     	
     }
+    
+    
+    
+    
+    public List<Event> getPictureListFromEventsWithoutAlbum(long id){ 
+        Query query =  getSession().createSQLQuery("select distinct(p.Id_Picture), p.CreatedAt, p.link,p.TymczasowyBezposredniLink,p.Id_Event,p.Id_User,p.Id_Album "+ 
+                " from Picture p,Event e left join Invitation i on e.Id_Event = i.Id_Event" + 
+                " where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent ) and e.Id_Album is null ").addEntity(Picture.class)
+                
+                .addEntity(Event.class)
+                .addEntity(Picture.class); 
+        query.setParameter("Id_User", id); 
+        query.setParameter("Id_UserInvent", id);
+        	
+        	
+        
+//       System.err.println("SASDASDASDASAS:ID:"+id +",    size:"+(query.list()).size()); 
+        
+        return query.list(); 
+        
+    }
+    
+    
+    // DO MojeZdjeciaEventAction
+    public List getUserPicturesDataEvent(long Id_User,long Id_Album){
+        Query query = getSession().createSQLQuery("select * FROM Picture p LEFT JOIN Rating r ON p.Id_Picture = r.Id_Picture and r.Id_User= :Id_User , User u LEFT JOIN Invitation i ON u.Id_User = i.Id_User,Event e WHERE p.Id_Event = :Id_Album GROUP BY p.Id_Picture")
+        		.addEntity(Picture.class)
+        		.addEntity(Rating.class)
+        		.addEntity(Event.class)
+        		.addEntity(Invitation.class);
+        query.setParameter("Id_User", Id_User);
+        query.setParameter("Id_Album", Id_Album);
+        
+        wypelnijTymczasowyBezposredniLink2(query);
+        
+        return query.list();
+    }
  
+    //DO MOJE EVENTY ACTION
+    public List<Event> getEventListWithoutAlbum1(long id){
+    	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album" +
+    			" from Event e left join Invitation i on e.Id_Event = i.Id_Event" +
+    			" where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent ) and e.Id_Album is null ")
+    			.addEntity(Event.class)
+    			.addEntity(Event.class);
+    	query.setParameter("Id_User", id);
+    	query.setParameter("Id_UserInvent", id);
+    	
+ //   	System.err.println("SASDASDASDASAS:ID:"+id +",    size:"+(query.list()).size());
+    	
+    return query.list();
+    	
+    }
+    
+    //DO LOSOWEGO ZDJECIA
+    public List getPicturesListEvent(long Id_Album){
+    	Query query =  getSession().createSQLQuery("SELECT * from Picture where Id_Event = :Id_Album").addEntity(Picture.class);
+    	query.setParameter("Id_Album", Id_Album);
+    	
+    	wypelnijTymczasowyBezposredniLink(query);
+    	
+    	return query.list();
+    }
+    
+    public void deletePicture(long Id_Picture) throws AdException{
+		try{
+			begin();
+			getSession().delete((Picture)getSession().get(Picture.class, Id_Picture));
+			commit();
+			System.err.println("zdjecie w pizdu");
+		} catch (HibernateException e){
+			rollback();
+			throw new AdException("nie udalo sie usunac zdjecia",e);
+		}
+
+    	//Query query =  getSession().createSQLQuery("DELETE FROM Picture where Id_Picture = :Id_Picture");
+    	//query.setParameter("Id_Picture", Id_Picture);
+    	
+    }
+    
+  //tworca ecetnu
+    public List getTworcaEventu(long Id_Event){
+    	System.err.println("IDE:"+Id_Event);
+    	Query query =  getSession().createSQLQuery("SELECT * from Event where Id_Event = :Id_Event").addEntity(Event.class);
+    	query.setParameter("Id_Event", Id_Event);
+    	
+    	//wypelnijTymczasowyBezposredniLink(query);
+    	
+    	return query.list();
+    }
+    
+    
+    
 }

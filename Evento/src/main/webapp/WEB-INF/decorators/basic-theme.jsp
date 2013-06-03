@@ -113,6 +113,9 @@
 								<a href="index.jsp" action="index">Home</a>
                             </li>
                             <li>
+								<a href="mojeEventy.jsp" action="mojeEventy">Moje eventy</a>
+                            </li>
+                            <li>
 								<a href="mojeAlbumy.jsp" action="mojeAlbumy">Moje albumy</a>
                             </li>
                             <li>

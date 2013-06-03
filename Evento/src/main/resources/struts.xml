@@ -11,6 +11,13 @@
 			<result name="success">/jsp/index.jsp</result>
 		</action>
 		
+		
+		<action name="mojeEventy" class="Evento.action.MojeEventyAction">
+			<result name="success">/jsp/mojeEventy.jsp</result>
+			<result name="error">/jsp/notLogged.jsp</result>
+		</action>
+		
+		
 		<action name="mojeAlbumy" class="Evento.action.MojeAlbumyAction">
 			<result name="success">/jsp/mojeAlbumy.jsp</result>
 			<result name="error">/jsp/notLogged.jsp</result>
@@ -18,6 +25,12 @@
 				
  		<action name="mojeZdjecia" method="execute" class="Evento.action.MojeZdjeciaAction">
  			 <result name="success">jsp/mojeZdjecia.jsp</result>
+ 			 <result name="error">/jsp/notLogged.jsp</result>
+ 			 
+ 		</action>
+ 		
+ 		<action name="mojeZdjeciaEvent" method="execute" class="Evento.action.MojeZdjeciaEventAction">
+ 			 <result name="success">jsp/mojeZdjeciaEvent.jsp</result>
  			 <result name="error">/jsp/notLogged.jsp</result>
  			 
  		</action>
@@ -68,6 +81,11 @@
 			<result name="success">/jsp/comments.jsp</result>
 			<result name="error" >/jsp/brak.jsp</result>
  		</action>
+ 		 
+ 		<action name="deletePhoto"  class="Evento.action.DeletePhotoAction">
+			<result name="success">/jsp/comments.jsp</result>
+			<result name="error" >/jsp/brak.jsp</result>
+ 		</action> 
  		 
  		<action name="loginFB" class="Evento.facebook.FacebookGrandAccess">
  			<result name="success" type="redirect">
@@ -129,6 +147,11 @@
  			<result name="success">/jsp/createInfo.jsp</result>  
 <!--  			<result name="error">/jsp/noPictureDialog.jsp</result> -->
 		</action>
+		<!-- 
+		<action name="delete" class="Evento.action.MojeZdjeciaEventAction" method="deletePicture">
+ 				
+		</action>
+		 -->
 				
 	</package>
 </struts>
