@@ -21,7 +21,7 @@ function anuluj(){
 
 	<div id="noPictureDialog" title="Tworzenie albumu - brak zdjec">
 		<p style="color: blue;">Brak zdjec dla wybranego kryterium.</p>
-		<button onclick="anuluj()" id="ok" action="/mojeImprezy">Anuluj</button>
+		<button onclick="anuluj()" id="ok" action="mojeImprezy.action">ok</button>
 	</div>
 	
 	

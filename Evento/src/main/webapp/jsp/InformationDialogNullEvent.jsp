@@ -21,7 +21,7 @@ function anuluj(){
 
 	<div id="errorDialog" title="Blad tworzenia albumu">
 		<p style="color: blue;">Nie uczestniczyles w zadnym wydarzeniu.</p>
-		<button onclick="anuluj()" id="Anuluj">Anuluj</button>
+		<button onclick="anuluj()" id="Anuluj">Ok</button>
 	</div>
 	
 	

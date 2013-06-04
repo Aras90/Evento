@@ -9,7 +9,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -386,17 +388,31 @@ public class DAO implements SessionAware {
     
     public void createNewAlbum(List choosenList, Event event, long User_Id){
     	Album album = new Album();
-    	album.setCreatedAt("2012-05-05");
+    	Date d = new Date();
+    	
+    	
+    	
+    	System.out.println("data: " + d);
+    	String data ="06-06-2013";
+    	try{
+    		SimpleDateFormat simpleDateHere = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println( simpleDateHere.format(new Date()) );
+            data = simpleDateHere.format(new Date());
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	album.setCreatedAt(data);
     	album.setId_Event(event);
     	Transaction transaction = null;
     	
-    	try{
+    
 	    	Session session = getSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(album);
+			
 	    	
 			long Id_Album = getNewAlbumId(session);
-		       long Id_Event = event.getId_Event();
+		    long Id_Event = event.getId_Event();
 		 	
 	
 	        String eventUpdateHql = "update Event e set e.Id_Album = :Id_Album where e.Id_Event = :Id_Event";
@@ -404,9 +420,9 @@ public class DAO implements SessionAware {
 					.setLong("Id_Album", Id_Album)
 					.setLong("Id_Event", Id_Event).executeUpdate();
 	     
-	    	
+			
 	    	for(int i=0; i < choosenList.size(); i++){
-	    		System.err.println("ITERUJE????? +0"+i);
+	    		System.err.println("ITERUJE????? +0 " + i);
 	    		String Id_Picture = (String) choosenList.get(i);
 	    		System.out.println(Id_Picture);
 	    		String hqlUpdate = "update Picture c set c.Id_Album = :Id_Album where c.Id_Picture = :Id_Picture";
@@ -415,16 +431,16 @@ public class DAO implements SessionAware {
 	    				.setLong("Id_Album", Id_Album).executeUpdate();
 	    	}
 	    	
-	    	transaction.commit();
-    	}catch(Exception e){
-    		transaction.rollback();
-    		e.printStackTrace();
-    	}
+	    transaction.commit();
+	    System.out.println("Commit");
+    	
+    	
+    	
     }
  
     
     public Long getNewAlbumId(Session session){
-    	
+    	System.out.println("Utworzenie albumu");
     	long Id_Album;
     	String HQL_QUERY = "select max(Id_Album) from Album a";
         Query query = session.createQuery(HQL_QUERY);
@@ -518,8 +534,8 @@ public class DAO implements SessionAware {
     public List<Picture> getPictureToNewAlbumByMostComment(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
     	System.out.println("Wybrany event= " + Id_Event);
     	Query query =  getSession().createSQLQuery("Select a.* from " +
-    			"Comment c RIGHT JOIN (SELECT p.* from Picture p LEFT JOIN Rating r on (p.Id_Picture=r.Id_Picture) group by p.Id_Picture " +
-    			"HAVING avg(r.value) between :minMark and :maxMark or avg(r.Value) is null) as a ON c.Id_Picture=a.Id_Picture " +
+    			" Comment c RIGHT JOIN (SELECT p.* from Picture p LEFT JOIN Rating r on (p.Id_Picture=r.Id_Picture) group by p.Id_Picture " +
+    			" HAVING avg(r.value) between :minMark and :maxMark or avg(r.Value) is null) as a ON c.Id_Picture=a.Id_Picture " +
     			" WHERE a.Id_User in (:idUserList)  and a.Id_Event=:Id_Event GROUP BY a.Id_Picture order by count(c.Id_Picture) DESC")
     	    	.addEntity(Picture.class);
         	

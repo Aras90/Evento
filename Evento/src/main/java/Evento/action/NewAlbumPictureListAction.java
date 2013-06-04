@@ -35,13 +35,13 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 	private String downMark;
 	private String topMark;
 	private String nrOfPicture;
-	private String makePhotoBy;
+	private String makePhotoBy="ONE_AUTHOR";
 	
 	 private List<Picture> pictureToAlbumList;
 	 private Map<String, Object> session;
 	 private String choosenEvent;
 	 DAO dao;
-	 private String publicationOption;
+	 private String publicationOption="TOP";
 			
 			
 	
@@ -103,19 +103,21 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 	}
 
 	public String execute(){
-		
+		System.out.println("execute-1");
 		dao = new DAO();
 		session = ActionContext.getContext().getSession();
 		List idUserList = new ArrayList();
 		
     	String email = (String)session.get("email");
     	long id = (Long) session.get("idUser");
-    	
+    	System.out.println("execute-2");
     
     	
     	Long eventId = null;
     	
     	try{
+    		System.out.println("execute-3");
+    		System.out.println("Choosen event: " + choosenEvent);
     		 eventId = Long.parseLong(choosenEvent);
     	}catch(Exception e){
     		e.printStackTrace();
@@ -138,21 +140,30 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     	
     	
     	
-    	if(makePhotoBy.equals(ONE_AUTHOR)){
+    	if(makePhotoBy.equals(ONE_AUTHOR) ){
     		idUserList.add(id);
     	}else if(makePhotoBy.equals(ALL)){
     		idUserList = dao.getIdUsersWhoWasOnParty(eventId);
+    	}else{
+    		idUserList.add(id);
     	}
     	
     	
     	if(publicationOption.equals(TOP)  ){
+    		System.out.println("publication option = top");
     		pictureToAlbumList = dao.getPictureToNewAlbumByTopRating(idUserList, eventId, nr);
     	}else if(publicationOption.equals(DOWN)){
+    		System.out.println("publication option = down");
     		pictureToAlbumList = dao.getPictureToNewAlbumByWorstRating(idUserList, eventId, nr);
     	}else if(publicationOption.equals(MOST_COMMENT)){
+    		System.out.println("publication option = mostComment");
     		pictureToAlbumList = dao.getPictureToNewAlbumByMostComment(idUserList, eventId, nr, minMark, maxMark);
     	}else if(publicationOption.equals(MOST_RATED)){	
+    		System.out.println("publication option = most rated");
     		pictureToAlbumList = dao.getPictureToNewAlbumByMostRated(idUserList, eventId, nr, minMark, maxMark);
+    	}else{
+    		System.out.println("publication option = else");
+    		pictureToAlbumList = dao.getPictureToNewAlbumByTopRating(idUserList, eventId, nr);
     	}
     	if( pictureToAlbumList.isEmpty() || pictureToAlbumList==null){
     		return "noPictureError";

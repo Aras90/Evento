@@ -29,12 +29,16 @@ $(function() {
 				<s:set name="Link" value="pictureToAlbumList [# stat.index][0].TymczasowyBezposredniLink" />
 				<s:set name="TymczasowyBezposredniLink" value="pictureToAlbumList [# stat.index][0].TymczasowyBezposredniLink" />
 				
-				<td  style="padding-left: 10px;"><img width="100" height="150" border="5"  src="<s:property value="TymczasowyBezposredniLink" />" />
+				<td  style="padding-left: 10px;">
+				
+			
+				
+				<img width="150" height="200" border="5"  src="<s:property value="TymczasowyBezposredniLink" />" />
 					<input type="hidden" class="unkn"  id="<s:property value="#stat.count" />"  value="<s:property value="TymczasowyBezposredniLink" />" />
-					<input type="checkbox" name="choosenList" value="<s:property value="Id_Picture" />"> - <s:property value="Name" />
+					<input type="checkbox" name="choosenList" value="<s:property value="Id_Picture" />"> 
 				</td>
 			
-				<s:if test="%{#stat.modulus(2) == 0}">  
+				<s:if test="%{#stat.modulus(3) == 0}">  
 				      <tr></tr>  
 				</s:if>  
 				
@@ -44,7 +48,7 @@ $(function() {
 			
 			</s:iterator>
 		</table>
-		<s:submit  value="UtwÃ³rz album" type="button"/>
+		<s:submit  value="Utwórz album" type="button"/>
 	</s:form>
 	</div>
 	
