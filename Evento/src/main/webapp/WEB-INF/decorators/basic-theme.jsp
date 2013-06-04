@@ -43,7 +43,6 @@
 	
 		<!-- Add Media helper (this is optional) -->
 		<script type="text/javascript" src="js/fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
-		
 	   <script type="text/javascript">
 	     $(document).ready(function(){
 	      $(".rating").jRating();
@@ -117,7 +116,7 @@
                             </li>
                             
                             <li>
-								<a href="mojeImprezy.jsp" action="mojeImprezy">Moje imprezy</a>
+								<a href="mojeImprezy.jsp" action="mojeImprezy">Moje albumy</a>
                             </li>
                            
                             <li>
