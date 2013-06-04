@@ -199,7 +199,7 @@
 								//$('textarea').
 							});
 							$(".fancybox-wrap").append('<div class="rat" data-average="0" data-id="' + $(this.element).attr('data-id') + '" data-glos="' + $(this.element).attr('data-glos') + '"></div>');
-							$(".fancybox-overlay").append('<div class="fb-comments" data-href="http://localhost:8080/Evento/' + $(this.element).attr('data-id') + '" data-width="300" data-num-posts="10" data-colorscheme="dark"></div>');
+							$(".fancybox-overlay").append('<div class="fb-comments" data-href="http://www.evento.com:8080/Evento/mojeZdjecia.action?id=' + $(this.element).attr('data-id') + '" data-width="300" data-num-posts="10" data-colorscheme="dark"></div>');
 							
 							FB.XFBML.parse();
 						   $('.rat').css({top: "43px", margin: "0 auto"});

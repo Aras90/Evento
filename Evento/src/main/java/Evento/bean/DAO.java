@@ -957,19 +957,18 @@ public class DAO implements SessionAware {
     }
     
     public void deletePicture(long Id_Picture) throws AdException{
-		try{
-			begin();
-			getSession().delete((Picture)getSession().get(Picture.class, Id_Picture));
-			commit();
-			System.err.println("zdjecie w pizdu");
-		} catch (HibernateException e){
-			rollback();
-			throw new AdException("nie udalo sie usunac zdjecia",e);
-		}
-
-    	//Query query =  getSession().createSQLQuery("DELETE FROM Picture where Id_Picture = :Id_Picture");
-    	//query.setParameter("Id_Picture", Id_Picture);
-    	
+    	 try{
+    	  begin();
+    	  Picture picture = (Picture)getSession().get(Picture.class, Id_Picture);
+    	  picture.setId_Event(null);
+    	  getSession().update(picture);
+    	  commit();
+    	  System.err.println("zdjecie w pizdu");
+    	 } catch (HibernateException e){
+    	  rollback();
+    	  throw new AdException("nie udalo sie usunac zdjecia",e);
+    	 }
+    	 
     }
     
   //tworca ecetnu
