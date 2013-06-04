@@ -14,17 +14,12 @@ function show(){
 }
 </script>
 
-<%-- <s:set name="Id_Event" value="eventList [# stat.index][0].Id_Event" />  --%>
-<%--                         <s:set name="Name" value="eventList [# stat.index][0].Name" /> --%>
-<%--                         <s:set name="CreatedAt" value="eventList [# stat.index][0].CreatedAt" />  --%>
-                        
-                     
-
+          
 <div id="dialog" title="Example"></div>
 
 <div class="title">Moje Eventy</div>    
 <button onclick="show()" style="float:left; margin-bottom:5px;">Tworzenie albumu</button><br>     	
-        		
+        	<div class="zdjecia">	
 
 					<div id="publicationSection" style="display:none; background-color:#262636 float:left">
         		
@@ -79,28 +74,28 @@ function show(){
 				
 							<s:submit value="Utworz album"></s:submit>
 						</s:form>	
-        	</div>		
+        		</div>		
      
 
                 
                 <s:iterator value="eventList" status="stat"> 
                         <div class="zdjecie">
                        
-                        <s:set name="Id_Event" value="eventList [# stat.index][0].Id_Event" /> 
-                        <s:set name="Name" value="eventList [# stat.index][0].Name" /> 
-                        <s:set name="pictureLink" value="%{getPictureLink(#Id_Event)}" />
-                     
-                     
-                     
-                        <s:if test="#pictureLink == null">
-                        	 <a href="<s:url action="mojeZdjeciaEvent"><s:param name="id" value="#Id_Event" /><s:param name="name" value="#Name" /> </s:url>"> <div class="folder"></div></a> <br>
-                        </s:if>
-                        <s:else>
-                        	<a href="<s:url action="mojeZdjeciaEvent"><s:param name="id" value="#Id_Event" /><s:param name="name" value="#Name" /> </s:url>"> <img class="album" src="<s:property value="#pictureLink" />"/></a> <br>
-                        </s:else>
-                       
-                        <s:property value="eventList [# stat.index][0].Name" />   <br>
-                        <s:property value="eventList [# stat.index][0].CreatedAt" />  <br>
+	                        <s:set name="Id_Event" value="eventList [# stat.index][0].Id_Event" /> 
+	                        <s:set name="Name" value="eventList [# stat.index][0].Name" /> 
+	                        <s:set name="pictureLink" value="%{getPictureLink(#Id_Event)}" />
+	                     
+	                     
+	                     
+	                        <s:if test="#pictureLink == null">
+	                        	 <a href="<s:url action="mojeZdjeciaEvent"><s:param name="id" value="#Id_Event" /><s:param name="name" value="#Name" /> </s:url>"> <div class="folder"></div></a> <br>
+	                        </s:if>
+	                        <s:else>
+	                        	<a href="<s:url action="mojeZdjeciaEvent"><s:param name="id" value="#Id_Event" /><s:param name="name" value="#Name" /> </s:url>"> <img class="album" src="<s:property value="#pictureLink" />"/></a> <br>
+	                        </s:else>
+	                       
+	                        <s:property value="eventList [# stat.index][0].Name" />   <br>
+	                        <s:property value="eventList [# stat.index][0].CreatedAt" />  <br>
 
 
                         
@@ -108,5 +103,5 @@ function show(){
                   
                 </s:iterator>
                 
-                </div>
+         </div>
    <br style="clear:both">
