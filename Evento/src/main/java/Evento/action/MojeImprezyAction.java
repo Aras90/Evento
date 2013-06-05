@@ -49,6 +49,8 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     public List getAlbumList() {return albumList; }
     public void setAlbumList(long idUser){
     	
+    	
+    
     	albumList = mc.getAlbumsHavingIdUserOrInvitation(idUser);
     	
     }

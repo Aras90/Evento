@@ -328,7 +328,8 @@ public class DAO implements SessionAware {
        			
         return query.list();
     }
-    public List getAlbumsHavingIdUserOrInvitation(long Id_User){
+    //STARA WERSJA
+   /* public List getAlbumsHavingIdUserOrInvitation(long Id_User){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, User as u, Event as e left join Invitation as i on e.Id_Event = i.Id_Event " +
         									 "WHERE (u.Id_User = " + Id_User + " OR i.Id_User = " + Id_User + ") AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) GROUP BY a.Id_Album")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
@@ -341,6 +342,19 @@ public class DAO implements SessionAware {
         
        			
         return query.list();
+    }*/
+    public List getAlbumsHavingIdUserOrInvitation(long Id_User){
+    	Query query =  getSession().createSQLQuery("SELECT * from Album as a, User as u, Event as e left join Invitation as i on e.Id_Event = i.Id_Event WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) AND i.Id_User = :Id_User GROUP BY a.Id_Album")
+    									 //Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
+    		.addEntity(Album.class) 
+            .addEntity(Event.class)
+            .addEntity(User.class)
+            
+    		
+    			;		
+    	query.setParameter("Id_User", Id_User);
+   			
+    	return query.list();
     }
     
     public List getPicturesList(long Id_Album){
@@ -945,6 +959,9 @@ public class DAO implements SessionAware {
     return query.list();
     	
     }
+
+	
+	
     
     //DO LOSOWEGO ZDJECIA
     public List getPicturesListEvent(long Id_Album){
@@ -1045,5 +1062,15 @@ public class DAO implements SessionAware {
     	
     }
     
+    
+    public List getIdEventHavingIdAlbum(long Id_Album){
+    	
+    	  
+    	  Query query =  getSession().createSQLQuery("select * from Album where Id_Album = :Id_Album").addEntity(Album.class);
+    	  query.setParameter("Id_Album", Id_Album);
+    	  
+    	  return query.list();
+    	
+    }
     
 }

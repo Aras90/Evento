@@ -118,6 +118,10 @@
                             <li>
 								<a href="mojeAlbumy.jsp" action="mojeAlbumy">Moje albumy</a>
                             </li>
+                            
+                            <li>
+								<a href="mojeImprezy.jsp" action="mojeImprezy">Moje imprezy</a>
+                            </li>
                            
                             <li>
 								<a href="kalendarz.jsp" action="kalendarz">Kalendarz</a>

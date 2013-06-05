@@ -26,6 +26,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import Evento.model.Picture;
 import Evento.model.Album;
+import Evento.model.User;
 import Evento.bean.DAO;
 
 /**
@@ -35,15 +36,56 @@ import Evento.bean.DAO;
 public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     
     private String id, Name;
-	private List picturesList;
+	private List<Object[]> picturesList;
 	private Map<String, Object> session;
+	DAO mc = new DAO();
+	int i = 0;
     
     public List getPicturesList() {return picturesList; }
     public void setPicturesList(long idUser){
-    	DAO mc = new DAO();
+    	
     	picturesList = mc.getUserPicturesData(idUser, Long.parseLong(id)); //id_user, id_album
     		
     }
+    
+    
+    public boolean check(){
+    	
+    	long aktualnieZalogowany = (Long)session.get("idUser");
+    	//long autorZdjecia
+    	long tworcaEventu;
+    	long idZdjecia = ((Picture)picturesList.get(i++)[0]).getId_Picture();
+    	System.err.println("id:"+Long.parseLong(id));
+    	
+    	//idAlbum mamy
+    	
+    	List<Album> tmp1 = mc.getIdEventHavingIdAlbum(Long.parseLong(id));
+    	
+    	long Id_Event = tmp1.get(0).getId_Event().getId_Event();
+    	
+    	System.err.println("IDADSADASDAS"+Id_Event);
+    	
+    	
+    	List<User> tmp = mc.getTworcaEventu(Id_Event);
+    	
+    	tworcaEventu = tmp.get(0).getId_User();
+        System.err.println("IdUser:"+tworcaEventu);
+        		
+        System.err.println("tE:"+tworcaEventu +" aZ:"+aktualnieZalogowany);
+    	
+    	
+    	User tZdjecia = (User)mc.getTworcaZdjecia(idZdjecia).get(0);
+    	System.err.println("TwoZdj::"+tZdjecia.getId_User());
+    	
+    	if(tworcaEventu == aktualnieZalogowany || aktualnieZalogowany == tZdjecia.getId_User()){
+    			
+    		return true;
+    	} 
+    	
+    	
+    	return false;
+    }
+    
       
     public String execute() throws Exception {
         

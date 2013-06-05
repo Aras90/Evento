@@ -34,7 +34,7 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
     }
     public List getAlbumList() {return albumList; }
     public void setAlbumList(long idUser){
-    	
+    
     	albumList = mc.getAlbumsHavingIdUser(idUser);
     	
     	

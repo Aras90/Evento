@@ -62,11 +62,15 @@
 			<br> Utworzono:
 			<s:property value="picturesList [# stat.index][0].CreatedAt" />
 			<br>
-			<input type="button" value="edytuj"
+			<s:if test="check()" >
+			
+				<input type="button" value="edytuj"
 				onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
 			
 				<input id="usun" type="button" value="usun"
 				onclick="usun('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
+			
+			</s:if>
 			
 			<br> <input id="checkbox:<s:property value="#stat.index" />"
 				type="checkbox"
