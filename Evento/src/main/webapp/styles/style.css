@@ -342,6 +342,7 @@ ul {
 }
 .zdjecie img{
 	height: 230px;
+	width: auto;
 }
 .rating{
 	margin: 7px auto 15px;

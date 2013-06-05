@@ -344,18 +344,16 @@ public class DAO implements SessionAware {
         return query.list();
     }*/
     public List getAlbumsHavingIdUserOrInvitation(long Id_User){
-    	Query query =  getSession().createSQLQuery("SELECT * from Album as a, User as u, Event as e left join Invitation as i on e.Id_Event = i.Id_Event WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) AND i.Id_User = :Id_User GROUP BY a.Id_Album")
-    									 //Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
-    		.addEntity(Album.class) 
-            .addEntity(Event.class)
-            .addEntity(User.class)
-            
-    		
-    			;		
-    	query.setParameter("Id_User", Id_User);
-   			
-    	return query.list();
-    }
+        Query query =  getSession().createSQLQuery("( SELECT a.*,e.* FROM Album AS a, User AS u, Event AS e, Invitation AS i WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User GROUP BY a.Id_Album ) UNION ( SELECT a.*,e.* FROM Album AS a, User AS u, Event AS e, Invitation AS i WHERE i.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event GROUP BY a.Id_Album )")
+                 //Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
+         .addEntity(Album.class) 
+               .addEntity(Event.class) 
+         
+          ;  
+        query.setParameter("Id_User", Id_User);
+         
+        return query.list();
+       }
     
     public List getPicturesList(long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture where Id_Album = :Id_Album").addEntity(Picture.class);
