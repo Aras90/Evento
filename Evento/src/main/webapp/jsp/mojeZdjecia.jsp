@@ -1,4 +1,4 @@
-<%@taglib uri="/struts-tags" prefix="s"%>
+﻿<%@taglib uri="/struts-tags" prefix="s"%>
 <style>
 #main {
 	padding-bottom: 0
@@ -20,6 +20,24 @@
 	$(function() {
 		$('.fancybox').fancybox();
 	})
+	
+	function usun(id){
+		var r = confirm("Czy jesteś pewien, że chcesz usunąć to zdjęcie?");
+		if (r == true) {
+		$('#img' + id).remove();
+		
+		$.post(
+				'deletePhotoFromAlbum.action',
+				{
+					idPicture : id,
+				},
+				function(data) {				
+				},
+				'json'
+			);
+		}
+	}
+	
 </script>
 <div class="title">
 	<s:property value="Name" />
@@ -27,7 +45,7 @@
 <div class="zdjecia">
 	<s:iterator value="picturesList" status="stat">
 	
-		<div class="zdjecie">
+		<div class="zdjecie" id = "img<s:property value="picturesList [# stat.index][0].Id_Picture" />">
 			<a class="fancybox"
 				title="<s:property value="picturesList [# stat.index][0].Name" />"
 				data-fancybox-group="gallery"
@@ -39,12 +57,17 @@
     			<br>
 			</a>
 			
-			
-			
 			<s:property value="picturesList [# stat.index][0].Name" />
 			
 			<br> Utworzono:
 			<s:property value="picturesList [# stat.index][0].CreatedAt" />
+			<br>
+			<input type="button" value="edytuj"
+				onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
+			
+				<input id="usun" type="button" value="usun"
+				onclick="usun('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
+			
 			<br> <input id="checkbox:<s:property value="#stat.index" />"
 				type="checkbox"
 				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"

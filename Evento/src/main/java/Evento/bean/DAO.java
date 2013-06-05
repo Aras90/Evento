@@ -994,5 +994,56 @@ public class DAO implements SessionAware {
     }
     
     
+    public void ClearPicturesAndClearEventAndDeleteAlbum(long Id_Album){
+    	
+    	try{
+      	  begin();
+      	   
+      	  Query query =  getSession().createSQLQuery("UPDATE Picture set Id_Album = NULL where Id_Album = :Id_Album");
+      	  query.setParameter("Id_Album", Id_Album);
+      	  Query query1 =  getSession().createSQLQuery("UPDATE Event set Id_Album = NULL where Id_Album = :Id_Album");
+    	  query1.setParameter("Id_Album", Id_Album);
+    	  Query query2 =  getSession().createSQLQuery("DELETE From Album where Id_Album = :Id_Album");
+      	  query2.setParameter("Id_Album", Id_Album);
+      	  query.executeUpdate();
+      	  query1.executeUpdate();
+      	  query2.executeUpdate();
+      	  
+      	  commit();
+      	  System.err.println("zdjecie w pizdu");
+      	 } catch (HibernateException e){
+	      	  rollback();
+	      	  try {
+				throw new AdException("nie udalo sie usunac zdjecia",e);
+	      	  } catch (AdException e1) {
+				// TODO Auto-generated catch block
+	      		  System.err.println("AAASDAEW#!@#!#@!"+e1.getMessage() +e1.getCause());
+				e1.printStackTrace();
+	      	  }
+      	 }
+    	
+    }
+    
+    public void deletePictureFromAlbum(long Id_Picture){
+    	
+    	 try{
+       	  begin();
+       	  Picture picture = (Picture)getSession().get(Picture.class, Id_Picture);
+       	  picture.setId_Album(null);
+       	  getSession().update(picture);
+       	  commit();
+       	  System.err.println("zdjecie w pizdu");
+       	 } catch (HibernateException e){
+       	  rollback();
+       	  try {
+			throw new AdException("nie udalo sie usunac zdjecia",e);
+		} catch (AdException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+       	 }
+    	
+    }
+    
     
 }

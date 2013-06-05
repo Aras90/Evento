@@ -86,6 +86,14 @@
 			<result name="success">/jsp/comments.jsp</result>
 			<result name="error" >/jsp/brak.jsp</result>
  		</action> 
+ 		<action name="deletePhotoFromAlbum"  class="Evento.action.DeletePhotoFromAlbumAction">
+			<result name="success">/jsp/comments.jsp</result>
+			<result name="error" >/jsp/brak.jsp</result>
+ 		</action> 
+ 		<action name="deleteAlbum"  class="Evento.action.DeleteAlbumAction">
+			<result name="success">/jsp/comments.jsp</result>
+			<result name="error" >/jsp/brak.jsp</result>
+ 		</action> 
  		 
  		<action name="loginFB" class="Evento.facebook.FacebookGrandAccess">
  			<result name="success" type="redirect">
