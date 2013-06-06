@@ -75,7 +75,28 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     	return false;
     }
     
-    public void check1(){
+    public boolean check1(){
+    	
+    	long aktualnieZalogowany = (Long)session.get("idUser");
+    	
+    	long tworcaEventu;
+    	List<User> tmp = mc.getTworcaEventu(Long.parseLong(id));
+    	
+    	tworcaEventu = tmp.get(0).getId_User();
+        System.err.println("IdUser:"+tworcaEventu);
+        		
+        System.err.println("tE:"+tworcaEventu +" aZ:"+aktualnieZalogowany);
+    	
+    	
+    	
+    	
+    	if(tworcaEventu == aktualnieZalogowany){
+    			
+    		return true;
+    	} 
+    	
+    	
+    	return false;
     	
     }
     

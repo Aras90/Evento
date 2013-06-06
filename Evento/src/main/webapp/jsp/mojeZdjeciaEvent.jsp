@@ -94,5 +94,20 @@
 		</div>
 
 	</s:iterator>
+	
+	<s:if test="check1()" >
+				<br>
+				ABY UTWORZYĆ ALBUM KLIKNIJ PRZYCISK Tworzenie albumu
+				<br>
+				----------------- TUTAJ WSTAWIC PRZYCISK ---------------
+			
+	</s:if>
+	
+	<s:else>
+			<br>
+			NIE JESTES ZALOZYCIELEM EVENTU - NIE MOZESZ STWORZYC ALBUMU
+	
+	</s:else>
+	
 </div>
 <br style="clear: both">
