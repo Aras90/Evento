@@ -48,8 +48,8 @@ public class AddCommentAction extends ActionSupport implements SessionAware  {
 	}
 	
 	public String execute() throws Exception {
-		DAO mc = new DAO();
 		session = ActionContext.getContext().getSession();
+		DAO mc =(DAO)session.get("dao");
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
     		return ERROR;

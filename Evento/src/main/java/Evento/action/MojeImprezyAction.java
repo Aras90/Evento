@@ -23,7 +23,7 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
 	private static final long serialVersionUID = 1L;
     private List albumList;
     private List picturesList;
-    DAO mc = new DAO();
+    DAO mc;
     private Map<String, Object> session;
     private List<Event> albumEventList;
     private List<Event> eventList;
@@ -58,6 +58,7 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     public String execute() throws Exception {
             
     	session = ActionContext.getContext().getSession();
+    	mc = (DAO)session.get("dao");
     	String email = (String)session.get("email");
     	System.out.println(email);
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;

@@ -40,7 +40,7 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
 	private List<Object[]> picturesList;
 	private Map<String, Object> session;
 	int i = 0;
-	 DAO mc = new DAO();
+	 DAO mc;
     public List getPicturesList() {return picturesList; }
     public void setPicturesList(long idUser){
     	DAO mc = new DAO();
@@ -103,6 +103,7 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     public String execute() throws Exception {
         
     	session = ActionContext.getContext().getSession();
+    	mc = (DAO)session.get("dao");
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
     		return ERROR;

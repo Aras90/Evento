@@ -104,7 +104,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 
 	public String execute(){
 		System.out.println("execute-1");
-		dao = new DAO();
+		dao = (DAO)session.get("dao");
 		session = ActionContext.getContext().getSession();
 		List idUserList = new ArrayList();
 		

@@ -23,9 +23,9 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
 	private static final long serialVersionUID = 1L;
     private List albumList;
     private List picturesList;
-    DAO mc = new DAO();
     private Map<String, Object> session;
-   
+    DAO mc;
+    
     public String getPictureLink(long Id_Album){
     	picturesList = mc.getPicturesList(Id_Album);
     	Random r = new Random(); 
@@ -43,6 +43,7 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
     public String execute() throws Exception {
             
     	session = ActionContext.getContext().getSession();
+    	mc =(DAO)session.get("dao");
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
     		return ERROR;

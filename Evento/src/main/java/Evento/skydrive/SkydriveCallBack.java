@@ -76,6 +76,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
             session.put("idUser", id);
             session.put("login", "sd");
             session.put("email", email);
+            session.put("dao", mc);
         } else if (idList.size()==0){ 
             
         	id = 0;

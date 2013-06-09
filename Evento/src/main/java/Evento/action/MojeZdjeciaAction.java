@@ -38,7 +38,7 @@ public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     private String id, Name;
 	private List<Object[]> picturesList;
 	private Map<String, Object> session;
-	DAO mc = new DAO();
+	DAO mc;
 	int i = 0;
     
     public List getPicturesList() {return picturesList; }
@@ -90,6 +90,7 @@ public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     public String execute() throws Exception {
         
     	session = ActionContext.getContext().getSession();
+    	mc = (DAO)session.get("dao");
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
     		return ERROR;

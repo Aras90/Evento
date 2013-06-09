@@ -37,12 +37,13 @@ public class KalendarzAction extends ActionSupport implements SessionAware  {
    
 	private List userEvents;
 	private Map<String, Object> session;
+	DAO mc;
 	
     public List getUserEvents() {
 		return userEvents;
 	}
     public void setUserEvents(long id) {
-    	DAO mc = new DAO();
+    	
     	userEvents = mc.getUserEvents(id);
 	}
 
@@ -50,6 +51,7 @@ public class KalendarzAction extends ActionSupport implements SessionAware  {
     public String execute() throws Exception {
     	
     	session = ActionContext.getContext().getSession();
+    	mc = (DAO)session.get("dao");
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
     		return ERROR;

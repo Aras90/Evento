@@ -101,12 +101,13 @@ public void setEventList(String eventList) {
 	}
 
 
-	DAO mc = new DAO();
+	DAO mc;
 	
 
 	public String execute(){
 		
 		session = ActionContext.getContext().getSession();
+	    mc = (DAO)session.get("dao");
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	
     	if(id == 0){

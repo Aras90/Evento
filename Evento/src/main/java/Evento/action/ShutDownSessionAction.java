@@ -20,6 +20,8 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
+import Evento.bean.DAO;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
@@ -39,6 +41,8 @@ public class ShutDownSessionAction extends ActionSupport implements SessionAware
    
 
 	public String execute() throws Exception {
+		DAO mc = (DAO)session.get("dao");
+		mc.close();
 		if(session.get("login").equals("sd")){
 			session.clear();
 			session.put("IdUser", zero);
