@@ -49,8 +49,6 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     public List getAlbumList() {return albumList; }
     public void setAlbumList(long idUser){
     	
-    	
-    
     	albumList = mc.getAlbumsHavingIdUserOrInvitation(idUser);
     	
     }
@@ -60,11 +58,9 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     	session = ActionContext.getContext().getSession();
     	mc = (DAO)session.get("dao");
     	mc.getSession();
-    	String email = (String)session.get("email");
-    	System.out.println(email);
+    
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
-    	//albumEventList = mc.getEventDataWhichHaveAlbum(id);
-    	eventList = mc.getEventListWithoutAlbum(id);
+    	
     	if(id == 0){
     		mc.close();
     		return ERROR;
