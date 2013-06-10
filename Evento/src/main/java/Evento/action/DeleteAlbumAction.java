@@ -37,8 +37,10 @@ public class DeleteAlbumAction extends ActionSupport implements SessionAware  {
 		
 		session = ActionContext.getContext().getSession();
 		DAO mc = (DAO)session.get("dao");
+		mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
+    		mc.close();
     		return ERROR;
     	}
     	else{
@@ -55,6 +57,7 @@ public class DeleteAlbumAction extends ActionSupport implements SessionAware  {
     		// DELETE From Album where Id_Album = 2
     		
     		java.util.Date date= new java.util.Date();
+    		mc.close();
     		return SUCCESS;
     	}
     }

@@ -37,14 +37,17 @@ public class DeletePhotoFromAlbumAction extends ActionSupport implements Session
 	public String execute() throws Exception {
 		session = ActionContext.getContext().getSession();
 		DAO mc = (DAO)session.get("dao");
+		mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
+    		mc.close();
     		return ERROR;
     	}
     	else{
     		System.out.println("ppppppppppppp" + idPicture);
     		mc.deletePictureFromAlbum(idPicture);
     		java.util.Date date= new java.util.Date();
+    		mc.close();
     		return SUCCESS;
     	}
     }

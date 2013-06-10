@@ -50,14 +50,17 @@ public class AddCommentAction extends ActionSupport implements SessionAware  {
 	public String execute() throws Exception {
 		session = ActionContext.getContext().getSession();
 		DAO mc =(DAO)session.get("dao");
+		mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
+    		mc.close();
     		return ERROR;
     	}
     	else{
     		//email = "aa";//(String)session.get("email");
     		java.util.Date date= new java.util.Date();		
     		mc.createComment(Description, new Timestamp(date.getTime()), (long)Id_Picture, id);
+    		mc.close();
     		return SUCCESS;
     	}
     }

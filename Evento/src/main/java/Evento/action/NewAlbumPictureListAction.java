@@ -107,6 +107,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 		
 		session = ActionContext.getContext().getSession();
 		dao = (DAO)session.get("dao");
+		dao.getSession();
 		List idUserList = new ArrayList();
 		
     	String email = (String)session.get("email");
@@ -122,6 +123,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     		 eventId = Long.parseLong(choosenEvent);
     	}catch(Exception e){
     		e.printStackTrace();
+    		dao.close();
     		return "error";
     	}
     	
@@ -169,7 +171,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     	if( pictureToAlbumList.isEmpty() || pictureToAlbumList==null){
     		return "noPictureError";
     	}
-    	
+    	dao.close();
     	return SUCCESS;
 	}
 	

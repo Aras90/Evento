@@ -104,12 +104,15 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
         
     	session = ActionContext.getContext().getSession();
     	mc = (DAO)session.get("dao");
+    	mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
+    		mc.close();
     		return ERROR;
     	}
     	else{
     		 setPicturesList(id);
+    		 mc.close();
     		 return SUCCESS;
     	}
     	

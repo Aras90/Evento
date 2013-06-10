@@ -42,23 +42,27 @@ public class ShutDownSessionAction extends ActionSupport implements SessionAware
 
 	public String execute() throws Exception {
 		DAO mc = (DAO)session.get("dao");
-		mc.close();
+		mc.getSession();
+		
 		if(session.get("login").equals("sd")){
 			session.clear();
 			session.put("IdUser", zero);
 			session.put("login", login);
 			System.err.println(redirectURL);
+			mc.close();
 	        return "sd";
 		}else if(session.get("login").equals("db")){
 			session.clear();
 			session.put("IdUser", zero);
 			session.put("login", login);
 			System.err.println(redirectURL2);
+			mc.close();
 	        return "db";
 		}else{
 			session.clear();
 			session.put("IdUser", zero);
 			session.put("login", login);
+			mc.close();
 			return SUCCESS;
 		}
     }

@@ -44,12 +44,15 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
             
     	session = ActionContext.getContext().getSession();
     	mc =(DAO)session.get("dao");
+    	mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
+    		mc.close();
     		return ERROR;
     	}
     	else{
     		 setAlbumList(id);
+    		 mc.close();
     		 return SUCCESS;
     	}
     	
