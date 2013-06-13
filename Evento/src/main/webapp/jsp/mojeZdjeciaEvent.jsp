@@ -7,6 +7,13 @@
 <script src="http://bugaj.ovh.org/edytor.js"></script> 
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+<script type="text/javascript">
+
+function show(){
+	  $("#publicationSection").toggle();
+}
+</script>
 <script>
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -99,7 +106,59 @@
 				<br>
 				ABY UTWORZYĆ ALBUM KLIKNIJ PRZYCISK Tworzenie albumu
 				<br>
-				----------------- TUTAJ WSTAWIC PRZYCISK ---------------
+				<button onclick="show()" style="float:center;">Tworzenie albumu</button><br>     	
+        	<div class="zdjecia">	
+
+					<div id="publicationSection" style="display:none; background-color:#262636 float:left; margin:auto; float:center;">
+        		
+        					<s:form action="newAlbumPictureList" >	
+			
+							<input type="hidden" name="idEvent" value=<s:property value="id" />>			
+						<div style="float: left;">
+							<h5 style="color: orange; margin-bottom:2px">oceny i popularnosc</h5>
+							<input type="radio" name="publicationOption" value="TOP" style="float:left;" checked ><span class="pp">najlepiej oceniane</span><br>
+							<input type="radio" name="publicationOption" value="DOWN" style="float:left;"><span class="pp">najgorzej oceniane</span><br>
+							<input type="radio" name="publicationOption" value="MOST_COMMENT" style="float:left;"><span class="pp">najczesciej komentowane</span><br>
+							<input type="radio" name="publicationOption" value="MOST_RATED" style="float:left;"><span class="pp">najczesciej oceniane</span>
+						</div>	
+						<div style="float: left;">
+							<h5 style="color: orange; margin-bottom:2px">autor</h5>	
+							<input type="radio" name="makePhotoBy" value="ONE_AUTHOR" style="float:left" checked><span style="text-align:left; margin-bottom:1px;">tylko moje zdjecia</span><br>
+							<input type="radio" name="makePhotoBy" value="ALL" style="float:left"><span class="pp">zdjecia wszyskich z imprezy</span>
+<%-- 							<input type="radio" name="makePhotoBy" value="CONCRETE_AUTHOR" style="float:left"><span class="pp">autor zdjecia</span><br> --%>
+						</div>
+						<div style="float: right;">
+							<h5 style="color: orange; margin-bottom:2px">Zakres ocen</h5>
+							<s:select label="od"  
+			 				headerKey="-1"   
+			  				list="#{'1':'1', '2':'2', '3':'3', '4':'4','5':'5' }"  
+			  				name="downMark" 
+			 				value="" />  
+						
+				
+			
+			 				<s:select label="do"  
+			  				headerKey="-1"   				
+			  				list="#{'1':'1', '2':'2', '3':'3', '4':'4','5':'5'}"  
+			 				name="topMark"   
+			  				value="5" />  
+						
+						
+				
+			  				<s:select label="ilosc zdjec"   
+			  							headerKey="-1"   
+			  							list="#{'1':'1', '5':'5', '10':'10', '15':'15','20':'20' }"  
+			 							name="nrOfPicture"   
+			  							value="20"/>  
+
+						</div>
+					<br style="clear: both;" />
+							<div>
+							<s:submit value="Utworz album"></s:submit>
+							</div>
+						</s:form>	
+        		</div>		
+        		</div>
 			
 	</s:if>
 	

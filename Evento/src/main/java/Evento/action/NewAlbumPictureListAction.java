@@ -42,9 +42,19 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 	 private String choosenEvent;
 	 DAO dao;
 	 private String publicationOption="TOP";
+	 private String idEvent;
 			
 			
 	
+
+	public String getIdEvent() {
+		return idEvent;
+	}
+
+	public void setIdEvent(String idEvent) {
+		this.idEvent = idEvent;
+	}
+
 	public String getMakePhotoBy() {
 		return makePhotoBy;
 	}
@@ -103,6 +113,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
 	}
 
 	public String execute(){
+		System.out.println("Wybrany event: " + idEvent);
 		System.out.println("execute-1");
 		
 		session = ActionContext.getContext().getSession();
@@ -120,7 +131,7 @@ public class NewAlbumPictureListAction extends ActionSupport implements SessionA
     	try{
     		System.out.println("execute-3");
     		System.out.println("Choosen event: " + choosenEvent);
-    		 eventId = Long.parseLong(choosenEvent);
+    		eventId= Long.parseLong(idEvent);
     	}catch(Exception e){
     		e.printStackTrace();
     		dao.close();

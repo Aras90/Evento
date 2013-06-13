@@ -39,6 +39,13 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     private String id, Name;
 	private List<Object[]> picturesList;
 	private Map<String, Object> session;
+	private long idEventu;
+	public long getIdEventu() {
+		return idEventu;
+	}
+	public void setIdEventu(long idEventu) {
+		this.idEventu = idEventu;
+	}
 	int i = 0;
 	 DAO mc;
     public List getPicturesList() {return picturesList; }

@@ -24,10 +24,25 @@ public class CreateNewAlbumAction extends ActionSupport implements SessionAware 
 	private String eventList;
 	private Map<String, Object> session;
    private List<Event> albumList;
+   private String idEvent;
    
 	
 	
 	
+	public String getIdEvent() {
+	return idEvent;
+}
+
+
+
+
+public void setIdEvent(String idEvent) {
+	this.idEvent = idEvent;
+}
+
+
+
+
 	public List<Event> getAlbumList() {
 	return albumList;
 }
@@ -105,7 +120,7 @@ public void setEventList(String eventList) {
 	
 
 	public String execute(){
-		
+		System.out.println("idEvent createNewAlbum: " + idEvent);
 		session = ActionContext.getContext().getSession();
 	    mc = (DAO)session.get("dao");
 	    mc.getSession();
@@ -118,7 +133,7 @@ public void setEventList(String eventList) {
     
   
     	Event event = null;
-		long ID_EVENT=Long.parseLong(eventList);
+		long ID_EVENT=Long.parseLong(idEvent);
 		System.err.println("ChoosekListSize:"+choosenList.size());
     	System.out.println("Id_event: " + ID_EVENT);
     	try{

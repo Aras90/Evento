@@ -16,15 +16,16 @@ $(function() {
 
 
 	<div id="dialog" title="Tworzenie albumu">
-	
+	<h1>idEventu:" <s:property value="idEvent" /></h1>
 	
 	<s:form action="save">
+	<input type="hidden" name="idEvent" value="<s:property value="idEvent" />">
 	<input type="hidden" name="eventList" value="<s:property value="choosenEvent" />" >
 		<table id="albumTable">
 			<s:iterator value="pictureToAlbumList" status="stat">
 			<s:set name="Name" value="pictureToAlbumList [# stat.index][0].Name" />
 			
-			
+				
 				<s:set name="Id_Picture" value="pictureToAlbumList [# stat.index][0].Id_Picture" />
 				<s:set name="Link" value="pictureToAlbumList [# stat.index][0].TymczasowyBezposredniLink" />
 				<s:set name="TymczasowyBezposredniLink" value="pictureToAlbumList [# stat.index][0].TymczasowyBezposredniLink" />

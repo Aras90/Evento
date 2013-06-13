@@ -18,64 +18,10 @@ function show(){
 <div id="dialog" title="Example"></div>
 
 <div class="title">Moje Eventy</div>    
-<button onclick="show()" style="float:left; margin-bottom:5px;">Tworzenie albumu</button><br>     	
+  	
         	<div class="zdjecia">	
 
-					<div id="publicationSection" style="display:none; background-color:#262636 float:left">
-        		
-        					<s:form action="newAlbumPictureList" >	
-
-	
-								<label for="choosenEventId" class="label">
-							       Wydarzenie
-							   </label>
-							   
-							<select  style="margin-bottom:5px" name="choosenEvent" id="choosenEventId"> 
-										<s:iterator value="eventList" status="stat">
-							    			<option value="<s:property value="eventList [# stat.index][0].Id_Event" />"><s:property value="eventList [# stat.index][0].Name" />  -  <s:property value="eventList [# stat.index][0].CreatedAt" /></option> 
-							 			</s:iterator>
-							</select> 	
-							
-							
-							<h5 style="color: orange; margin-bottom:2px">oceny i popularnosc</h5>
-							<input type="radio" name="publicationOption" value="TOP" style="float:left;" checked ><span class="pp">najlepiej oceniane</span><br>
-							<input type="radio" name="publicationOption" value="DOWN" style="float:left;"><span class="pp">najgorzej oceniane</span><br>
-							<input type="radio" name="publicationOption" value="MOST_COMMENT" style="float:left;"><span class="pp">najczesciej komentowane</span><br>
-							<input type="radio" name="publicationOption" value="MOST_RATED" style="float:left;"><span class="pp">najczesciej oceniane</span><br>
-							
-							<h5 style="color: orange; margin-bottom:2px">autor</h5>	
-							<input type="radio" name="makePhotoBy" value="ONE_AUTHOR" style="float:left" checked><span style="text-align:left; margin-bottom:1px;">tylko moje zdjecia</span><br>
-							<input type="radio" name="makePhotoBy" value="ALL" style="float:left"><span class="pp">zdjecia wszyskich z imprezy</span><br>
-<%-- 							<input type="radio" name="makePhotoBy" value="CONCRETE_AUTHOR" style="float:left"><span class="pp">autor zdjecia</span><br> --%>
-							
-							<h5 style="color: orange; margin-bottom:2px">Zakres ocen</h5>
-							<s:select label="od"  
-			 				headerKey="-1"   
-			  				list="#{'1':'1', '2':'2', '3':'3', '4':'4','5':'5' }"  
-			  				name="downMark" 
-			 				value="" />  
-				
-				
-			
-			 				<s:select label="do"  
-			  				headerKey="-1"   				
-			  				list="#{'1':'1', '2':'2', '3':'3', '4':'4','5':'5'}"  
-			 				name="topMark"   
-			  				value="5" />  
-						
-						
-				
-			  				<s:select label="ilosc zdjec"   
-			  							headerKey="-1"   
-			  							list="#{'1':'1', '5':'5', '10':'10', '15':'15','20':'20' }"  
-			 							name="nrOfPicture"   
-			  							value="20"/>  
-
-				
-							<s:submit value="Utworz album"></s:submit>
-						</s:form>	
-        		</div>		
-     
+					
 
                 
                 <s:iterator value="eventList" status="stat"> 
@@ -97,8 +43,6 @@ function show(){
 	                        <s:property value="eventList [# stat.index][0].Name" />   <br>
 	                        <s:property value="eventList [# stat.index][0].CreatedAt" />  <br>
 
-
-                        
                         </div>
                   
                 </s:iterator>
