@@ -47,11 +47,10 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
 		this.idEventu = idEventu;
 	}
 	int i = 0;
-	 DAO mc;
+	
     public List getPicturesList() {return picturesList; }
     public void setPicturesList(long idUser){
-    	DAO mc = new DAO();
-    	picturesList = mc.getUserPicturesDataEvent(idUser, Long.parseLong(id)); //id_user, id_album
+    	picturesList = DAO.getUserPicturesDataEvent(idUser, Long.parseLong(id)); //id_user, id_album
     		
     }
     
@@ -62,7 +61,7 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     	long tworcaEventu;
     	long idZdjecia = ((Picture)picturesList.get(i++)[0]).getId_Picture();
     	System.err.println("id:"+Long.parseLong(id));
-    	List<User> tmp = mc.getTworcaEventu(Long.parseLong(id));
+    	List<User> tmp = DAO.getTworcaEventu(Long.parseLong(id));
     	
     	tworcaEventu = tmp.get(0).getId_User();
         System.err.println("IdUser:"+tworcaEventu);
@@ -70,7 +69,7 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
         System.err.println("tE:"+tworcaEventu +" aZ:"+aktualnieZalogowany);
     	
     	
-    	User tZdjecia = (User)mc.getTworcaZdjecia(idZdjecia).get(0);
+    	User tZdjecia = (User)DAO.getTworcaZdjecia(idZdjecia).get(0);
     	System.err.println("TwoZdj::"+tZdjecia.getId_User());
     	
     	if(tworcaEventu == aktualnieZalogowany || aktualnieZalogowany == tZdjecia.getId_User()){
@@ -87,7 +86,7 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     	long aktualnieZalogowany = (Long)session.get("idUser");
     	
     	long tworcaEventu;
-    	List<User> tmp = mc.getTworcaEventu(Long.parseLong(id));
+    	List<User> tmp = DAO.getTworcaEventu(Long.parseLong(id));
     	
     	tworcaEventu = tmp.get(0).getId_User();
         System.err.println("IdUser:"+tworcaEventu);
@@ -110,16 +109,13 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     public String execute() throws Exception {
         
     	session = ActionContext.getContext().getSession();
-    	mc = (DAO)session.get("dao");
-    	mc.getSession();
+
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
-    		mc.close();
     		return ERROR;
     	}
     	else{
     		 setPicturesList(id);
-    		 mc.close();
     		 return SUCCESS;
     	}
     	

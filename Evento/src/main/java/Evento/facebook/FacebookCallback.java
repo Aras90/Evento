@@ -83,8 +83,7 @@ public class FacebookCallback extends ActionSupport implements SessionAware {
 	        email = email.replace("\\u0040", "@");
 	        System.err.println("email: "+email);
 	        
-	        DAO mc = new DAO();
-	        List idList = mc.getUserIdHavingEmail(email);
+	        List idList = DAO.getUserIdHavingEmail(email);
 	        long id = 0;
 	        if(idList.size()==1){ 
                 
@@ -93,7 +92,6 @@ public class FacebookCallback extends ActionSupport implements SessionAware {
                 session.put("idUser", id);
                 session.put("login", "fb");
                 session.put("email", email);
-                session.put("dao", mc);
                 
             } else if (idList.size()==0){ 
                 

@@ -15,6 +15,7 @@
  */
 package Evento.action;
 
+
 import Evento.bean.DAO;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -37,30 +38,25 @@ public class KalendarzAction extends ActionSupport implements SessionAware  {
    
 	private List userEvents;
 	private Map<String, Object> session;
-	DAO mc;
 	
     public List getUserEvents() {
 		return userEvents;
 	}
     public void setUserEvents(long id) {
     	
-    	userEvents = mc.getUserEvents(id);
+    	userEvents = DAO.getUserEvents(id);
 	}
 
 
     public String execute() throws Exception {
     	
     	session = ActionContext.getContext().getSession();
-    	mc = (DAO)session.get("dao");
-    	mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
-    		mc.close();
     		return ERROR;
     	}
     	else{
-    		 setUserEvents(id);
-    		 mc.close();
+    		setUserEvents(id);
     		 return SUCCESS;
     	}
     	

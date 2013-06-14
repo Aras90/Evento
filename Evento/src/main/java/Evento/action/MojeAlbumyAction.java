@@ -24,10 +24,9 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
     private List albumList;
     private List picturesList;
     private Map<String, Object> session;
-    DAO mc;
     
     public String getPictureLink(long Id_Album){
-    	picturesList = mc.getPicturesList(Id_Album);
+    	picturesList = DAO.getPicturesList(Id_Album);
     	Random r = new Random(); 
     	int a = r.nextInt(picturesList.size());
     	return ((Picture)picturesList.get(a)).getTymczasowyBezposredniLink();
@@ -35,7 +34,7 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
     public List getAlbumList() {return albumList; }
     public void setAlbumList(long idUser){
     
-    	albumList = mc.getAlbumsHavingIdUser(idUser);
+    	albumList = DAO.getAlbumsHavingIdUser(idUser);
     	
     	
     }
@@ -43,16 +42,12 @@ public class MojeAlbumyAction extends ActionSupport implements SessionAware  {
     public String execute() throws Exception {
             
     	session = ActionContext.getContext().getSession();
-    	mc =(DAO)session.get("dao");
-    	mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
-    		mc.close();
     		return ERROR;
     	}
     	else{
     		 setAlbumList(id);
-    		 mc.close();
     		 return SUCCESS;
     	}
     	

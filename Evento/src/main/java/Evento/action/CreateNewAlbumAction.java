@@ -116,18 +116,14 @@ public void setEventList(String eventList) {
 	}
 
 
-	DAO mc;
 	
 
 	public String execute(){
 		System.out.println("idEvent createNewAlbum: " + idEvent);
 		session = ActionContext.getContext().getSession();
-	    mc = (DAO)session.get("dao");
-	    mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	
     	if(id == 0){
-    		mc.close();
     		return ERROR;
     	}
     
@@ -137,13 +133,13 @@ public void setEventList(String eventList) {
 		System.err.println("ChoosekListSize:"+choosenList.size());
     	System.out.println("Id_event: " + ID_EVENT);
     	try{
-    		event = (Event) mc.getEventDataById(ID_EVENT).get(0);
+    		event = (Event) DAO.getEventDataById(ID_EVENT).get(0);
     	}catch(Exception e){
     		e.printStackTrace();
     	}
-		mc.createNewAlbum(choosenList,event,id);
+		DAO.createNewAlbum(choosenList,event,id);
 		
-		mc.close();
+
 		
 		
 	

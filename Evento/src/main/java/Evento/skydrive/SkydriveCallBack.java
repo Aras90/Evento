@@ -66,8 +66,7 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
         String email = tmp.substring(i+11, j);
         System.err.println(email);
         
-        DAO mc = new DAO();
-        List idList = mc.getUserIdHavingEmail(email);
+        List idList = DAO.getUserIdHavingEmail(email);
         long id = 0;
         if(idList.size()==1){ 
             
@@ -76,7 +75,6 @@ public class SkydriveCallBack extends ActionSupport implements SessionAware {
             session.put("idUser", id);
             session.put("login", "sd");
             session.put("email", email);
-            session.put("dao", mc);
         } else if (idList.size()==0){ 
             
         	id = 0;

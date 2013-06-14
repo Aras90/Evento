@@ -66,12 +66,9 @@ public class PublishAlbumAction extends ActionSupport implements SessionAware  {
  
 
 
-	DAO mc;
     
     public String execute() throws Exception {
       	session = ActionContext.getContext().getSession();
-      	mc = (DAO)session.get("dao");
-      	mc.getSession();
 //    	String email = (String)session.get("email");
     	long id = (Long) session.get("idUser");
     	Long Id_Album = null;
@@ -83,11 +80,9 @@ public class PublishAlbumAction extends ActionSupport implements SessionAware  {
     	}
 
     	if(Id_Album!= null){
-    		pictureList = mc.getPictureToPublish(id, Id_Album);
-    		mc.close();
+    		pictureList = DAO.getPictureToPublish(id, Id_Album);
     		return SUCCESS;
     	}else{
-    		mc.close();
     		return "bad";
     	}
     	

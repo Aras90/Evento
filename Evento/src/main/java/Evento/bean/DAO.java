@@ -47,7 +47,8 @@ public class DAO implements SessionAware {
     		//
     private static final ThreadLocal session = new ThreadLocal();
     private static final Logger log = Logger.getAnonymousLogger();
-    private Map<String, Object> sessionAware;
+    
+    private static Map<String, Object> sessionAware;
     
     
     
@@ -56,7 +57,7 @@ public class DAO implements SessionAware {
     }
     
     
-    public static Session getSession(){
+    public static  Session getSession(){
     	Session session = (Session) DAO.session.get();
     	if (session == null){
     		session = sessionFactory.openSession();
@@ -65,15 +66,15 @@ public class DAO implements SessionAware {
 		return session;
     }
     
-    protected void begin(){
+    protected static void begin(){
     	getSession().beginTransaction();
     }
     
-    protected void commit(){
+    protected static void commit(){
     	getSession().getTransaction().commit();
     }
     
-    protected void rollback(){
+    protected static void rollback(){
     	try{
     		getSession().beginTransaction().rollback();
     	}catch(HibernateException e){
@@ -86,14 +87,14 @@ public class DAO implements SessionAware {
     	}
     	DAO.session.set(null);
     }
-    public static void close(){
+    public static  void close(){
     	getSession().close();
     	DAO.session.set(null);
     }
     
     //obie funkcje(create i update) moznaby bylo chyba wjebac w jedna, bo roznia sie tylko uzyciem "cleana" i uzyciem do zapisu innej funkcji
     //ale  dla przejrzystosci zostawilem tak. Jak chcecie to uzywajcie tylko tej drugiej, tylko wtedy trzeba kontrolwac czy nie udpatuje nie tych rekordoow co chcecie. 
-    public User createUser(long id,String email,String password, String desc) throws AdException
+    public static  User createUser(long id,String email,String password, String desc) throws AdException
 	{
 		try{
 			begin();
@@ -107,7 +108,7 @@ public class DAO implements SessionAware {
 		}
 	}
     
-    public User updateUser(String email,String password, String desc) throws AdException
+    public static  User updateUser(String email,String password, String desc) throws AdException
    	{
    		try{
    			begin();
@@ -122,7 +123,7 @@ public class DAO implements SessionAware {
    		}
    	}
 
-    public Picture createPicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
+    public static  Picture createPicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
    	{
    		try{
    			begin();
@@ -136,7 +137,7 @@ public class DAO implements SessionAware {
    		}
    	}
     
-    /*public Picture updatePicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
+    /*public static  Picture updatePicture(long id,String name,String CreatedAt, String Link,User User, Event Event) throws AdException
    	{
    		try{
    			begin();
@@ -150,7 +151,7 @@ public class DAO implements SessionAware {
    			throw new AdException("nie udalo sie stworzyc Usera",e);
    		}
    	}*/
-    public Picture updatePicture(long id,String name,String CreatedAt, String Link, String tymczasowyBezposredniLink, Event Event, Album Album, User User) throws AdException
+    public static  Picture updatePicture(long id,String name,String CreatedAt, String Link, String tymczasowyBezposredniLink, Event Event, Album Album, User User) throws AdException
    	{
    		try{
    			begin();
@@ -166,7 +167,7 @@ public class DAO implements SessionAware {
    		}
    	}
     
-    public Comment createComment(String Description, Timestamp createdAt, long idPicture, long idUser ) throws AdException
+    public static  Comment createComment(String Description, Timestamp createdAt, long idPicture, long idUser ) throws AdException
 	{
 		try{
 			begin();
@@ -180,7 +181,7 @@ public class DAO implements SessionAware {
 		}
 	}
     
-    public Rating createRating(Timestamp createdAt,int value, long idPicture, long idUser) throws AdException
+    public static  Rating createRating(Timestamp createdAt,int value, long idPicture, long idUser) throws AdException
 	{
 		try{
 			begin();
@@ -194,7 +195,7 @@ public class DAO implements SessionAware {
 		}
 	}
     
-    public Rating updateRating(long id,Timestamp createdAt,int value, long idPicture, long idUser) throws AdException
+    public static  Rating updateRating(long id,Timestamp createdAt,int value, long idPicture, long idUser) throws AdException
    	{
    		try{
    			begin();
@@ -209,7 +210,7 @@ public class DAO implements SessionAware {
    		}
    	}
     
-    public List getComments(int Id_Picture ){
+    public static  List getComments(int Id_Picture ){
     	Query query =  getSession().createSQLQuery("select * from Comment c, Picture p, User u WHERE c.Id_Picture = p.Id_Picture AND c.Id_User = u.Id_User AND c.Id_Picture = :Id_Picture  ")
     			.addEntity(Comment.class)
     			.addEntity(Picture.class)
@@ -219,7 +220,7 @@ public class DAO implements SessionAware {
   
    }
     
-    public List getUserPicturesData(long Id_User,long Id_Album){
+    public static  List getUserPicturesData(long Id_User,long Id_Album){
         Query query = getSession().createSQLQuery("select * FROM Picture p LEFT JOIN Rating r ON p.Id_Picture = r.Id_Picture and r.Id_User= :Id_User , User u LEFT JOIN Invitation i ON u.Id_User = i.Id_User,Event e WHERE p.Id_Album = :Id_Album GROUP BY p.Id_Picture")
         		.addEntity(Picture.class)
         		.addEntity(Rating.class)
@@ -232,13 +233,13 @@ public class DAO implements SessionAware {
         
         return query.list();
     }
-    public List getUserRatingData(long Id_User, long Id_Picture){
+    public static  List getUserRatingData(long Id_User, long Id_Picture){
     	Query query = getSession().createSQLQuery("SELECT r.* FROM User u, Picture p, Rating r " + 
     											  "WHERE u.Id_User = p.Id_User AND p.Id_Picture = r.Id_Picture AND u.Id_User = " + Id_User + " AND p.Id_Picture = " + Id_Picture)
     			.addEntity(Rating.class);
     	return query.list();
     }
-    public List getUserPicturesDataWithRate(long Id_User,long Id_Album){
+    public static  List getUserPicturesDataWithRate(long Id_User,long Id_Album){
         Query query =  getSession().createSQLQuery("Select * from Picture as p left join Rating as r ON r.Id_Picture = p.Id_Picture " +
         									"where p.Id_User = :Id_User AND p.Id_Album = :Id_Album")
         		.addEntity(Picture.class)
@@ -248,39 +249,39 @@ public class DAO implements SessionAware {
         return query.list();
     }
     
-    public List getUserData(){
+    public static  List getUserData(){
         Query query =  getSession().createSQLQuery("Select * from User").addEntity(User.class);
         return query.list(); 
     }
-    public List getRatingData(){
+    public static  List getRatingData(){
         Query query =  getSession().createSQLQuery("Select * from Rating").addEntity(Rating.class); 
         return query.list();
     }
-    public List getPictureData(){
+    public static  List getPictureData(){
         Query query =  getSession().createSQLQuery("Select * from Picture").addEntity(Picture.class); 
         return query.list();
     }
     
-    public List getInvitationData(){
+    public static  List getInvitationData(){
         Query query = getSession().createSQLQuery("Select * from Invitation").addEntity(Invitation.class); 
         return query.list();
     }
     
-    public List getEventData(){
+    public static  List getEventData(){
         Query query =  getSession().createSQLQuery("Select * from Event").addEntity(Event.class); 
         return query.list();
     }
     
-    public List getCommentData(){
+    public static  List getCommentData(){
         Query query =  getSession().createSQLQuery("Select * from Comment").addEntity(Comment.class); 
         return query.list();
     }
-    public List getAlbumData(){
+    public static  List getAlbumData(){
         Query query =  getSession().createSQLQuery("Select * from Album").addEntity(Album.class); 
         return query.list();
     }
     
-    public List getUserIdHavingEmail(String email){
+    public static  List getUserIdHavingEmail(String email){
     	
     	
     	
@@ -291,7 +292,7 @@ public class DAO implements SessionAware {
     	
     }
      
-    public List getPicturesFromAlbum(long Id_User){
+    public static  List getPicturesFromAlbum(long Id_User){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
         		.addEntity(Album.class) 
@@ -305,7 +306,7 @@ public class DAO implements SessionAware {
         return query.list();
     }
     
-    public List getUserEvents(long Id_User){
+    public static   List getUserEvents(long Id_User){
         Query query =  getSession().createSQLQuery("Select * FROM Event, User WHERE Event.Id_User=User.Id_User AND User.Id_User=:Id_User")
         		.addEntity(Event.class)
         		.addEntity(User.class)		              
@@ -314,7 +315,7 @@ public class DAO implements SessionAware {
         return query.list();
     }
     
-    public List getAlbumsHavingIdUser(long Id_User){
+    public static  List getAlbumsHavingIdUser(long Id_User){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, Event as e, User as u " +
         									 "WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
@@ -329,7 +330,7 @@ public class DAO implements SessionAware {
         return query.list();
     }
     //STARA WERSJA
-   /* public List getAlbumsHavingIdUserOrInvitation(long Id_User){
+   /* public static  List getAlbumsHavingIdUserOrInvitation(long Id_User){
         Query query =  getSession().createSQLQuery("SELECT * from Album as a, User as u, Event as e left join Invitation as i on e.Id_Event = i.Id_Event " +
         									 "WHERE (u.Id_User = " + Id_User + " OR i.Id_User = " + Id_User + ") AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND (e.Id_User = u.Id_User OR e.Id_Event = i.Id_Event) GROUP BY a.Id_Album")
     	//Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
@@ -343,7 +344,7 @@ public class DAO implements SessionAware {
        			
         return query.list();
     }*/
-    public List getAlbumsHavingIdUserOrInvitation(long Id_User){
+    public static  List getAlbumsHavingIdUserOrInvitation(long Id_User){
         Query query =  getSession().createSQLQuery("( SELECT a.*,e.* FROM Album AS a, User AS u, Event AS e, Invitation AS i WHERE u.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_User = u.Id_User GROUP BY a.Id_Album ) UNION ( SELECT a.*,e.* FROM Album AS a, User AS u, Event AS e, Invitation AS i WHERE i.Id_User = :Id_User AND a.Id_Album = e.Id_Album AND a.Id_Event = e.Id_Event AND e.Id_Event = i.Id_Event GROUP BY a.Id_Album )")
                  //Query query = session.createSQLQuery("SELECT Id_Album, CreatedAt, Id_Event from Album")
          .addEntity(Album.class) 
@@ -355,7 +356,7 @@ public class DAO implements SessionAware {
         return query.list();
        }
     
-    public List getPicturesList(long Id_Album){
+    public static  List getPicturesList(long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture where Id_Album = :Id_Album").addEntity(Picture.class);
     	query.setParameter("Id_Album", Id_Album);
     	
@@ -371,7 +372,7 @@ public class DAO implements SessionAware {
     
     // ###################################### - dao  do tworzenia albumu - skwaro ################################################
     
-    public List<Picture> getPicturesListWithoutAlbum(String Email, long Id_Album){
+    public static  List<Picture> getPicturesListWithoutAlbum(String Email, long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ");
     	query.setParameter("Id_Album", Id_Album);
     	query.setParameter("Email", Email);
@@ -383,14 +384,14 @@ public class DAO implements SessionAware {
     	return query.list();
     }
     
-    public List getPicturesListWithRatingWithoutAlbum(String Email, long Id_Album){
+    public static  List getPicturesListWithRatingWithoutAlbum(String Email, long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u where p.Id_Album=:Id_Album and u.Email=:Email ");
     	query.setParameter("Id_Album", Id_Album);
     	query.setParameter("Email", Email);
     	return query.list();
     }
     
-    public List<Event> getEventDataById(long iD_EVENT){
+    public static  List<Event> getEventDataById(long iD_EVENT){
     	Query query =  getSession().createSQLQuery("SELECT * from Event e  where e.Id_Event=:Id_Event").addEntity(Event.class);
     	query.setParameter("Id_Event", iD_EVENT);
 //    	query.setParameter("Id_User", id);
@@ -398,7 +399,7 @@ public class DAO implements SessionAware {
     	return query.list();
     }
     
-    public void createNewAlbum(List choosenList, Event event, long User_Id){
+    public static  void createNewAlbum(List choosenList, Event event, long User_Id){
     	Album album = new Album();
     	Date d = new Date();
     	
@@ -451,7 +452,7 @@ public class DAO implements SessionAware {
     }
  
     
-    public Long getNewAlbumId(Session session){
+    public static  Long getNewAlbumId(Session session){
     	System.out.println("Utworzenie albumu");
     	long Id_Album;
     	String HQL_QUERY = "select max(Id_Album) from Album a";
@@ -465,14 +466,14 @@ public class DAO implements SessionAware {
     }
     
     
-    public List<Event> getEventDataWhichHaveAlbum(long id){
+    public static  List<Event> getEventDataWhichHaveAlbum(long id){
     	Query query =  getSession().createSQLQuery("SELECT * from Event e, User u where e.Id_Album is not null and u.Id_User=:Id_User and u.Id_User=e.Id_User").addEntity(Event.class);
     	query.setParameter("Id_User", id);
     	return query.list();
     }
     
     
-    public List<Picture> getPictureToPublish(Long id,long Id_Album){
+    public static  List<Picture> getPictureToPublish(Long id,long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture p, User u, Event e where p.Id_Album is not null and e.Id_Album=p.Id_Album and p.Id_Album=:Id_Album").addEntity(Picture.class);
 //    	query.setParameter("Id_User", id);
     	query.setParameter("Id_Album", Id_Album);
@@ -480,7 +481,7 @@ public class DAO implements SessionAware {
     }
    
     
-    public List<Event> getEventListWithoutAlbum(long id){
+    public static  List<Event> getEventListWithoutAlbum(long id){
     	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album" +
     			" from Event e left join Invitation i on e.Id_Event = i.Id_Event" +
     			" where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent ) and e.Id_Album is null ").addEntity(Event.class);
@@ -494,7 +495,7 @@ public class DAO implements SessionAware {
     }
     
     
-    public List<Picture> getPictureToNewAlbum(Long Id_User, int Id_Event){
+    public static  List<Picture> getPictureToNewAlbum(Long Id_User, int Id_Event){
     	Query query =  getSession().createSQLQuery("select * from Picture p, Event e where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and p.Id_Album is NULL")
     			.addEntity(Picture.class);
 	   	query.setParameter("Id_Event", Id_Event);
@@ -504,7 +505,7 @@ public class DAO implements SessionAware {
   
    }
     
-    public List<Picture> getPictureToNewAlbumByTopRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
+    public static  List<Picture> getPictureToNewAlbumByTopRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
     	System.out.println("Wybrany event= " + Id_Event);
     	Query query =  getSession().createSQLQuery("select * from Picture p LEFT JOIN Rating r on(p.Id_Picture=r.Id_Picture), Event e, User u" +
     	" where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event " +
@@ -517,7 +518,7 @@ public class DAO implements SessionAware {
 	   	return query.list();
    }
     
-    public List<Picture> getPictureToNewAlbumByWorstRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
+    public static  List<Picture> getPictureToNewAlbumByWorstRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
     	System.out.println("Wybrany event= " + Id_Event);
     	Query query =  getSession().createSQLQuery("select * from Picture p, Event e, Rating r, User u where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and r.Id_Picture=p.Id_Picture and p.Id_Album is NULL and p.Id_User in (:idUserList) "+
 		" GROUP BY r.Id_Picture HAVING avg(r.Value) between 1 and 5 or avg(r.Value) is null order by avg(r.Value) asc").addEntity(Picture.class);
@@ -529,7 +530,7 @@ public class DAO implements SessionAware {
    }
 
     
-    public List<Picture> getPictureToNewAlbumByRangeRating(List idUserList, Long Id_Event, long quantityOfPicture, String minMark, String maxMark){
+    public static  List<Picture> getPictureToNewAlbumByRangeRating(List idUserList, Long Id_Event, long quantityOfPicture, String minMark, String maxMark){
     	System.out.println("Wybrany event= " + Id_Event);
     	System.out.println("Zakres w DAAO: " + minMark + " gorny: " + maxMark);
     	Query query =  getSession().createSQLQuery("select * from Picture p, Event e, Rating r where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and r.Id_Picture=p.Id_Picture and p.Id_Album is NULL and p.Id_User in (:idUserList)"+
@@ -543,7 +544,7 @@ public class DAO implements SessionAware {
    }
     
     
-    public List<Picture> getPictureToNewAlbumByMostComment(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
+    public static  List<Picture> getPictureToNewAlbumByMostComment(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
     	System.out.println("Wybrany event= " + Id_Event);
     	Query query =  getSession().createSQLQuery("Select a.* from " +
     			" Comment c RIGHT JOIN (SELECT p.* from Picture p LEFT JOIN Rating r on (p.Id_Picture=r.Id_Picture) group by p.Id_Picture " +
@@ -561,7 +562,7 @@ public class DAO implements SessionAware {
    }
     
     
-    public List<Picture> getPictureToNewAlbumByMostRated(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
+    public static  List<Picture> getPictureToNewAlbumByMostRated(List idUserList, Long Id_Event, int quantityOfPicture,int minMark, int maxMark){
 
     	Query query =  getSession().createSQLQuery("Select a.* from " +
     			" Rating c RIGHT JOIN (SELECT p.* from Picture p LEFT JOIN Rating r on (p.Id_Picture=r.Id_Picture) group by p.Id_Picture " +
@@ -579,7 +580,7 @@ public class DAO implements SessionAware {
    }
     
     
-    public List getIdUsersWhoWasOnParty(Long Id_Event){
+    public static  List getIdUsersWhoWasOnParty(Long Id_Event){
     	Query query = getSession().createSQLQuery("select distinct(Id_User) from Picture where Id_Event=:Id_Event ");
     	query.setParameter("Id_Event",Id_Event);
 		return query.list();
@@ -600,7 +601,7 @@ public class DAO implements SessionAware {
     
     
   //zwraca liste zdjec zalogowanego uzytkownika
-    public void getUserPictures(long Id_User){
+    public static  void getUserPictures(long Id_User){
         Query query =  getSession().createSQLQuery("Select * from Picture as p, User as u where p.Id_User = u.Id_User AND u.Id_User = :Id_User ")
         		.addEntity(Picture.class);
         		//.addEntity(User.class);
@@ -608,7 +609,7 @@ public class DAO implements SessionAware {
         getLinkList(query.list());
     }
     
-    public void getLinkList(List list){
+    public static  void getLinkList(List list){
     	List lista = list;
     	List<String> listaZLinkami = new ArrayList<String>();
     	java.util.ListIterator li = lista.listIterator();
@@ -636,7 +637,7 @@ public class DAO implements SessionAware {
     }
     
     
-	public void replace(String s1, String s2){
+	public static  void replace(String s1, String s2){
     	Session session = getSession();
     	//w workbenchu musialem to zrobic zeby update zrobic
     	//Query query1 =  session.createQuery("SET SQL_SAFE_UPDATES=0");
@@ -651,7 +652,7 @@ public class DAO implements SessionAware {
     }
     
     
-    public void transformDropBoxLink(String s1){
+    public static  void transformDropBoxLink(String s1){
     	String shareAddress = getShareURL(s1).replaceFirst("https://www", "https://dl");
 		//shareAddress += "?dl=1";
 		System.out.println("dropbox share link " + shareAddress);
@@ -660,7 +661,7 @@ public class DAO implements SessionAware {
     
     }
     
-    public static String getShareURL(String strURL) {
+    public static  String getShareURL(String strURL) {
 		URLConnection conn = null;
 		try {
 			URL inputURL = new URL(strURL);
@@ -678,7 +679,7 @@ public class DAO implements SessionAware {
     
     
     
-    public void transformSkyDriveLink(String s1){
+    public static  void transformSkyDriveLink(String s1){
     	
     	String s = s1;
     	//String skyLink = "https://apis.live.net/v5.0/photo.938823656776a0a0.938823656776A0A0!111?access_token="
@@ -728,14 +729,14 @@ public class DAO implements SessionAware {
     }
     
   //obowiazkowe przy SessionAware
-    public void setSession(Map map) {
+    public  void setSession(Map map) {
 		this.sessionAware = map;
 		
 	}
     
 
     //dla MojeAlbumy i mojeImprezy
-    public void wypelnijTymczasowyBezposredniLink(Query query){
+    public static  void wypelnijTymczasowyBezposredniLink(Query query){
     	
     	sessionAware = ActionContext.getContext().getSession();
     	
@@ -817,7 +818,7 @@ public class DAO implements SessionAware {
     }
     
     //dla mojeZdjecia
-    public void wypelnijTymczasowyBezposredniLink2(Query query){
+    public static  void wypelnijTymczasowyBezposredniLink2(Query query){
     	
     	sessionAware = ActionContext.getContext().getSession();
     	
@@ -908,7 +909,7 @@ public class DAO implements SessionAware {
     
     
     
-    public List<Event> getPictureListFromEventsWithoutAlbum(long id){ 
+    public static  List<Event> getPictureListFromEventsWithoutAlbum(long id){ 
         Query query =  getSession().createSQLQuery("select distinct(p.Id_Picture), p.CreatedAt, p.link,p.TymczasowyBezposredniLink,p.Id_Event,p.Id_User,p.Id_Album "+ 
                 " from Picture p,Event e left join Invitation i on e.Id_Event = i.Id_Event" + 
                 " where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent ) and e.Id_Album is null ").addEntity(Picture.class)
@@ -928,7 +929,7 @@ public class DAO implements SessionAware {
     
     
     // DO MojeZdjeciaEventAction
-    public List getUserPicturesDataEvent(long Id_User,long Id_Album){
+    public static  List getUserPicturesDataEvent(long Id_User,long Id_Album){
         Query query = getSession().createSQLQuery("select * FROM Picture p LEFT JOIN Rating r ON p.Id_Picture = r.Id_Picture and r.Id_User= :Id_User , User u LEFT JOIN Invitation i ON u.Id_User = i.Id_User,Event e WHERE p.Id_Event = :Id_Album GROUP BY p.Id_Picture")
         		.addEntity(Picture.class)
         		.addEntity(Rating.class)
@@ -943,7 +944,7 @@ public class DAO implements SessionAware {
     }
  
     //DO MOJE EVENTY ACTION
-    public List<Event> getEventListWithoutAlbum1(long id){
+    public static  List<Event> getEventListWithoutAlbum1(long id){
     	Query query =  getSession().createSQLQuery("select distinct(e.Id_Event), e.CreatedAt, e.EditedAt,e.Name,e.Id_User, e.Id_Album" +
     			" from Event e left join Invitation i on e.Id_Event = i.Id_Event" +
     			" where ((i.Id_Event=e.Id_Event and i.Id_User=:Id_User) or e.Id_User=:Id_UserInvent ) and e.Id_Album is null ")
@@ -962,7 +963,7 @@ public class DAO implements SessionAware {
 	
     
     //DO LOSOWEGO ZDJECIA
-    public List getPicturesListEvent(long Id_Album){
+    public static  List getPicturesListEvent(long Id_Album){
     	Query query =  getSession().createSQLQuery("SELECT * from Picture where Id_Event = :Id_Album").addEntity(Picture.class);
     	query.setParameter("Id_Album", Id_Album);
     	
@@ -971,7 +972,7 @@ public class DAO implements SessionAware {
     	return query.list();
     }
     
-    public void deletePicture(long Id_Picture) throws AdException{
+    public static  void deletePicture(long Id_Picture) throws AdException{
     	 try{
     	  begin();
     	  Picture picture = (Picture)getSession().get(Picture.class, Id_Picture);
@@ -987,7 +988,7 @@ public class DAO implements SessionAware {
     }
     
   //tworca ecetnu
-    public List getTworcaEventu(long Id_Event){
+    public static  List getTworcaEventu(long Id_Event){
     	System.err.println("IDE:"+Id_Event);
     	Query query =  getSession().createSQLQuery("SELECT * from User u,Event e where u.Id_User=e.ID_User AND e.Id_Event = :Id_Event").addEntity(User.class);
     	query.setParameter("Id_Event", Id_Event);
@@ -998,7 +999,7 @@ public class DAO implements SessionAware {
     }
     
     
-    public List getTworcaZdjecia(long Id_Picture){
+    public static  List getTworcaZdjecia(long Id_Picture){
     	System.err.println("IDP:"+Id_Picture);
     	Query query =  getSession().createSQLQuery("SELECT u.* from User u,Picture p where u.Id_User=p.Id_User AND p.Id_Picture = :Id_Picture").addEntity(User.class);
     	query.setParameter("Id_Picture", Id_Picture);
@@ -1009,7 +1010,7 @@ public class DAO implements SessionAware {
     }
     
     
-    public void ClearPicturesAndClearEventAndDeleteAlbum(long Id_Album){
+    public static  void ClearPicturesAndClearEventAndDeleteAlbum(long Id_Album){
     	
     	try{
       	  begin();
@@ -1039,7 +1040,7 @@ public class DAO implements SessionAware {
     	
     }
     
-    public void deletePictureFromAlbum(long Id_Picture){
+    public static  void deletePictureFromAlbum(long Id_Picture){
     	
     	 try{
        	  begin();
@@ -1061,7 +1062,7 @@ public class DAO implements SessionAware {
     }
     
     
-    public List getIdEventHavingIdAlbum(long Id_Album){
+    public static  List getIdEventHavingIdAlbum(long Id_Album){
     	
     	  
     	  Query query =  getSession().createSQLQuery("select * from Album where Id_Album = :Id_Album").addEntity(Album.class);

@@ -36,11 +36,8 @@ public class DeleteAlbumAction extends ActionSupport implements SessionAware  {
 	public String execute() throws Exception {
 		
 		session = ActionContext.getContext().getSession();
-		DAO mc = (DAO)session.get("dao");
-		mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
-    		mc.close();
     		return ERROR;
     	}
     	else{
@@ -50,14 +47,13 @@ public class DeleteAlbumAction extends ActionSupport implements SessionAware  {
     		//update wszystkich zdjec gdzie Id_Album = 2 na IdAlbum = NULL
     		// UPDATE Picture set Id_Album = NULL where Id_Album = 2
     		
-    		mc.ClearPicturesAndClearEventAndDeleteAlbum(idAlbum);
+    		DAO.ClearPicturesAndClearEventAndDeleteAlbum(idAlbum);
     		
     		// UPDATE Event set Id_Album = NULL where Id_Album = 2
     		
     		// DELETE From Album where Id_Album = 2
     		
     		java.util.Date date= new java.util.Date();
-    		mc.close();
     		return SUCCESS;
     	}
     }

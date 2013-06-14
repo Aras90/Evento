@@ -43,21 +43,17 @@ public class RatingAction extends ActionSupport implements SessionAware  {
 	public String execute() throws Exception {
 		
 		session = ActionContext.getContext().getSession();
-		DAO mc = (DAO)session.get("dao");
-		mc.getSession();
     	long id = (Long)session.get("idUser") != null ? (Long)session.get("idUser") : 0;
     	if(id == 0){
-    		mc.close();
     		return ERROR;
     	}
     	else{
     		java.util.Date date= new java.util.Date();
-    		if(mc.getUserRatingData(id, (long)idBox).size() == 0)
+    		if(DAO.getUserRatingData(id, (long)idBox).size() == 0)
     			
-    			mc.createRating( new Timestamp(date.getTime()), rate, (long)idBox, id);
+    			DAO.createRating( new Timestamp(date.getTime()), rate, (long)idBox, id);
     		else
-    			mc.updateRating(((Rating)mc.getUserRatingData(id, (long)idBox).get(0)).getId_Rating(), new Timestamp(date.getTime()), rate, (long)idBox, id);
-    		mc.close();
+    			DAO.updateRating(((Rating)DAO.getUserRatingData(id, (long)idBox).get(0)).getId_Rating(), new Timestamp(date.getTime()), rate, (long)idBox, id);
     		return SUCCESS;
     	}
     }
