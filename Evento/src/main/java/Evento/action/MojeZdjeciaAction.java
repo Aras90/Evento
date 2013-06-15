@@ -95,7 +95,7 @@ public class MojeZdjeciaAction extends ActionSupport  implements SessionAware {
     	}
     	else{
     		 setPicturesList(id);
-    		 DAO.getSession().flush();
+    		 DAO.getSession().reconnect();
     		 return SUCCESS;
     	}
     	

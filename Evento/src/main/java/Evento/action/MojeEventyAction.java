@@ -53,6 +53,7 @@ public class MojeEventyAction extends ActionSupport implements SessionAware  {
     	}
     	else{
     		 setEventList(id);
+    		 DAO.getSession().reconnect();
     		 return SUCCESS;
     	}
     	

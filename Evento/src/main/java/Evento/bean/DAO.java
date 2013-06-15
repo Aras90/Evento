@@ -744,6 +744,9 @@ public class DAO implements SessionAware {
     	String linkTymczasowy;
     	for(Picture p : result){
     		linkTymczasowy="";
+    		if(p.getTymczasowyBezposredniLink()!=null){
+    			System.out.println("nie NULL KURWAf");
+    		}else{
     		if(p.getLink().contains("db.tt")){ // jezeli jest to dropbox
     			
     			linkTymczasowy = getShareURL(p.getLink()).replaceFirst("https://www", "https://dl");
@@ -812,6 +815,7 @@ public class DAO implements SessionAware {
   					e.printStackTrace();
   				}
     		}
+    		}
     	}
     	
     	
@@ -829,6 +833,9 @@ public class DAO implements SessionAware {
     		Picture p = (Picture)all.get(k)[0];
     		
     		linkTymczasowy="";
+    		if(p.getTymczasowyBezposredniLink()!=null){
+    			System.out.println("nie NULL KURWAf");
+    		}else{
     		if(p.getLink().contains("db.tt")){ // jezeli jest to dropbox
     			
     			linkTymczasowy = getShareURL(p.getLink()).replaceFirst("https://www", "https://dl");
@@ -900,6 +907,7 @@ public class DAO implements SessionAware {
  					e.printStackTrace();
  				}
     			
+    		}
     		}
     	}
     	

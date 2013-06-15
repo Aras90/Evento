@@ -63,6 +63,7 @@ public class MojeImprezyAction extends ActionSupport implements SessionAware  {
     	}
     	else{
     		 setAlbumList(id);
+    		 DAO.getSession().reconnect();
     		 return SUCCESS;
     	}
     	

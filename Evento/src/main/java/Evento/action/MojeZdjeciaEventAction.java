@@ -116,12 +116,12 @@ public class MojeZdjeciaEventAction extends ActionSupport  implements SessionAwa
     	}
     	else{
     		 setPicturesList(id);
-    		 DAO.getSession().flush();
+    		 DAO.getSession().reconnect();
     		 return SUCCESS;
     	}
     	
     	
-       
+        
     }
     
     public void setId(String id){
