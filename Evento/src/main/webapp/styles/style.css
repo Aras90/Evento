@@ -51,9 +51,7 @@ h2,h3,h4 {
 	color: #ffffff;
 }
 
-img {
-	border-bottom: solid 2px #1c1c1c;
-}
+
 
 img.left {
 	float: left;
@@ -538,8 +536,26 @@ color: rgba(255,255,255,0.9);
 	left: 0;
 	color: #ccc;	
 }
-.comment{
-	border-bottom: 1px solid #ccc;
-	margin-bottom: 5px;
+.comment {
+    border-bottom: 1px solid #CCCCCC;
+    padding: 5px;
+}
+#comments_box textarea{
+        background: #1b1b1b;
+        border: none;
+        margin: 5px;
+        border-radius: 0 10px 0 10px;
+        color: #ccc;
+        padding: 5px;
+        width: 292px;
+}
+#comments_box #dodaj{
+        background: none;
+        border: none;
+        color: #ccc;
+        cursor: pointer;
+        font-family: 'Trebuchet MS',sans-serif;
+        font-size: 17px;
+        margin: 0 0 5px 125px;
 }
  
