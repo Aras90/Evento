@@ -521,8 +521,15 @@ background<wow>-linear-gradient(top,#8d4d4d 0%,#733333 100%);
 background:-ms-linear-gradient(top,#8d4d4d 0%,#733333 100%); 
 background:linear-gradient(top,#8d4d4d 0%,#733333 100%); 
 filter:Progid:DXImageTransform.Microsoft.gradient(startColorstr='#8d4d4d',endColorstr='#733333',GradientType=0); 
-border: 1px 8d4d4d; 
+border: 1px rgba(255,220,220,0.9); 
 color: rgba(255,255,255,0.9); 
+}
+.zdjecia button:hover{
+	color: rgba(255,220,220,0.9); 
+	background:#8d4d3d; 
+	border: 1px rgba(255,220,220,0.9); 
+	
+	
 }
 #edytor-lefnav > button.edytor-button:disabled{background:gray;}
 #edytor-leftnav p { margin: 0 0 1em 0; }
@@ -557,5 +564,15 @@ color: rgba(255,255,255,0.9);
         font-family: 'Trebuchet MS',sans-serif;
         font-size: 17px;
         margin: 0 0 5px 125px;
+}
+
+
+li a:hover{
+	
+	color: rgba(255,220,220,0.9); 
+	background:#8d4d3d; 
+	border: 1px rgba(255,220,220,0.9);
+	
+	
 }
  
