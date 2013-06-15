@@ -56,12 +56,17 @@
     			src="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />" />
     			<br>
 			</a>
-			
+			<input id="checkbox:<s:property value="#stat.index" />"
+				type="checkbox"
+				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"
+				onclick="check('<s:property value="#stat.index" />')"
+				value="bar" />
 			<s:property value="picturesList [# stat.index][0].Name" />
 			
 			<br> Utworzono:
 			<s:property value="picturesList [# stat.index][0].CreatedAt" />
 			<br>
+			
 			<s:if test="check()" >
 			
 				<button onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" style="float:center;">edytuj</button>
@@ -70,26 +75,21 @@
 			
 			</s:if>
 			
-			<br> <input id="checkbox:<s:property value="#stat.index" />"
-				type="checkbox"
-				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"
-				onclick="check('<s:property value="#stat.index" />')"
-				value="bar" />
+			<br> 
 		</div>
 
 	</s:iterator>
 	
 	<br>
 	<div class="select_checbox" style="display: inline-block; margin-top: 15px">
-		<input id="zaznacz" type="submit" value="Zaznacz wszystkie"
-			onclick="checkZAznacz()" />
-		<input id="odznacz" type="submit" value="Odznacz wszystkie"
-			onclick="checkODznacz()" />
+		<button type="submit" id="zaznacz" onclick="checkZAznacz()">Zaznacz wszystkie</button>
+		
+		<button type="submit" id="odznacz" onclick="checkODznacz()">Odznacz wszystkie</button>
+		
 	</div>
 	<br>
 	<div class="zippp" style="display: inline-block; margin-top: 15px">
-		<input id="elo" type="submit" value="Generuj Zipa"
-			onclick="checkButtonZIP()" />
+		<button type="submit" id="elo" onclick="checkButtonZIP()">Generuj Zipa</button>
 		<div id="Loading" style="display: none;">Loading...</div>
 		<div id="hidenZip" style="display: none;" class="answer_list">
 			<s:url id="fileDownload" namespace="/" action="pobierzZip.action"></s:url>
@@ -98,8 +98,8 @@
 	</div>
 
 	<div class="pdfff" style="display: inline-block; margin-top: 15px">
-		<input id="pdf" type="submit" value="Generuj album w PDF"
-			onclick="checkButtonPDF()" />
+	<button type="submit" id="pdf" onclick="checkButtonPDF()">Generuj album w PDF</button>
+		
 		<div id="Loading1" style="display: none;">Loading...</div>
 		<div id="hidenPdf" style="display: none;" class="answer_list">
 			<s:url id="DownloadPdf" namespace="/" action="pobierzPdf.action"></s:url>
