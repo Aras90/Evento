@@ -56,10 +56,10 @@
     			src="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />" />
     			<br>
 			</a>
-			<input id="checkbox:<s:property value="#stat.index" />"
+			<input id="checkbox:<s:property value="picturesList [# stat.index][0].Id_Picture" />"
 				type="checkbox"
 				name="<s:property value="picturesList [# stat.index][0].TymczasowyBezposredniLink" />"
-				onclick="check('<s:property value="#stat.index" />')"
+				onclick="check('<s:property value="picturesList [# stat.index][0].Id_Picture" />')"
 				value="bar" />
 			<s:property value="picturesList [# stat.index][0].Name" />
 			
@@ -111,12 +111,12 @@
 		/* DLA ZIPA I PDFA*/
 		function checkZAznacz(){
 			<s:iterator value="picturesList" status="stat">
-			document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked=true;
+			document.getElementById('checkbox:'+<s:property value="picturesList [# stat.index][0].Id_Picture" />).checked=true;
 			</s:iterator>
 		};
 		function checkODznacz(){
 			<s:iterator value="picturesList" status="stat">
-			document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked=false;
+			document.getElementById('checkbox:'+<s:property value="picturesList [# stat.index][0].Id_Picture" />).checked=false;
 			</s:iterator>
 		};
 		function checkButtonZIP() {
@@ -128,12 +128,12 @@
 			<s:iterator value="picturesList" status="stat">
 
 			console.log(licz);
-			if (document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked) {
+			if (document.getElementById('checkbox:'+<s:property value="picturesList [# stat.index][0].Id_Picture" />).checked) {
 				console.log("wchodzi> zip");
-				var nameP = "<s:property value="picturesList [# stat.index][0].Name" />";
+				var nameP = <s:property value="picturesList [# stat.index][0].Id_Picture" />;
 				namePhoto[licz] = (nameP);
 				var link = document
-						.getElementById('checkbox:'+<s:property value="#stat.index" />).name;
+						.getElementById('checkbox:'+<s:property value="picturesList [# stat.index][0].Id_Picture" />).name;
 				invoke[licz] = (link);
 				console.log(invoke);
 				console.log("licz "+licz);
@@ -177,11 +177,11 @@
 			console.log('W button przed petla');
 			<s:iterator value="picturesList" status="stat">
 			console.log(licz);
-			if (document.getElementById('checkbox:'+<s:property value="#stat.index" />).checked) {
+			if (document.getElementById('checkbox:'+<s:property value="picturesList [# stat.index][0].Id_Picture" />).checked) {
 				console.log("wchodzi> pdf");
 
 				var link = document
-						.getElementById('checkbox:'+<s:property value="#stat.index" />).name;
+						.getElementById('checkbox:'+<s:property value="picturesList [# stat.index][0].Id_Picture" />).name;
 				invoke1[licz] = link;
 				console.log(invoke1);
 				licz = licz + 1;

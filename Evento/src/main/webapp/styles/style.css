@@ -566,7 +566,6 @@ color: rgba(255,255,255,0.9);
         margin: 0 0 5px 125px;
 }
 
-
 li a:hover{
 	
 	color: rgba(255,220,220,0.9); 
@@ -575,4 +574,12 @@ li a:hover{
 	
 	
 }
+
+.zdjeciaStronaGlowna {
+	
+	width:275px;
+	height: 183px;
+	
+}
+
  

@@ -45,7 +45,7 @@ public class DAO implements SessionAware {
     private static final SessionFactory sessionFactory= NewHibernateUtil.getSessionFactory();
     
     		//
-    private static final ThreadLocal session = new ThreadLocal();
+    private static ThreadLocal session = new ThreadLocal();
     private static final Logger log = Logger.getAnonymousLogger();
     
     private static Map<String, Object> sessionAware;
