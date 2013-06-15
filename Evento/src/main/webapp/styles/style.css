@@ -511,7 +511,7 @@ background:-ms-linear-gradient(top,#733333 30%,#8d4d4d 100%);
 background:linear-gradient(top,#733333 30%,#8d4d4d 100%); 
 filter:Progid:DXImageTransform.Microsoft.gradient(startColorstr='#733333',endColorstr='#8d4d4d',GradientType=0); 
 }
-button{ 
+.zdjecia button{ 
 padding: 3px; 
 background:#8d4d4d; 
 background:-moz-linear-gradient(top,#8d4d4d 0%,#733333 100%); 

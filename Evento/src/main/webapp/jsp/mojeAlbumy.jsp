@@ -51,8 +51,7 @@
                         <s:property value="albumList [# stat.index][1].Name" />   <br>
                         <s:property value="albumList [# stat.index][0].CreatedAt" />  <br>
 
-                        <input id="usun" type="button" value="usun"
-						onclick="usun('<s:property value="#Id_Album" />')" />
+                        <button id="usun" onclick="usun('<s:property value="#Id_Album" />')">usun album</button>
                      	
                      	
                      	

@@ -64,11 +64,9 @@
 			<br>
 			<s:if test="check()" >
 			
-				<input type="button" value="edytuj"
-				onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
-			
-				<input id="usun" type="button" value="usun"
-				onclick="usun('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" />
+				<button onclick="edytuj('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" style="float:center;">edytuj</button>
+				
+				<button id="usun" onclick="usun('<s:property value="picturesList [# stat.index][0].Id_Picture" />')" style="float:center;">usun</button>
 			
 			</s:if>
 			
