@@ -22,7 +22,7 @@
 </script>
 
 
-<div id="comments_box">
+<div id="comments_box"><div class="tytul">Komentarze</div>
 	<div class="text">
 	
 	<s:iterator value="comments" status="stat">
@@ -34,6 +34,6 @@
 	</s:iterator> 
 	</div>
 	<textarea id="textarea" rows="2" cols="34"></textarea>
-	<button id="dodaj" onclick="dodaj()" type="button">Dodaj</button> 
+	<button id="dodaj" onclick="dodaj()" type="button">Dodaj komentarz</button> 
  
 </div>
