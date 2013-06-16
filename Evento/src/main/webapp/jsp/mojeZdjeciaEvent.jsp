@@ -105,58 +105,75 @@ function show(){
 				ABY UTWORZYĆ ALBUM KLIKNIJ PRZYCISK Tworzenie albumu
 				<br>
 				<button onclick="show()" style="float:center;">Tworzenie albumu</button><br>     	
-        	<div class="zdjecia">	
-
+<!--         	<div class="zdjecia">	 -->
+<div style="margin-left:auto; margin-right:auto; float:center;">
 					<div id="publicationSection" style="display:none; background-color:#262636 float:left; margin:auto; float:center;">
         		
         					<s:form action="newAlbumPictureList" >	
-			
+			<table>
+				<thead>
+				<tr>
+					      <th class="pp" style="color: orange;padding-left:10px;">popularnosc</th>
+					      <th class="pp" style="color: orange;padding-left:10px;">autor</th>
+					      <th class="pp" style="color: orange; padding-left:10px;">zakres ocen</th>
+				</tr>
+				</thead>
+					<tr><td style="padding-left: 10px">
 							<input type="hidden" name="idEvent" value=<s:property value="id" />>			
-						<div style="float: left;">
-							<h5 style="color: orange; margin-bottom:2px">oceny i popularnosc</h5>
+						
+<!-- 							<h5 style="color: orange; margin-bottom:2px">oceny i popularnosc</h5> -->
 							<input type="radio" name="publicationOption" value="TOP" style="float:left;" checked ><span class="pp">najlepiej oceniane</span><br>
 							<input type="radio" name="publicationOption" value="DOWN" style="float:left;"><span class="pp">najgorzej oceniane</span><br>
 							<input type="radio" name="publicationOption" value="MOST_COMMENT" style="float:left;"><span class="pp">najczesciej komentowane</span><br>
 							<input type="radio" name="publicationOption" value="MOST_RATED" style="float:left;"><span class="pp">najczesciej oceniane</span>
-						</div>	
-						<div style="float: left;">
-							<h5 style="color: orange; margin-bottom:2px">autor</h5>	
+					</td>
+						<td style="padding-left: 10px">
+
 							<input type="radio" name="makePhotoBy" value="ONE_AUTHOR" style="float:left" checked><span style="text-align:left; margin-bottom:1px;">tylko moje zdjecia</span><br>
 							<input type="radio" name="makePhotoBy" value="ALL" style="float:left"><span class="pp">zdjecia wszyskich z imprezy</span>
-<%-- 							<input type="radio" name="makePhotoBy" value="CONCRETE_AUTHOR" style="float:left"><span class="pp">autor zdjecia</span><br> --%>
-						</div>
-						<div style="float: right;">
-							<h5 style="color: orange; margin-bottom:2px">Zakres ocen</h5>
-							<s:select label="od"  
-			 				headerKey="-1"   
-			  				list="#{'1':'1', '2':'2', '3':'3', '4':'4','5':'5' }"  
-			  				name="downMark" 
-			 				value="" />  
-						
-				
-			
-			 				<s:select label="do"  
-			  				headerKey="-1"   				
-			  				list="#{'1':'1', '2':'2', '3':'3', '4':'4','5':'5'}"  
-			 				name="topMark"   
-			  				value="5" />  
+<%-- 							<input type="radio" name="makePhotoBy" value="CONCRETE_AUTHOR" style="float:left"><span class="pp">autor zdjecia</span><br>  --%>
+						<td>
 						
 						
-				
-			  				<s:select label="ilosc zdjec"   
-			  							headerKey="-1"   
-			  							list="#{'1':'1', '5':'5', '10':'10', '15':'15','20':'20' }"  
-			 							name="nrOfPicture"   
-			  							value="20"/>  
+					<td style="text-align: left;">	
 
-						</div>
-					<br style="clear: both;" />
-							<div>
-							<s:submit value="Utworz album"></s:submit>
-							</div>
+						<label for="down"> zakres od</label>
+						<select name="downMark" id="down">
+ 							 <option selected="selected" value="1">1</option>
+  							 <option value="2">2</option>
+							 <option value="3">3</option>
+							 <option value="4">4</option>
+							 <option value="5">5</option>
+						</select><br>
+				
+						<label for="top"> zakres do</label>
+						<select name="topMark" id="top">
+ 							 <option value="1">1</option>
+  							 <option value="2">2</option>
+							 <option value="3">3</option>
+							 <option value="4">4</option>
+							 <option selected="selected" value="5">5</option>
+						</select><br>
+						
+						<label for="nr">ilosc zdjec</label>
+						<select name="nrOfPicture" id="nr">
+ 							 <option value="1" style="text-align:left;">1</option>
+  							 <option value="5">5</option>
+							 <option value="10">10</option>
+							 <option value="15">15</option>
+							 <option selected="selected" value="20">20</option>
+						</select><br>
+
+				</td>
+			</tr>	
+
+							
+							<s:submit value="Utwórz album"></s:submit>
+							
+				</table>
 						</s:form>	
         		</div>		
-        		</div>
+</div>
 			
 	</s:if>
 	

@@ -16,7 +16,7 @@ $(function() {
 
 
 	<div id="dialog" title="Tworzenie albumu">
-	<h1>idEventu:" <s:property value="idEvent" /></h1>
+	
 	
 	<s:form action="save">
 	<input type="hidden" name="idEvent" value="<s:property value="idEvent" />">

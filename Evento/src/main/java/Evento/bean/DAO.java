@@ -505,24 +505,28 @@ public class DAO implements SessionAware {
   
    }
     
-    public static  List<Picture> getPictureToNewAlbumByTopRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
+    public static  List<Picture> getPictureToNewAlbumByTopRating(List idUserList, Long Id_Event, Integer quantityOfPicture,int minMark, int maxMark){
     	System.out.println("Wybrany event= " + Id_Event);
     	Query query =  getSession().createSQLQuery("select * from Picture p LEFT JOIN Rating r on(p.Id_Picture=r.Id_Picture), Event e, User u" +
     	" where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event " +
     	" and p.Id_Album is NULL and p.Id_User in (:idUserList) "+
-		" GROUP BY p.Id_Picture HAVING avg(r.Value) between 1 and 5 or avg(r.Value) is null order by avg(r.Value) desc").addEntity(Picture.class);
+		" GROUP BY p.Id_Picture HAVING avg(r.Value) between :minMark and :maxMark or avg(r.Value) is null order by avg(r.Value) desc").addEntity(Picture.class);
 	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameter("minMark", minMark);
+	   	query.setParameter("maxMark", maxMark);
 	   	query.setParameterList("idUserList", idUserList);
 		query.setMaxResults(quantityOfPicture);
 	   	wypelnijTymczasowyBezposredniLink(query);
 	   	return query.list();
    }
     
-    public static  List<Picture> getPictureToNewAlbumByWorstRating(List idUserList, Long Id_Event, Integer quantityOfPicture){
+    public static  List<Picture> getPictureToNewAlbumByWorstRating(List idUserList, Long Id_Event, Integer quantityOfPicture, int minMark,int maxMark){
     	System.out.println("Wybrany event= " + Id_Event);
     	Query query =  getSession().createSQLQuery("select * from Picture p, Event e, Rating r, User u where p.Id_Event=e.Id_Event and p.Id_Event=:Id_Event and r.Id_Picture=p.Id_Picture and p.Id_Album is NULL and p.Id_User in (:idUserList) "+
-		" GROUP BY r.Id_Picture HAVING avg(r.Value) between 1 and 5 or avg(r.Value) is null order by avg(r.Value) asc").addEntity(Picture.class);
+		" GROUP BY r.Id_Picture HAVING avg(r.Value) between :minMark and :maxMark or avg(r.Value) is null order by avg(r.Value) asc").addEntity(Picture.class);
 	   	query.setParameter("Id_Event", Id_Event);
+	   	query.setParameter("minMark", minMark);
+	   	query.setParameter("maxMark", maxMark);
 	   	query.setParameterList("idUserList", idUserList);
 		query.setMaxResults(quantityOfPicture);
 	   	wypelnijTymczasowyBezposredniLink(query);
