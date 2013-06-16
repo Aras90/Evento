@@ -360,7 +360,10 @@ background:#8d4d3d;
 .zdjecie img{
 	height: 230px;
 	width: auto;
+	border-radius: 10px;
 }
+
+
 .rating{
 	margin: 7px auto 15px;
 }
@@ -594,4 +597,17 @@ li a:hover{
 width:275px; 
 height: 183px; 
 
-} 
+}
+
+
+#main .zdjecia .zdjecie img:hover{
+	
+    opacity: 0.5;
+ 
+}
+
+#main .zdjecia .zdjecie .folder:hover{
+		
+	opacity: 0.5;
+	
+}
