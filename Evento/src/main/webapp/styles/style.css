@@ -93,6 +93,7 @@ border-radius: 10px;
 button:hover, input:hover{
 color: rgba(255,220,220,0.9);
 background:#8d4d3d;
+cursor:pointer;
 }
 
 
@@ -602,12 +603,13 @@ height: 183px;
 
 #main .zdjecia .zdjecie img:hover{
 	
-    opacity: 0.5;
+    opacity: 0.9;
+    cursor:pointer;
  
 }
 
 #main .zdjecia .zdjecie .folder:hover{
-		
-	opacity: 0.5;
+	cursor:pointer;
+	opacity: 0.9;
 	
 }
