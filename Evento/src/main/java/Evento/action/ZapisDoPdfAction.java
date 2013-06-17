@@ -60,6 +60,7 @@ public class ZapisDoPdfAction extends ActionSupport implements
 	private float wysokosc = 768;
 	private String zdjecieTla = "http://www.wallsoc.com/images/1024x768/2012/08/03/black-red-202217.jpg";
 	private HttpServletRequest servletRequest;
+	
 
 	public void createPDF(String[] imgURL, String place, String album)
 			throws DocumentException {
@@ -102,6 +103,8 @@ public class ZapisDoPdfAction extends ActionSupport implements
 					image2.scaleAbsolute(image2.getWidth(),image2.getHeight());
 					image2.setAbsolutePosition(szerokosc / 2f - (image2.getWidth()) / 2, wysokosc/ 2 - (image2.getHeight()) / 2);
 				}
+				for(int k=0;k<=1000;k++);
+					for(int j=0;j<=1000;j++);
 				document.add(image2);
 				document.newPage();
 			}
